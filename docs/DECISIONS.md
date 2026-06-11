@@ -285,6 +285,15 @@ Each record uses these fields:
 - **Alternatives considered:** Editing the evidence in place (rejected — breaks evidence immutability); accepting the candidate as-is for the PDF (rejected — dishonest citations/metrics); regenerating via another paid run (deferred — the basics are correct; cleanup is cheaper and deterministic).
 - **Consequences:** No further token cost for cleanup itself; the LaTeX project gains a `latex_project/content/` source tree later; the QA scanner becomes a reusable gate. This is **plan-only** — no cleaned content, LaTeX, or PDF is created in 8C.8.0, and no real run occurs.
 
+## D-028 — Deterministic Offline Scanner as the Content Gate Before LaTeX
+
+- **Date:** 2026-06-12
+- **Status:** Accepted
+- **Context:** D-027 requires cleaning the candidate into final content under `latex_project/content/`. We need an objective, repeatable way to decide whether content is acceptable before LaTeX assembly.
+- **Decision:** Add `src/agentic_latex_book/content_qa.py` — a deterministic, offline scanner (`scan`, `check_text`, `collect_text_files`) that reads a file, a list of files, or a directory of `.txt`/`.md` content and returns a `QAReport` (`ok`, `errors`, `warnings`, `checked_files`). It applies pure string checks: blocking errors for forbidden content (`example.com`, "Internal Publication", the unsupported metrics 185 minutes / 99.1% / 1.8M tokens, "GPT-4o Technical Report", placeholders, the old Gradient Descent topic, conceptual-only headers/footers) and required positives (the configured topic, group `MaRs-777`, both authors, an accepted date, and all mandatory PDF elements). A `content-qa <path>` CLI command runs it and exits non-zero on any blocking error. No network, no model, no API key, and no file is mutated.
+- **Alternatives considered:** Trusting the basic `content_checks` gate (too lenient — it missed citations/metrics); an LLM judge (non-deterministic, costs tokens, not offline); regex-heavy parsing (over-engineered for now).
+- **Consequences:** The committed Stage 8C.7 candidate **fails** this stricter scanner (it still contains the known risks), which is the intended signal that it is not final. Cleaned content (Stage 8C.8.2) must pass the scanner before commit and LaTeX assembly. This stage is offline and adds no dependency and no LLM/API cost.
+
 ---
 
 ## Open Decisions (To Be Recorded Later)

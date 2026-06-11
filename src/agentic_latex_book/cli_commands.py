@@ -1,8 +1,9 @@
 """Command handlers for the CLI.
 
 Kept separate from ``cli.py`` so that module stays focused on argparse setup and
-dispatch. All handlers here are safe and offline except ``run_minimal_command``
-with a real run, which only proceeds when explicitly requested and configured.
+dispatch. ``print_status``, ``print_crew_plan``, and ``content_qa_command`` are
+offline. ``run_minimal_command`` and ``run_full_command`` are dry-run by default
+and only execute a real run when explicitly requested through ``--real``.
 """
 
 from __future__ import annotations
@@ -82,6 +83,20 @@ def run_minimal_command(config_path: Path, real: bool, run_id: str | None) -> in
         return 1
     _print_run_summary(summary)
     return 0
+
+
+def content_qa_command(path: str) -> int:
+    """Scan content for QA risks (offline). Returns 0 if clean, 1 if any blocking error."""
+    from agentic_latex_book.content_qa import scan
+
+    report = scan(path)
+    print(f"files checked: {len(report.checked_files)}")
+    print(f"ok: {report.ok}  errors: {len(report.errors)}  warnings: {len(report.warnings)}")
+    for err in report.errors:
+        print(f"  ERROR: {err}")
+    for warn in report.warnings:
+        print(f"  WARN: {warn}")
+    return 0 if report.ok else 1
 
 
 def run_full_command(config_path: Path, real: bool, run_id: str | None) -> int:

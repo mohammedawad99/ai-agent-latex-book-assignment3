@@ -1,10 +1,10 @@
 """Command-line entry point for the agentic LaTeX book project.
 
-The default commands are safe and offline: ``status`` reports project state and
-``crew-plan`` prints the planned agents, tasks, and output schemas. ``run-minimal``
-defaults to a dry-run (no LLM, no run, no files). A real run happens only with the
-explicit ``run-minimal --real`` flag and a configured provider/model plus
-credentials; without those it fails safely and writes nothing.
+``status``, ``crew-plan``, and ``content-qa`` are safe offline commands. The run
+commands ``run-minimal`` and ``run-full`` are dry-run by default (no LLM, no run,
+no files). Real CrewAI execution happens only when a run command is explicitly
+called with ``--real`` and a configured provider/model plus credentials; without
+those it fails safely and writes nothing.
 """
 
 from __future__ import annotations
@@ -15,6 +15,7 @@ from pathlib import Path
 
 from agentic_latex_book import __version__
 from agentic_latex_book.cli_commands import (
+    content_qa_command,
     print_crew_plan,
     print_status,
     run_full_command,
@@ -55,6 +56,10 @@ def _build_parser() -> argparse.ArgumentParser:
         "run-full",
         "Run the full content pipeline; dry-run by default, --real to execute.",
     )
+    qa_parser = subparsers.add_parser(
+        "content-qa", help="Scan content (file or directory) for QA risks (safe, offline)."
+    )
+    qa_parser.add_argument("path", help="File or directory of .txt/.md content to scan.")
     return parser
 
 
@@ -81,6 +86,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_minimal_command(args.config, args.real, args.run_id)
     if args.command == "run-full":
         return run_full_command(args.config, args.real, args.run_id)
+    if args.command == "content-qa":
+        return content_qa_command(args.path)
     if args.command in (None, "status"):
         return print_status(args.config)
 

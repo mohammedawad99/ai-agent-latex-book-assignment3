@@ -60,10 +60,11 @@ incurred no LLM/API cost.** **Stage 8C.7 ran a second full run** (table row abov
 ~300.7 s, 213,664 + 235,436 tokens, producing accepted **candidate** content (basic
 content gate passes) that is **not yet final PDF-ready**. Token/resource data is
 recorded from each committed `runtime.json`; no money cost is asserted (Gemini
-pricing is not claimed here). **Stage 8C.8.0 is a plan-only content-QA stage and
-incurred no LLM/API cost** (no real run, no `kickoff`, no tokens). Further token
-cost would only arise if content QA later requires a constrained re-run; the
-planned cleanup itself is deterministic/human-reviewed.
+pricing is not claimed here). **Stages 8C.8.0 (plan) and 8C.8.1 (the
+deterministic offline QA scanner) incurred no LLM/API cost** — pure string checks,
+no real run, no `kickoff`, no tokens. Further token cost would only arise if content
+QA later requires a constrained re-run; the planned cleanup itself is
+deterministic/human-reviewed.
 
 ## Minimal-Run Metadata Format (Stage 8A scaffolding)
 
