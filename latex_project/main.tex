@@ -46,6 +46,10 @@
 \input{chapters/08_conclusion}
 
 % --- Bibliography (linked citations via biblatex/hyperref) -----------------
+% The five project-internal docs entries are part of the cleaned bibliography
+% (content/book.md entries 8-12) but are not cited in the body text; \nocite
+% keeps them in the printed bibliography so it matches the cleaned source.
+\nocite{mars777_prd,mars777_plan,mars777_quality,mars777_costs,mars777_decisions}
 \printbibliography[heading=bibintoc,title={Bibliography}]
 
 \end{document}

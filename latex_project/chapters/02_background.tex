@@ -1,22 +1,61 @@
-% 02_background.tex — skeleton. Source: content/book.md, "2. Background and
-% Related Work". Citation commands below mirror the [n] markers already
-% present in the cleaned Markdown (sections 2.1-2.3).
-% TODO (Stage 9.3): transcribe full section text from content/book.md.
+% 02_background.tex — converted from content/book.md, "2. Background and
+% Related Work" (Stage 9.3). Citations mirror the [n] markers in the cleaned
+% Markdown.
 
 \chapter{Background and Related Work}
 
 \section{Understanding CrewAI and Multi-Agent Orchestration}
-% TODO (Stage 9.3): content from book.md section 2.1.
+
 CrewAI is an open-source framework for building and managing multi-agent
-systems~\cite{crewai_docs}; the underlying idea is well established in the AI
-literature~\cite{wooldridge2009mas,russell2020aima}.
+systems~\cite{crewai_docs}. The underlying idea --- decomposing a problem
+across several cooperating agents instead of one monolithic solver --- is
+well established in the AI literature~\cite{wooldridge2009mas,
+russell2020aima}. CrewAI's core components are:
+
+\begin{itemize}
+  \item \textbf{Agents:} autonomous entities with a role, goal, backstory,
+        and an attached LLM, optionally equipped with tools.
+  \item \textbf{Tasks:} units of work assigned to agents, defining the
+        objective, context, and expected output; tasks can be chained so one
+        output feeds the next.
+  \item \textbf{Tools:} external functions agents can call (web search, file
+        I/O, custom validation scripts).
+  \item \textbf{Processes:} how agents collaborate --- a \texttt{sequential}
+        process runs tasks one after another, while a \texttt{hierarchical}
+        process lets a manager agent delegate.
+  \item \textbf{Crews:} a collection of agents, tasks, and a process working
+        toward one objective.
+\end{itemize}
+
+Our own implementation uses a \texttt{sequential} crew with four agents ---
+planner, writer, reviewer, and reference curator --- matching the structure
+described in \texttt{docs/PLAN.md}.
 
 \section{LaTeX: A Strong Standard for Technical Publishing}
-% TODO (Stage 9.3): content from book.md section 2.2.
+
 \LaTeX{} is a document-preparation system known for high-quality typesetting
-of scientific and technical material~\cite{lamport1994latex}.
+of scientific and technical material~\cite{lamport1994latex}. Rather than
+``what you see is what you get,'' it follows ``what you see is what you
+mean'': authors write plain text with markup that defines structure,
+formatting, cross-references, citations, equations, and figures, and a
+compiler produces a typeset PDF. Its advantages include professional output,
+structural consistency, automatic numbering of sections, figures, and
+references, version-control-friendly plain-text sources, and a clean
+separation of content from style. The trade-off is the learning curve and the
+need to debug compilation errors --- which is exactly what makes it an
+attractive target for assisted generation.
 
 \section{Generative AI Approaches to Document Creation}
-% TODO (Stage 9.3): content from book.md section 2.3.
-Benchmarks such as AgentBench evaluate large language models acting as
-agents~\cite{agentbench2023}.
+
+Many existing approaches use a single LLM to generate outlines, summaries, or
+whole articles, often with prompt engineering, retrieval-augmented
+generation, or fine-tuning. These methods produce coherent prose but struggle
+with highly structured, technically precise output: maintaining complex
+hierarchy and cross-references, generating compilable \LaTeX{} syntax,
+keeping style consistent across a long document, and integrating external
+tools. Distributing the work across specialised agents --- with dedicated
+steps for planning, writing, reviewing, and references --- is our attempt to
+get more control than a single pass would give. This matches what agent
+benchmarks such as AgentBench report: even strong LLMs remain unreliable on
+long multi-step agentic tasks, which is exactly where explicit task structure
+helps~\cite{agentbench2023}.

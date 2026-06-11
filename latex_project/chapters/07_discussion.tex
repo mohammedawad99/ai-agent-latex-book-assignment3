@@ -1,7 +1,25 @@
-% 07_discussion.tex — skeleton. Source: content/book.md, "7. Discussion and
-% Future Work".
-% TODO (Stage 9.3): transcribe key findings, limitations, and future
-% enhancements from content/book.md.
+% 07_discussion.tex — converted from content/book.md, "7. Discussion and
+% Future Work" (Stage 9.3).
 
 \chapter{Discussion and Future Work}
-% TODO (Stage 9.3): content from book.md chapter 7.
+
+\paragraph{Key findings.} A small, well-defined crew of agents --- planner,
+writer, reviewer, reference curator --- can collaborate to produce
+structured, on-topic content, and separating the agentic layer from a
+deterministic validation/build layer keeps the result reproducible and
+inspectable. Our most useful finding was practical: binding the agents
+tightly to the required topic and real metadata, and gating the content with
+a deterministic scanner, is what turned an initially rejected run into usable
+candidate content.
+
+\paragraph{Limitations.} Current LLMs still struggle with deep original
+argument and with generating complex graphics directly. Long runs cost real
+time and tokens. And qualitative quality still needs a human in the loop. We
+are explicit that \LaTeX{} assembly and PDF validation are future stages that
+have not yet run.
+
+\paragraph{Future enhancements.} More capable \LaTeX{} tooling (tables,
+multi-panel figures, simple diagrams from descriptions); an interactive
+human-in-the-loop editing step; multi-modal inputs; and stronger
+self-checking by the agents. Each of these would build on the current
+foundation rather than replace it.

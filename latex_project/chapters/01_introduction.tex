@@ -1,13 +1,60 @@
-% 01_introduction.tex — skeleton. Source: content/book.md, "1. Introduction".
-% TODO (Stage 9.3): transcribe sections 1.1-1.3 from content/book.md.
+% 01_introduction.tex — converted from content/book.md, "1. Introduction"
+% (Stage 9.3).
 
 \chapter{Introduction}
 
+Technical communication increasingly demands efficiency, accuracy, and
+scalability. From academic papers to software manuals, the need to produce
+high-quality structured documents is constant. This chapter sets the context
+by outlining the challenges in current document-generation practice and the
+potential of multi-agent systems to address them.
+
 \section{The Challenge of Automated Document Generation}
-% TODO (Stage 9.3): content from book.md section 1.1.
+
+Creating structured documents for academic or professional publishing is
+complex. \LaTeX{} offers excellent control over typography, layout, and
+cross-referencing, but it has a steep learning curve and strict syntax.
+Writing a book-length \LaTeX{} document by hand involves many iterative
+steps: planning, research, drafting, formatting, keeping chapters consistent,
+managing bibliographies, producing figures and tables, and proofreading. Each
+step is labour-intensive and easy to get wrong, and scaling the work across
+multiple documents or frequent updates quickly becomes a bottleneck. The real
+difficulty is not just generating text, but generating \emph{structured,
+valid, semantically correct} text within a specific technical format.
 
 \section{The Promise of Multi-Agent Systems in AI}
-% TODO (Stage 9.3): content from book.md section 1.2.
+
+Recent advances in large language models (LLMs) and multi-agent frameworks
+offer a way to address these limitations. A multi-agent system uses several
+specialised agents, each with its own role and tools, that collaborate to
+reach a goal that is hard for a single monolithic model. By breaking a large
+task into smaller pieces and assigning them to focused agents, these systems
+mimic a human collaborative workflow. This modularity makes the process
+easier to reason about and refine, and it is a natural fit for multi-step
+work such as planning, writing, reviewing, and reference curation.
 
 \section{Project Scope and Objectives}
-% TODO (Stage 9.3): content from book.md section 1.3 (objectives list).
+
+This project designs, implements, and evaluates a CrewAI-based multi-agent
+pipeline for generating a \LaTeX{} book. Our objectives are:
+
+\begin{itemize}
+  \item \textbf{Design:} define the agent roles and the task flow for book
+        generation.
+  \item \textbf{Implement:} build the offline-by-default runner, the
+        deterministic validation layer, and a real run path that is
+        explicitly gated.
+  \item \textbf{Generate:} produce structured content for the article from a
+        high-level topic.
+  \item \textbf{Evaluate:} record the measured cost of a real run and propose
+        (without fabricating) the metrics we would use for a fuller
+        evaluation.
+  \item \textbf{Production readiness:} discuss honestly what a transition
+        from proof-of-concept to a maintainable, deployable system would
+        require.
+\end{itemize}
+
+The anticipated benefits are reduced manual effort, more consistent
+structure, and faster drafting cycles --- while keeping a clear separation
+between the agentic (LLM) layer and the deterministic build/validation
+layer.

@@ -1,14 +1,36 @@
-% 05_poc_to_production.tex — skeleton. Source: content/book.md,
-% "5. From PoC to Production".
-% TODO (Stage 9.3): transcribe sections 5.1-5.3 from content/book.md.
+% 05_poc_to_production.tex — converted from content/book.md, "5. From PoC to
+% Production" (Stage 9.3).
 
 \chapter{From PoC to Production}
 
 \section{Iterative Development and Refinement}
-% TODO (Stage 9.3): content from book.md section 5.1.
+
+Moving from a basic proof-of-concept to something more reliable is iterative.
+Early on, the focus is on getting the crew to run end-to-end at all. Later
+iterations involve refining the prompts so the content stays on-topic,
+improving how agents pass context to one another, adding error handling, and
+testing on larger inputs. In this project the iteration was visible and
+honest: an early full run produced off-topic, placeholder-filled content and
+was kept only as diagnostic evidence; after the prompts and metadata binding
+were hardened, a later run produced on-topic candidate content that this very
+document is derived from.
 
 \section{Deployment Considerations}
-% TODO (Stage 9.3): content from book.md section 5.2.
+
+A production deployment would need to address infrastructure (cloud or
+on-premise compute), secret management (API keys read from environment
+variables or a secrets manager, never embedded in code), model selection
+(balancing cost and quality), and scalability (containers, task queues, and
+sensible resource limits). These are design considerations we have thought
+through rather than a deployment we have already operated at scale.
 
 \section{Monitoring, Maintenance, and CI/CD}
-% TODO (Stage 9.3): content from book.md section 5.3.
+
+A maintainable version of the pipeline would log every agent interaction,
+track runtime and token usage per run, alert on repeated failures, and
+periodically sample output quality. Maintenance includes re-checking the
+chosen model as versions change, keeping tool and dependency versions
+current, and feeding human feedback back into the prompts. Continuous
+integration would run the offline test suite and linters on every commit
+before any change is deployed --- which is the workflow this project already
+follows for its own code.

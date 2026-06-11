@@ -1,30 +1,134 @@
-% 04_implementation.tex — skeleton. Source: content/book.md,
-% "4. Implementation Details". Citations mirror the [6]/[7] markers in
-% book.md section 4.4.
-% TODO (Stage 9.3): transcribe sections 4.1-4.4, the two code listings, and
-% Table 4.1 (booktabs) from content/book.md.
+% 04_implementation.tex — converted from content/book.md, "4. Implementation
+% Details" (Stage 9.3). Code snippets use plain verbatim (no extra packages);
+% citations mirror the [6]/[7] markers in the cleaned Markdown.
 
 \chapter{Implementation Details}
 
 \section{Agent Definitions and Personalities}
-% TODO (Stage 9.3): content + agent-definition code listing from book.md 4.1.
+
+Each agent is created with a role, goal, and backstory. The example below
+shows how an agent is configured in CrewAI. It uses the same model our real
+run used, \texttt{gemini/gemini-2.5-flash}, rather than naming any specific
+commercial product as a project result:
+
+\begin{verbatim}
+from crewai import Agent, LLM
+
+llm = LLM(model="gemini/gemini-2.5-flash", temperature=0.2)
+
+planner_agent = Agent(
+    role="Content Planner",
+    goal="Develop a clear, hierarchical outline for a technical LaTeX book.",
+    backstory=(
+        "You are an experienced technical editor. You break broad topics "
+        "into logical chapters and sections and keep the table of contents "
+        "coherent."
+    ),
+    llm=llm,
+    verbose=True,
+    allow_delegation=False,
+)
+\end{verbatim}
+
+The writer, reviewer, and reference-curator agents follow the same pattern
+with their own goals and backstories. The model is supplied from
+configuration, and the API key is read from the environment only --- it is
+never written into the source.
 
 \section{Custom Tool Integration}
-% TODO (Stage 9.3): content + validation-tool listing from book.md 4.2.
+
+Tools extend agents beyond plain text generation. A realistic example for
+this project is a \LaTeX{} validation tool that checks whether generated
+\LaTeX{} compiles. The following is illustrative pseudocode for such a tool:
+
+\begin{verbatim}
+# latex_validation_tool.py (illustrative)
+import subprocess
+import tempfile
+from pathlib import Path
+
+def validate_latex(latex_code: str) -> str:
+    """Attempt to compile a LaTeX snippet and report errors."""
+    with tempfile.TemporaryDirectory() as tmp:
+        tex = Path(tmp) / "snippet.tex"
+        tex.write_text(
+            "\\documentclass{article}\\begin{document}\n"
+            f"{latex_code}\n\\end{{document}}\n",
+            encoding="utf-8",
+        )
+        result = subprocess.run(
+            ["pdflatex", "-interaction=nonstopmode",
+             "-output-directory", tmp, str(tex)],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode == 0:
+            return "Validation successful: no compilation errors."
+        return "Validation failed: see compiler output for details."
+\end{verbatim}
+
+This shows the general idea of giving an agent a deterministic check it can
+call. In the current project the deterministic checks live in plain Python
+modules (for example the content-QA scanner) rather than being driven by the
+LLM, which keeps the validation layer fully offline and reproducible.
 
 \section{Task Design and Execution Flow}
-% TODO (Stage 9.3): content + Table 4.1 (agents/roles/tools, booktabs) from
-% book.md 4.3.
+
+Tasks are the atomic units of work. A simplified sequence for this project:
+
+\begin{enumerate}
+  \item \textbf{Plan outline} --- agent: planner; input: the topic; output:
+        a structured outline.
+  \item \textbf{Draft content} --- agent: writer; input: the outline;
+        output: the draft.
+  \item \textbf{Review} --- agent: reviewer; input: the draft; output:
+        structured feedback.
+  \item \textbf{Curate references} --- agent: reference curator; input:
+        draft and review; output: the reference list.
+\end{enumerate}
+
+Table~\ref{tab:agents} summarises the agents, their roles, and example
+tools.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Agents, roles, and example tools.}
+  \label{tab:agents}
+  \begin{tabular}{llll}
+    \toprule
+    Agent & Primary role & Example tasks & Example tools \\
+    \midrule
+    Planner & Structure the book & Outline generation, section split &
+      OutlineTool \\
+    Writer & Generate the prose & Drafting chapters and sections &
+      WritingTool \\
+    Reviewer & Quality assurance & Coverage and consistency checks &
+      ReviewTool \\
+    Reference curator & Collect citations & Building the reference list &
+      ReferenceTool \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \section{Handling Multilingual Content}
-% TODO (Stage 9.3): full section text from book.md 4.4.
-Bidirectional text support comes from the \texttt{bidi}
-package~\cite{ctan_bidi}, compiled with XeLaTeX~\cite{tug_xetex}.
 
-% Minimal Hebrew-English BiDi snippet (safe to compile with the preamble's
-% polyglossia + DejaVu Sans setup; the full BiDi passage lands here in 9.3):
-This sentence is English;
+The pipeline is designed to support content in more than one language, which
+matters for documentation that mixes scripts. The relevant \LaTeX{} support
+comes from packages such as \texttt{babel} or \texttt{polyglossia}, and for
+bidirectional text the \texttt{bidi} package~\cite{ctan_bidi}, usually
+compiled with XeLaTeX~\cite{tug_xetex} or LuaLaTeX for good Unicode and
+right-to-left handling.
+
+\paragraph{Hebrew--English bidirectional demonstration.} The following
+passage demonstrates bidirectional typesetting: the text direction switches
+automatically inside the right-to-left environment. This paragraph mixes
+English and Hebrew text.
+
 \begin{hebrew}
 זוהי דוגמה למקטע הממחיש יצירת תוכן דו-לשוני.
 \end{hebrew}
-the Hebrew above flows right-to-left within the same page.
+
+The English text flows left-to-right while the Hebrew sentence (meaning
+``this is an example of a section demonstrating the creation of bilingual
+content'') flows right-to-left, both within the same document ---
+demonstrating correct bidirectional integration.

@@ -67,11 +67,12 @@ human-reviewed text editing, no real run, no `kickoff`, no new tokens. The
 cleaned content reuses the already-measured 8C.7 run values rather than
 generating new ones. Further token cost would only arise if content QA later
 requires a constrained re-run. **Stages 9.0 (the LaTeX assembly plan, D-030),
-9.1 (the LaTeX skeleton + bibliography), and 9.2 (the deterministic matplotlib
-figure scripts and generated PNGs) incurred no LLM/API cost** — no real run,
-no `kickoff`, no tokens; the remaining Stages 9.3–9.6 are deterministic
-(text conversion and TeX Live compilation) and are expected to incur no
-LLM/API cost either.
+9.1 (the LaTeX skeleton + bibliography), 9.2 (the deterministic matplotlib
+figure scripts and generated PNGs), and 9.3 (the manual conversion of the
+cleaned Markdown into full LaTeX chapters) incurred no LLM/API cost** — no
+real run, no `kickoff`, no tokens; the remaining Stages 9.4–9.6 are
+deterministic (TeX Live compilation and validation) and are expected to incur
+no LLM/API cost either.
 
 ## Minimal-Run Metadata Format (Stage 8A scaffolding)
 

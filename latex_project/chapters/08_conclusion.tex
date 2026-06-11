@@ -1,5 +1,16 @@
-% 08_conclusion.tex — skeleton. Source: content/book.md, "8. Conclusion".
-% TODO (Stage 9.3): transcribe the conclusion from content/book.md.
+% 08_conclusion.tex — converted from content/book.md, "8. Conclusion"
+% (Stage 9.3).
 
 \chapter{Conclusion}
-% TODO (Stage 9.3): content from book.md chapter 8.
+
+This project designed, implemented, and partially evaluated a CrewAI
+multi-agent pipeline for generating the content of a \LaTeX{} book. By
+orchestrating a planner, writer, reviewer, and reference curator in a
+sequential process --- and by keeping a separate deterministic layer for
+validation --- the system produces structured, on-topic content from a
+high-level topic. We measured the cost of one real run against
+\texttt{gemini/gemini-2.5-flash} and reported it honestly, while clearly
+labelling unmeasured metrics as proposals. The work is not finished: turning
+this cleaned content into a compiled, validated PDF is the next stage of the
+assignment. What we can claim is a working, inspectable pipeline and an
+honest account of how it behaves.

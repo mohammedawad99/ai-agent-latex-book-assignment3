@@ -1,11 +1,26 @@
-% 00_abstract.tex — skeleton. Source: content/book.md, "Abstract".
-% TODO (Stage 9.3): transcribe the full abstract from content/book.md.
+% 00_abstract.tex — converted from content/book.md, "Abstract" (Stage 9.3).
 
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 
-% Placeholder summary sentence (abridged from the cleaned source; the full
-% abstract is transcribed in Stage 9.3):
-This report describes a CrewAI-based multi-agent pipeline for generating the
-content of a \LaTeX{} book, and our experience moving it from an early
-proof-of-concept toward production.
+Generating high-quality, structured technical documents --- particularly books
+typeset with \LaTeX{} --- usually demands substantial manual effort,
+specialised knowledge, and careful attention to detail. The process is
+time-consuming, error-prone, and hard to scale. In this project we explore a
+multi-agent pipeline built on the CrewAI framework that aims to automate much
+of this work for \LaTeX{} book generation.
+
+Our approach orchestrates a small crew of specialised agents, each with a
+distinct role: planning the outline, writing the draft, reviewing it, and
+curating references. The agents run sequentially, and the output of one
+becomes context for the next. The goal is to turn a high-level topic into
+structured, compilation-ready content.
+
+This report describes the architecture, the implementation, and our honest
+experience moving from an early proof-of-concept toward something closer to
+production. We report the measured cost of one real content-generation run
+against the Gemini model \texttt{gemini/gemini-2.5-flash}, and we are
+deliberately careful to separate measured results from proposed future
+evaluation. We do not claim the system is already fully production-ready:
+\LaTeX{} assembly and PDF validation are still future stages of this
+assignment.
