@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–4 are complete and pushed; Stage 5 (project setup) is the current stage, in review before commit; Stages 6–16 are future work and contain no implementation yet. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–5 are complete and pushed; Stage 6 (core deterministic foundation) is the current stage, in review before commit; Stages 7–16 are future work and contain no implementation yet. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-11.
 
@@ -22,7 +22,8 @@
 - [x] Stage 3 — TODO committed and pushed (`a722f64`).
 - [x] Stage 4 — Supporting documentation committed and pushed (`495f966`).
 - [x] Stage 5 — Project setup committed and pushed (`d21b3c7`).
-- [ ] Stages 6–16 — not started; no CrewAI agents, no LaTeX, and no generated evidence exist yet.
+- [ ] Stage 6 — Core deterministic foundation (current stage, in review before commit).
+- [ ] Stages 7–16 — not started; no CrewAI agents, no LaTeX, and no generated evidence exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
 
@@ -49,7 +50,7 @@ Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; C
 | 3 | TODO | Completed (`a722f64`) | Stage 2 done | `docs/TODO.md` |
 | 4 | Supporting documentation before code | Completed (`495f966`) | Stage 3 done | Doc set populated |
 | 5 | Project setup (uv, deps, CLI skeleton) | Completed (`d21b3c7`) | Stage 4 done | `pyproject.toml`, runnable CLI stub |
-| 6 | Core deterministic foundation | Not started | Stage 5 done | config/evidence/cost modules + tests |
+| 6 | Core deterministic foundation | Current / in review | Stage 5 done | config/evidence/cost modules + tests |
 | 7 | CrewAI core | Not started | Stage 6 done | crew builder + agents/tasks |
 | 8 | Content planning and generation | Not started | Stage 7 done | outline→draft→review→refs flow |
 | 9 | LaTeX assembler | Not started | Stage 8 done | `latex_project/` sources |
@@ -151,29 +152,29 @@ Entry condition: Stage 4 done. Exit criteria: project installs/runs a CLI stub r
 - [x] Create a CLI entry point stub (`src/agentic_latex_book/cli.py`) that parses arguments and prints planned steps.
 - [x] Wire the CLI as a console script / runnable module.
 - [x] Add a package import sanity check (import the package and run the CLI `--help`).
-- [ ] Add an initial local quality command/script that runs at least lint + tests (usable once the first tests exist).
+- [x] Establish the initial quality command sequence (`uv run pytest`, `uv run ruff check .`, `uv run ruff format --check .`) that runs lint + tests. (A single consolidated quality script/command remains future Stage 13 work; none exists yet.)
 - [x] Add one trivial smoke test so the quality command has something to run.
 - [x] Document the exact setup, run, and quality-command instructions in `README.md`.
 - [x] Commit project setup and push.
 
-### Stage 6 — Core Deterministic Foundation
+### Stage 6 — Core Deterministic Foundation (Current / in review)
 
 Entry condition: Stage 5 done. Exit criteria: deterministic modules exist with passing unit tests; no agentic code yet.
 
-- [ ] Implement the configuration loader (`config.py`) that resolves settings from config file + environment.
-- [ ] Implement a paths/constants module centralizing repository paths (`results/`, `latex_project/`, `assets/`).
-- [ ] Implement the evidence writer that creates per-run output locations under `results/`.
-- [ ] Implement structured logging that writes run logs to `results/logs/`.
-- [ ] Implement the cost/runtime tracker (timing now; token capture wired for later).
-- [ ] Ensure no secret values are ever written to logs or evidence.
-- [ ] Keep each module short and single-responsibility (respect the file-length limit).
-- [ ] Write unit tests for the config loader (valid, missing, and override cases).
-- [ ] Write unit tests for the paths/constants module.
-- [ ] Write unit tests for the evidence writer (creates expected structure).
-- [ ] Write unit tests for the cost/runtime tracker (records elapsed time).
-- [ ] Run pytest and confirm the test suite passes.
-- [ ] Run ruff lint/format checks and resolve any findings.
-- [ ] Run the initial local quality command (lint + tests) and confirm it passes.
+- [x] Implement the configuration loader (`config.py`) that resolves settings from config file + environment.
+- [x] Implement a paths/constants module centralizing repository paths (`results/`, `latex_project/`, `assets/`).
+- [x] Implement the evidence writer that creates per-run output locations under `results/`.
+- [x] Implement structured logging that writes run logs to `results/logs/`.
+- [x] Implement the cost/runtime tracker (timing now; token capture wired for later).
+- [x] Ensure no secret values are ever written to logs or evidence.
+- [x] Keep each module short and single-responsibility (respect the file-length limit).
+- [x] Write unit tests for the config loader (valid, missing, and override cases).
+- [x] Write unit tests for the paths/constants module.
+- [x] Write unit tests for the evidence writer (creates expected structure).
+- [x] Write unit tests for the cost/runtime tracker (records elapsed time).
+- [x] Run pytest and confirm the test suite passes.
+- [x] Run ruff lint/format checks and resolve any findings.
+- [x] Run the quality command sequence (`uv run pytest`, `uv run ruff check .`, `uv run ruff format --check .`) and confirm it passes. (No single consolidated script exists yet; this is the command sequence.)
 - [ ] Commit the deterministic foundation and push.
 
 ### Stage 7 — CrewAI Core

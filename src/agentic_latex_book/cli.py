@@ -10,14 +10,13 @@ from __future__ import annotations
 
 import argparse
 import sys
-import tomllib
 from pathlib import Path
 
 from agentic_latex_book import __version__
+from agentic_latex_book.config import ConfigError, load_config
+from agentic_latex_book.paths import repo_paths
 
-# Repository root, resolved from this file's location (src/agentic_latex_book/cli.py).
-_REPO_ROOT = Path(__file__).resolve().parents[2]
-_DEFAULT_CONFIG = _REPO_ROOT / "config" / "default.toml"
+_DEFAULT_CONFIG = repo_paths().default_config
 
 _NOT_IMPLEMENTED_NOTICE = (
     "The CrewAI pipeline is not implemented yet. This command only reports "
@@ -25,26 +24,20 @@ _NOT_IMPLEMENTED_NOTICE = (
 )
 
 
-def _load_config(config_path: Path) -> dict:
-    """Load the non-secret TOML config if present; return {} if it is missing."""
-    if not config_path.is_file():
-        return {}
-    with config_path.open("rb") as handle:
-        return tomllib.load(handle)
-
-
 def _print_status(config_path: Path) -> int:
     """Print a safe project-status summary. Performs no external calls."""
-    config = _load_config(config_path)
-    project = config.get("project", {})
-    topic = project.get("topic", "<not configured>")
-    group = project.get("group_code", "<not configured>")
-
     print(f"agentic-latex-book version {__version__}")
-    print(f"group: {group}")
-    print(f"topic: {topic}")
-    print(f"config: {config_path if config_path.is_file() else '<not found>'}")
-    print("stage: project setup (Stage 5)")
+    try:
+        config = load_config(config_path)
+    except ConfigError as exc:
+        print(f"config: <error> {exc}")
+        print(_NOT_IMPLEMENTED_NOTICE)
+        return 0
+
+    print(f"group: {config.group_code}")
+    print(f"topic: {config.topic}")
+    print(f"config: {config.source_path}")
+    print(f"page-count target: {config.page_count_min}-{config.page_count_max}")
     print(_NOT_IMPLEMENTED_NOTICE)
     return 0
 

@@ -169,6 +169,16 @@ Each record uses these fields:
 - **Rationale:** Adding a plotting dependency before any graph code exists would be premature and would enlarge the environment without need. Deferring keeps Stage 5 dependencies minimal.
 - **Consequences:** No plotting dependency is declared yet; the library is chosen and recorded when Stage 10 begins.
 
+## D-016 — Deterministic Foundation: Stdlib-First, Temp-Only Evidence Tests
+
+- **Date:** 2026-06-11
+- **Status:** Accepted
+- **Context:** Stage 6 builds the deterministic foundation (config, paths, evidence, logging, runtime) that the later pipeline depends on.
+- **Decision:** Implement these modules with the Python standard library only (`tomllib`, `dataclasses`, `pathlib`, `logging`, `time`) and test the evidence/logging helpers exclusively against pytest `tmp_path`, never writing committed evidence under `results/`.
+- **Alternatives considered:** Pydantic for config/validation; third-party logging or settings libraries; testing evidence helpers by writing into the real `results/` tree.
+- **Rationale:** The needs are small, so stdlib keeps the dependency surface minimal and the code easy to read. Temp-only tests keep `results/` holding only `.gitkeep` markers and honor the evidence-only-from-real-runs rule (D-008).
+- **Consequences:** No new dependencies were added in Stage 6; `results/` stays clean; the runtime tracker keeps token/cost fields as `None` until a real provider supplies values.
+
 ---
 
 ## Open Decisions (To Be Recorded Later)

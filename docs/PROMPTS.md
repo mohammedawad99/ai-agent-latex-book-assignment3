@@ -10,7 +10,7 @@ This document records the AI prompts used during the project so the workflow is 
 - Record what was asked for, the important constraints we imposed, what artifact resulted, and the result of our review.
 - Do not paste secrets, API keys, or environment values into this log.
 - Do not claim an artifact exists or works if it does not. Entries describe only work actually performed.
-- Where a tool/model is not yet decided (planning stages used a general AI assistant; the pipeline model/provider is chosen in Stage 5), record it as such rather than guessing.
+- Where a tool/model is not yet decided, record it as such rather than guessing. Planning and foundation stages used a general AI coding assistant; the concrete pipeline LLM model/provider is deferred until before the first real CrewAI execution (per decision D-014), and no CrewAI agents or LLM calls exist yet.
 
 ## Prompt Record Template
 
@@ -27,9 +27,9 @@ Use this template for new entries:
 | Output artifact | The file(s) produced or changed |
 | Review result | Outcome of group review (accepted / revised / rejected) |
 
-## Logged Prompts (Stages 0–4)
+## Logged Prompts (Stages 0–6)
 
-These entries summarize the AI-assisted work already completed. They are summaries, not raw prompts. No code was generated in these stages — the work was repository structure and planning documentation only.
+These entries summarize the AI-assisted work already completed. They are summaries, not raw prompts. Stages 0–4 produced repository structure and planning documentation only; Stages 5–6 added project setup and deterministic foundation code (config, paths, evidence, logging, runtime) with offline tests. No CrewAI agents/tasks, LLM calls, LaTeX, or generated evidence have been produced yet.
 
 | Stage | Date | Goal | Tool/Model | Prompt summary | Important constraints | Output artifact | Review result |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -38,7 +38,9 @@ These entries summarize the AI-assisted work already completed. They are summari
 | 2 | 2026-06-11 | Write a technical PLAN | AI coding assistant | Asked to design the architecture and strategy strictly from the PRD | Design only; no code/deps/LaTeX; do not invent features | `docs/PLAN.md` (commit `6baece3`) | Accepted |
 | 3 | 2026-06-11 | Write a detailed staged TODO | AI coding assistant | Asked to break the PLAN into staged, actionable checklist tasks | Task plan only; ≥120 checkboxes; match PLAN roadmap | `docs/TODO.md` (commit `a722f64`) | Accepted after quality-timing correction |
 | 4 | 2026-06-11 | Write supporting documentation | AI coding assistant | Asked to write AI_WORKFLOW, PROMPTS, DECISIONS, COSTS, QUALITY, SUBMISSION_CHECKLIST, and an initial README | Docs only; planned-status wording; no implementation claims | This document and the other Stage 4 files | Accepted for initial Stage 4 documentation after review |
+| 5 | 2026-06-11 | Project setup (uv, deps, CLI skeleton) | AI coding assistant | Asked to create `pyproject.toml`, uv lock, `.env.example`, config, a safe CLI skeleton, and a smoke test | Setup only; no agents/LLM; no secrets; pytest+ruff pass | Stage 5 setup files | Accepted (commit `d21b3c7`) |
+| 6 | 2026-06-11 | Deterministic foundation modules | AI coding assistant | Asked to implement config/paths/evidence/logging/runtime modules and their offline tests | Deterministic only; no CrewAI/LLM; temp-only evidence; files under the line limit | `config.py`, `paths.py`, `evidence.py`, `logging_setup.py`, `runtime.py`, and their tests | In review |
 
 ## Future Prompts
 
-Implementation-stage prompts (Stage 5 onward) will be added here as the project proceeds — for example prompts used to draft the config loader, the crew builder, the LaTeX assembler, the figure generator, the PDF builder, and the validation gates. Until those stages run, no claim is made that any code has been generated. This log will grow alongside the actual work.
+Project setup (Stage 5) and the deterministic foundation including the config loader (Stage 6) are already logged in the table above. Further implementation-stage prompts will be added here as the project proceeds — for example prompts used to draft the crew builder, the LaTeX assembler, the figure generator, the PDF builder, and the validation gates. No claim is made that any not-yet-built component exists. This log will grow alongside the actual work.
