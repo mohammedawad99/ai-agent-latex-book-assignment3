@@ -296,6 +296,17 @@ Each record uses these fields:
 
 ---
 
+## D-029 — Derived Cleaned Markdown as the Source for LaTeX Assembly
+
+- **Date:** 2026-06-12
+- **Status:** Accepted
+- **Context:** The Stage 8C.7 run evidence is immutable and still contains the known content risks, so it cannot be fed directly into LaTeX assembly. We need a clean, reviewable, scanner-passing source for the document.
+- **Decision:** Create cleaned Markdown under `latex_project/content/` (`book.md` plus a `README.md`), **derived** from the 8C.7 candidate (`crew_outputs/` outline and draft) but edited by the students, and use that as the single source for LaTeX assembly — not the raw LLM evidence. The cleaning removed the 8 known risks (fabricated `example.com`/internal links, the unsupported 185 minutes / 99.1% / 1.8M tokens metrics, the GPT-4o report reference, and conceptual-only header/footer wording), replaced unmeasured metrics with the actual `runtime.json` values (labelling unmeasured ones as proposed future evaluation), used a conservative real/project-local bibliography, and stated explicitly that headers/footers are implemented in LaTeX assembly. The cleaned content must pass `content-qa` (it does: `ok: True`, exit 0) before commit and assembly.
+- **Alternatives considered:** Feeding raw evidence straight into LaTeX (fails the scanner and would publish fabricated claims); re-running the crew with stricter prompts to avoid manual cleaning (costs tokens and is non-deterministic — deferred unless cleaning proves insufficient); editing the evidence in place (rejected — evidence must stay immutable).
+- **Consequences:** Evidence under `results/stage8c7-full-gemini-20260611-173125/` stays untouched; the cleaned content is a separate derived artifact. This stage is offline and human-reviewed: no real run, no `kickoff`, no LLM/API call, no tokens, and no dependency change. LaTeX/PDF assembly remains a future stage.
+
+---
+
 ## Open Decisions (To Be Recorded Later)
 
 The following are not yet decided and will become decision records when resolved (sourced from PLAN §27 / TODO §11). The LLM provider/model and plotting-library deferrals are now recorded explicitly above (D-014, D-015):
