@@ -1,0 +1,1 @@
+provider=gemini model=gemini/gemini-2.5-flash api_key_present=True base_url_present=False
