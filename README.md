@@ -27,7 +27,7 @@ Completed and pushed so far:
 | 2 | PLAN (`docs/PLAN.md`) | `6baece3` |
 | 3 | TODO (`docs/TODO.md`) | `a722f64` |
 | 4 | Supporting documentation | `495f966` |
-| 5 | Project setup (uv, deps, CLI skeleton) | setup prepared for review |
+| 5 | Project setup (uv, deps, CLI skeleton) | `d21b3c7` |
 
 There are declared dependencies and a safe CLI skeleton, but no CrewAI agents, no LLM calls, no LaTeX sources, no PDF build, and no generated evidence yet. Everything in the "planned" sections below is design intent, not working software.
 

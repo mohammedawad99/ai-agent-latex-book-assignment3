@@ -21,7 +21,7 @@
 - [x] Stage 2 — PLAN committed and pushed (`6baece3`).
 - [x] Stage 3 — TODO committed and pushed (`a722f64`).
 - [x] Stage 4 — Supporting documentation committed and pushed (`495f966`).
-- [ ] Stage 5 — Project setup (current stage, in review before commit).
+- [x] Stage 5 — Project setup committed and pushed (`d21b3c7`).
 - [ ] Stages 6–16 — not started; no CrewAI agents, no LaTeX, and no generated evidence exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
@@ -48,7 +48,7 @@ Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; C
 | 2 | PLAN | Completed (`6baece3`) | Stage 1 done | `docs/PLAN.md` |
 | 3 | TODO | Completed (`a722f64`) | Stage 2 done | `docs/TODO.md` |
 | 4 | Supporting documentation before code | Completed (`495f966`) | Stage 3 done | Doc set populated |
-| 5 | Project setup (uv, deps, CLI skeleton) | Current / in review | Stage 4 done | `pyproject.toml`, runnable CLI stub |
+| 5 | Project setup (uv, deps, CLI skeleton) | Completed (`d21b3c7`) | Stage 4 done | `pyproject.toml`, runnable CLI stub |
 | 6 | Core deterministic foundation | Not started | Stage 5 done | config/evidence/cost modules + tests |
 | 7 | CrewAI core | Not started | Stage 6 done | crew builder + agents/tasks |
 | 8 | Content planning and generation | Not started | Stage 7 done | outline→draft→review→refs flow |
@@ -133,7 +133,7 @@ Entry condition: Stage 3 committed and pushed. Exit criteria: all doc files belo
 - [x] Verify no document overclaims production readiness or includes fake results.
 - [x] Commit the documentation set in coherent increments and push.
 
-### Stage 5 — Project Setup (Current / in review)
+### Stage 5 — Project Setup (Completed, `d21b3c7`)
 
 Entry condition: Stage 4 done. Exit criteria: project installs/runs a CLI stub reproducibly; dependency choices recorded.
 
@@ -154,7 +154,7 @@ Entry condition: Stage 4 done. Exit criteria: project installs/runs a CLI stub r
 - [ ] Add an initial local quality command/script that runs at least lint + tests (usable once the first tests exist).
 - [x] Add one trivial smoke test so the quality command has something to run.
 - [x] Document the exact setup, run, and quality-command instructions in `README.md`.
-- [ ] Commit project setup and push.
+- [x] Commit project setup and push.
 
 ### Stage 6 — Core Deterministic Foundation
 
