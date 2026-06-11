@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–6 are complete and pushed; Stage 7 (CrewAI core) is the current stage, in review before commit (offline specs/schemas/blueprint only); Stages 8–16 are future work and contain no implementation yet. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–7 are complete and pushed; Stages 8–16 are future work and contain no implementation yet. Stage 7 delivered the offline CrewAI core only (specs, output schemas, dry-run blueprint, non-executing builder, `crew-plan` CLI, and tests) — no real crew run or generated evidence. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-11.
 
@@ -23,7 +23,7 @@
 - [x] Stage 4 — Supporting documentation committed and pushed (`495f966`).
 - [x] Stage 5 — Project setup committed and pushed (`d21b3c7`).
 - [x] Stage 6 — Core deterministic foundation committed and pushed (`3e538af`).
-- [ ] Stage 7 — CrewAI core (current stage, in review before commit; offline specs/schemas/blueprint only).
+- [x] Stage 7 — Offline CrewAI core committed and pushed (`aeb39dc`).
 - [ ] Stages 8–16 — not started; no real crew run, no LaTeX, and no generated evidence exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
@@ -52,7 +52,7 @@ Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; C
 | 4 | Supporting documentation before code | Completed (`495f966`) | Stage 3 done | Doc set populated |
 | 5 | Project setup (uv, deps, CLI skeleton) | Completed (`d21b3c7`) | Stage 4 done | `pyproject.toml`, runnable CLI stub |
 | 6 | Core deterministic foundation | Completed (`3e538af`) | Stage 5 done | config/evidence/cost modules + tests |
-| 7 | CrewAI core | Current / in review | Stage 6 done | crew specs/schemas/blueprint + builder |
+| 7 | CrewAI core | Completed (`aeb39dc`) | Stage 6 done | crew specs/schemas/blueprint + builder |
 | 8 | Content planning and generation | Not started | Stage 7 done | outline→draft→review→refs flow |
 | 9 | LaTeX assembler | Not started | Stage 8 done | `latex_project/` sources |
 | 10 | Python-generated graph and assets | Not started | Stage 9 done | generated graph integrated |
@@ -178,7 +178,7 @@ Entry condition: Stage 5 done. Exit criteria: deterministic modules exist with p
 - [x] Run the quality command sequence (`uv run pytest`, `uv run ruff check .`, `uv run ruff format --check .`) and confirm it passes. (No single consolidated script exists yet; this is the command sequence.)
 - [x] Commit the deterministic foundation and push.
 
-### Stage 7 — CrewAI Core (Current / in review)
+### Stage 7 — CrewAI Core (Completed, `aeb39dc`)
 
 Entry condition: Stage 6 done. Exit criteria (offline scope): offline agent/task specs, structured output-schema specs, a validated dry-run blueprint, a non-executing object builder, the `crew-plan` CLI command, and offline tests — all with no real crew run, no `kickoff`, and no LLM/API call. A real crew run and evidence persistence are explicitly out of Stage 7 scope (deferred below).
 
@@ -189,7 +189,7 @@ Entry condition: Stage 6 done. Exit criteria (offline scope): offline agent/task
 - [x] Configure the crew process as sequential by default (parallelism deferred per PLAN open question 3).
 - [x] Add the safe offline `crew-plan` CLI command and offline tests for specs, schemas, blueprint, and validation.
 - [x] Add a smoke test that builds the crew object without executing a paid run (no `kickoff`).
-- [ ] Commit the CrewAI core and push.
+- [x] Commit the CrewAI core and push.
 
 Deferred to the controlled-run stage (Stage 8 wiring / Stage 14 real run), not Stage 7:
 
