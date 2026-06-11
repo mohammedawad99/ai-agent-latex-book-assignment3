@@ -1,13 +1,19 @@
-# Default planned configuration for the agentic LaTeX book pipeline.
+# Default configuration for the agentic LaTeX book pipeline.
 #
 # This file holds non-secret settings only. Secrets (API keys) come from the
-# environment / a local .env file, never from here. The values below are the
-# planned defaults; the pipeline that consumes them is not implemented yet.
+# environment / a local .env file, never from here. These are the non-secret
+# defaults consumed by the safe offline commands (status, crew-plan, dry-runs)
+# and by explicit real runs (run-minimal/run-full --real).
 
 [project]
-# Working topic for the generated article/book (matches the PRD/PLAN).
-topic = "From PoC to Production: Building Reliable AI Agent Systems with CrewAI, LaTeX, Observability, Security, and Cost Awareness"
+# Project topic/title the generated content MUST be written about (Stage 8C.6
+# hardening, see docs/DECISIONS.md D-025). The crew is bound to this topic.
+topic = "From PoC to Production: A CrewAI Multi-Agent Pipeline for Generating a LaTeX Book"
 group_code = "MaRs-777"
+authors = ["Mohamed Awad", "Rawey Sleiman"]
+assignment_context = "AI agents / CrewAI / LaTeX book generation assignment"
+# Configurable project date used on the cover (no stale hardcoded dates).
+project_date = "2026-06-11"
 
 [paths]
 # Output / evidence locations, relative to the repository root.

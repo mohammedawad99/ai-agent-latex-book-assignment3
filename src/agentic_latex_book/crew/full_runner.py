@@ -13,6 +13,7 @@ from pathlib import Path
 
 from agentic_latex_book.config import Config, is_model_configured, load_config
 from agentic_latex_book.crew.builder import build_crew, crew_blueprint
+from agentic_latex_book.crew.context import project_context
 from agentic_latex_book.crew.llm import describe_llm_environment, resolve_llm
 from agentic_latex_book.crew.persist import persist_full_run
 from agentic_latex_book.crew.tasks import task_specs
@@ -38,7 +39,7 @@ def _base_summary(config: Config, mode: str) -> dict:
         "mode": mode,
         "model_configured": is_model_configured(config),
         "llm_environment": describe_llm_environment(config),
-        "blueprint": crew_blueprint(),
+        "blueprint": crew_blueprint(project_context(config)),
     }
 
 
@@ -63,7 +64,7 @@ def _run_real_full(config: Config, run_id: str | None, results_dir: Path | None)
     run_dir = create_run_directory(base, run_id or _default_full_run_id())
 
     tracker = RuntimeTracker(label="run-full").start()
-    crew = build_crew(llm)
+    crew = build_crew(llm, project_context(config))
     result = crew.kickoff()
     tracker.stop()
     usage = getattr(result, "token_usage", None)

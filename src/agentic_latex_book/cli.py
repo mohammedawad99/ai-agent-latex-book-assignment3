@@ -30,9 +30,9 @@ def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="agentic-latex-book",
         description=(
-            "Safe offline CLI for the CrewAI LaTeX book pipeline. It can report "
-            "status and print the planned crew blueprint; it does not run the "
-            "pipeline yet."
+            "CLI for the CrewAI LaTeX book pipeline. status and crew-plan are safe "
+            "offline commands; run commands are dry-run by default. Real runs require "
+            "an explicit --real flag and credentials."
         ),
     )
     parser.add_argument("--version", action="version", version=f"agentic-latex-book {__version__}")

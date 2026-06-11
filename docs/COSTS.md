@@ -48,10 +48,11 @@ not asserted here).
 
 The full run (`stage8c3-...`) is the first end-to-end content run: it proves the
 runner and persistence work, but its content is rejected (wrong topic, placeholder
-author/date, ~10 pages). **Another real full run is expected after prompt/config
-hardening (Stage 8C.6/8C.7), which will add token cost.** Token/resource data is
-recorded from the committed `runtime.json`; no money cost is asserted (Gemini
-pricing is not claimed here).
+author/date, ~10 pages). **Stage 8C.6 hardened topic/metadata binding offline and
+incurred no LLM/API cost** (no real run, no `kickoff`, no tokens). **Another real
+full run is expected at Stage 8C.7, which will add token cost.** Token/resource
+data is recorded from the committed `runtime.json`; no money cost is asserted
+(Gemini pricing is not claimed here).
 
 ## Minimal-Run Metadata Format (Stage 8A scaffolding)
 

@@ -10,7 +10,7 @@ This document records the AI prompts used during the project so the workflow is 
 - Record what was asked for, the important constraints we imposed, what artifact resulted, and the result of our review.
 - Do not paste secrets, API keys, or environment values into this log.
 - Do not claim an artifact exists or works if it does not. Entries describe only work actually performed.
-- Where a tool/model is not yet decided, record it as such rather than guessing. Planning and foundation stages used a general AI coding assistant; the concrete pipeline LLM model/provider is deferred until before the first real CrewAI execution (per decision D-014). Stage 7 added offline CrewAI agent/task specs and output-schema specs, but there is still no real crew run, no `kickoff`, no LLM/API call, no LaTeX, and no generated evidence.
+- Where a tool/model is not yet decided, record it as such rather than guessing. Planning and foundation stages used a general AI coding assistant; the concrete pipeline LLM model/provider was deferred (per decision D-014) and later confirmed as Gemini `gemini/gemini-2.5-flash` (D-022). The first real CrewAI executions happened at Stage 8B.1 (minimal) and 8C.3 (full), run manually by the student; no LaTeX/PDF and no accepted full content exist yet.
 
 ## Prompt Record Template
 
@@ -27,9 +27,9 @@ Use this template for new entries:
 | Output artifact | The file(s) produced or changed |
 | Review result | Outcome of group review (accepted / revised / rejected) |
 
-## Logged Prompts (Stages 0–8C.5)
+## Logged Prompts (Stages 0–8C.6)
 
-These entries summarize the AI-assisted work already completed. They are summaries, not raw prompts. Stages 0–4 produced repository structure and planning documentation only; Stages 5–6 added project setup and deterministic foundation code (config, paths, evidence, logging, runtime) with offline tests; Stage 7 added offline CrewAI agent/task specs and output-schema specs with a dry-run blueprint. No real crew run (`kickoff`), no LLM/API calls, no LaTeX, and no generated evidence have been produced yet.
+These entries summarize the AI-assisted work already completed. They are summaries, not raw prompts. Stages 0–4 produced repository structure and planning documentation; Stages 5–7 added project setup, the deterministic foundation, and the offline CrewAI core. **Stages 8B.1 and 8C.3 included real Gemini runs executed manually by the student in their own terminal** — a minimal run (8B.1) and the first full content run (8C.3) — and committed evidence exists for both under `results/`. The first full content evidence exists but is **rejected for final PDF use** (wrong topic, placeholders, ~10 pages; see D-024). Stage 8C.6 itself is **offline only** — it performs no real run, no `kickoff`, no LLM/API call, and creates no evidence. No LaTeX/PDF exists yet, and no accepted full content exists yet.
 
 | Stage | Date | Goal | Tool/Model | Prompt summary | Important constraints | Output artifact | Review result |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -47,7 +47,8 @@ These entries summarize the AI-assisted work already completed. They are summari
 | 8B.1 | 2026-06-11 | Commit first real minimal Gemini run evidence | AI coding assistant | Asked to review and commit the evidence the student produced by running `run-minimal --real` against Gemini | Student executed the real run manually with their own key in their own terminal; no key logged or used by the assistant; evidence reviewed (secret scan clean) and committed; assistant ran no real call | `results/stage8b1-minimal-gemini-20260611-154559/` (evidence only) | Accepted (commit `81e5b26`) |
 | 8C.1 | 2026-06-11 | Offline full content-pipeline scaffolding | AI coding assistant | Asked to add the full runner, per-task persistence, the `run-full` CLI, and offline tests | Offline only; dry-run default; single new `kickoff` only in the full real path; no real run/LLM/API/evidence; no dependency added | `crew/full_runner.py`, `crew/persist.py`, `cli.py`, `cli_commands.py`, `tests/test_full_runner.py`, and docs | Accepted (commit `20e1774`) |
 | 8C.4 | 2026-06-11 | Commit first full Gemini run evidence | AI coding assistant | Asked to review and commit the evidence the student produced by running `run-full --real` against Gemini | Student executed the real run manually with their own key; no key logged/used by the assistant; evidence reviewed (secret scan clean) and committed; assistant ran no real call | `results/stage8c3-full-gemini-20260611-164153/` (evidence only) | Evidence accepted (commit `cf89e51`); content **rejected for final PDF** (wrong topic, placeholders, ~10 pages) |
-| 8C.5 | 2026-06-11 | Document the rejected first full run | AI coding assistant | Asked to update docs to record the full run worked technically but its content is rejected; next step is prompt/config hardening | Docs only; no real run/LLM/API; no evidence/source/dependency change | `docs/TODO.md`, `docs/PROMPTS.md`, `docs/COSTS.md`, `docs/QUALITY.md`, `docs/DECISIONS.md` | In review |
+| 8C.5 | 2026-06-11 | Document the rejected first full run | AI coding assistant | Asked to update docs to record the full run worked technically but its content is rejected; next step is prompt/config hardening | Docs only; no real run/LLM/API; no evidence/source/dependency change | `docs/TODO.md`, `docs/PROMPTS.md`, `docs/COSTS.md`, `docs/QUALITY.md`, `docs/DECISIONS.md` | Accepted (commit `c2127f2`) |
+| 8C.6 | 2026-06-11 | Offline topic/metadata hardening | AI coding assistant | Asked to bind the crew to the configured topic and cover metadata and forbid the failure modes; add offline content checks and tests | Offline only; no real run/`kickoff`/LLM/API; no evidence; no dependency added; files under the line limit | `config/default.toml`, `config.py`, `crew/context.py`, `crew/instructions.py`, `crew/tasks.py`, `crew/builder.py`, `crew/full_runner.py`, `crew/content_checks.py`, tests, and docs | Accepted in this commit (hash in next docs update) |
 
 ## Future Prompts
 

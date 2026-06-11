@@ -37,6 +37,9 @@ class Config:
 
     topic: str
     group_code: str
+    authors: tuple[str, ...]
+    assignment_context: str
+    project_date: str
     paths: dict[str, str]
     page_count_min: int
     page_count_max: int
@@ -58,6 +61,16 @@ def _require_str(section: dict, key: str, where: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise ConfigError(f"Config key [{where}].{key} must be a non-empty string.")
     return value
+
+
+def _require_authors(section: dict) -> tuple[str, ...]:
+    value = section.get("authors")
+    if not isinstance(value, list) or not value:
+        raise ConfigError("[project].authors must be a non-empty list of names.")
+    authors = tuple(str(a).strip() for a in value)
+    if any(not a for a in authors):
+        raise ConfigError("[project].authors must not contain empty names.")
+    return authors
 
 
 def _validate_paths(paths: dict) -> dict[str, str]:
@@ -102,6 +115,9 @@ def load_config(path: Path | None = None) -> Config:
     return Config(
         topic=_require_str(project, "topic", "project"),
         group_code=_require_str(project, "group_code", "project"),
+        authors=_require_authors(project),
+        assignment_context=_require_str(project, "assignment_context", "project"),
+        project_date=_require_str(project, "project_date", "project"),
         paths=_validate_paths(paths),
         page_count_min=page_min,
         page_count_max=page_max,

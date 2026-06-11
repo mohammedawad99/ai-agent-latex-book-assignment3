@@ -13,6 +13,9 @@ _CONFIGURED = """\
 [project]
 topic = "Test topic"
 group_code = "MaRs-777"
+authors = ["Mohamed Awad", "Rawey Sleiman"]
+assignment_context = "AI agents / CrewAI / LaTeX book generation assignment"
+project_date = "2026-06-11"
 
 [paths]
 latex_project = "latex_project"

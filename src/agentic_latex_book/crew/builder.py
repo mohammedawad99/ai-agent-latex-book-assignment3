@@ -9,9 +9,10 @@ stage once a provider/model is chosen (see decision D-017).
 from __future__ import annotations
 
 from agentic_latex_book.crew.agents import agent_specs
+from agentic_latex_book.crew.context import ProjectContext
 from agentic_latex_book.crew.schemas import output_schema_specs
 from agentic_latex_book.crew.specs import AgentSpec, TaskSpec
-from agentic_latex_book.crew.tasks import task_specs
+from agentic_latex_book.crew.tasks import build_task_specs, task_specs
 
 
 class CrewSpecError(ValueError):
@@ -41,11 +42,15 @@ def validate_specs(agents: tuple[AgentSpec, ...], tasks: tuple[TaskSpec, ...]) -
         seen_tasks.add(task.name)
 
 
-def crew_blueprint() -> dict:
-    """Return a validated dry-run blueprint of the crew (no objects, no run)."""
-    agents, tasks = crew_specs()
+def crew_blueprint(context: ProjectContext | None = None) -> dict:
+    """Return a validated dry-run blueprint of the crew (no objects, no run).
+
+    When a ``context`` is given, the blueprint records the bound topic.
+    """
+    agents = agent_specs()
+    tasks = build_task_specs(context) if context is not None else task_specs()
     validate_specs(agents, tasks)
-    return {
+    blueprint = {
         "process": "sequential",
         "agents": [{"name": a.name, "role": a.role} for a in agents],
         "tasks": [
@@ -58,9 +63,12 @@ def crew_blueprint() -> dict:
             for t in tasks
         ],
     }
+    if context is not None:
+        blueprint["topic"] = context.topic
+    return blueprint
 
 
-def build_crew(llm=None):
+def build_crew(llm=None, context: ProjectContext | None = None):
     """Construct real CrewAI objects without running them.
 
     Building Agent/Task/Crew objects is safe offline; only ``kickoff`` needs an
@@ -70,7 +78,8 @@ def build_crew(llm=None):
     """
     from crewai import Agent, Crew, Process, Task
 
-    agents, tasks = crew_specs()
+    agents = agent_specs()
+    tasks = build_task_specs(context) if context is not None else task_specs()
     validate_specs(agents, tasks)
 
     agent_objs = {}

@@ -258,6 +258,15 @@ Each record uses these fields:
 - **Alternatives considered:** Editing the generated text by hand (rejected — evidence must come from real runs, not hand-edits); building LaTeX from the wrong content anyway (rejected — wasted effort on off-topic content); switching model/provider (not warranted — the issue is prompt/config, not the model).
 - **Consequences:** Another real full run will be needed after hardening, adding token cost; this avoids building LaTeX from wrong content. The evidence stays in the repository as an honest record of what the first full run produced.
 
+## D-025 — Stage 8C.6: Bind the Crew to the Configured Topic and Cover Metadata
+
+- **Date:** 2026-06-11
+- **Status:** Accepted
+- **Context:** The first full run (D-024) produced off-topic content ("Gradient Descent"), placeholder author/date fields, and only ~10 pages. The root cause is that the task descriptions were generic and not bound to the assignment topic or real cover metadata.
+- **Decision:** Harden the pipeline offline before a second run: add project metadata to the config (`authors`, `assignment_context`, `project_date`; topic set to *"From PoC to Production: A CrewAI Multi-Agent Pipeline for Generating a LaTeX Book"*), with strict validation (non-empty topic/authors/date). Introduce a `ProjectContext` and context-bound task instructions (`crew/context.py`, `crew/instructions.py`) so outline/draft/review/references are written about the configured topic with the real group/authors/date, explicitly forbidding the failure modes (unrelated topics such as Gradient Descent, placeholder author fields, stale dates like "October 2023", too-short content). The review task must check topic, placeholders, length, mandatory PDF elements, and citation quality; references must be relevant to CrewAI/LaTeX/software-engineering, not ML. Add an offline `content_checks` helper that flags forbidden terms, placeholders, off-topic text, and missing mandatory elements.
+- **Alternatives considered:** Re-running with the same prompts and hoping for better luck; hardcoding the topic into the prompts (less flexible than config-driven); enforcing Pydantic output schemas now (deferred).
+- **Consequences:** The next real run (Stage 8C.7) is strongly bound to the assignment topic and metadata. This is offline scaffolding only — **no real run, no `kickoff`, no LLM/API call, and no evidence are produced in 8C.6.** The `content_checks` helper can gate future evidence before acceptance.
+
 ---
 
 ## Open Decisions (To Be Recorded Later)

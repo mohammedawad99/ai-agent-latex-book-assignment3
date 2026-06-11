@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–8C.1 are complete and pushed; the first real full Gemini run (8C.3) ran and its evidence is committed (8C.4, `cf89e51`), but the content is **rejected for the final PDF**; Stage 8C.5 (this documentation update) is the current sub-stage, in review before commit. **No accepted full content and no LaTeX/PDF exist yet.** The next work is prompt/config hardening (8C.6) before a second full run (8C.7). The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–8C.5 are complete and pushed; the first real full Gemini run (8C.3/8C.4, `cf89e51`) ran but its content is **rejected for the final PDF**. Stage 8C.6 (offline topic/metadata hardening) is accepted in this commit (its commit hash is recorded in the next docs update). **No accepted full content and no LaTeX/PDF exist yet.** After 8C.6, a second full run (8C.7) is needed. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-11.
 
@@ -31,8 +31,9 @@
 - [x] Stage 8C.1 — Offline full content-pipeline scaffolding committed and pushed (`20e1774`).
 - [x] Stage 8C.3 — First real full Gemini run executed by the student (4 outputs produced; content rejected for final PDF).
 - [x] Stage 8C.4 — First full-run evidence committed and pushed (`cf89e51`), as diagnostic/rejected content.
-- [ ] Stage 8C.5 — Documentation update after the rejected run (current sub-stage, in review before commit).
-- [ ] Stages 8C.6–16 — not started; no accepted full content, no LaTeX, and no PDF exist yet.
+- [x] Stage 8C.5 — Documentation update after the rejected run, committed and pushed (`c2127f2`).
+- [x] Stage 8C.6 — Offline topic/metadata hardening, accepted in this commit (hash recorded in the next docs update; no real run).
+- [ ] Stages 8C.7–16 — not started; no accepted full content, no LaTeX, and no PDF exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
 
@@ -277,17 +278,29 @@ diagnostic evidence under `results/stage8c3-full-gemini-20260611-164153/`.
 - [x] Commit the eight evidence files (8C.4, `cf89e51`).
 - [x] Record the content-quality verdict: **rejected for final PDF** — wrong topic ("Gradient Descent"), placeholder author/date, and only ~10 pages (per the review output).
 
-#### Stage 8C.5 — Documentation After the Rejected Run (Current / in review)
+#### Stage 8C.5 — Documentation After the Rejected Run (Completed, `c2127f2`)
 
 - [x] Record the run cost/resource data in `docs/COSTS.md` (real run row).
 - [x] Update `docs/QUALITY.md`: full runner technically passed; content rejected; no PDF/LaTeX gate yet; no accepted content yet.
 - [x] Record D-024 (reject first full content; harden topic/prompt controls before another run).
-- [ ] Commit the documentation update and push.
+- [x] Commit the documentation update and push.
 
-Deferred (not Stage 8C.5):
+#### Stage 8C.6 — Offline Topic/Metadata Hardening (Accepted in this commit)
 
-- [ ] Stage 8C.6 — prompt/config hardening: make the topic configurable and passed to the crew, remove placeholder author/date, and target ~15 pages — before any second full run.
-- [ ] Stage 8C.7 — second real full content-generation run after hardening; review and commit accepted content.
+Bind the crew to the configured topic and real cover metadata before a second run —
+offline only, no real run, no `kickoff`, no LLM/API call, no evidence (see D-025).
+
+- [x] Add project metadata to the config (`authors`, `assignment_context`, `project_date`) with strict validation; set the topic to the assignment topic.
+- [x] Add `crew/context.py` (`ProjectContext`) and `crew/instructions.py` (context-bound task instructions forbidding wrong topics, placeholders, stale dates, and short length).
+- [x] Bind `build_task_specs(context)` / `build_crew(llm, context)` / `crew_blueprint(context)` and the full runner to the configured context.
+- [x] Add `crew/content_checks.py` (offline helper flagging forbidden terms, placeholders, off-topic text, and missing mandatory elements).
+- [x] Add offline tests (config metadata validation, topic binding in blueprint/instructions, content checks); confirm exactly two `kickoff` calls remain (both real-only paths).
+- [x] Record D-025.
+- [x] Commit the offline hardening and push (accepted in this commit; hash recorded in the next docs update).
+
+Deferred (not Stage 8C.6):
+
+- [ ] Stage 8C.7 — second real full content-generation run after hardening, executed by the student; review and commit accepted content (or record another rejection).
 
 ### Stage 8C — Content Planning and Generation
 

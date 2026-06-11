@@ -6,9 +6,9 @@ This document defines how quality is enforced in the project: the gates that con
 
 ## Current Status
 
-As of Stage 8C.5 (first full Gemini run recorded; content rejected):
+As of Stage 8C.6 (offline topic/metadata hardening after the rejected first full run):
 
-- **pytest is configured** and the offline test suite passes (`uv run pytest`): **76 tests passing**. The test suite remains offline and never calls a model or `kickoff`.
+- **pytest is configured** and the offline test suite passes (`uv run pytest`): **86 tests passing**, including Stage 8C.6 checks — config metadata validation (authors/date required), the configured topic bound into the crew blueprint and task instructions, and the offline `content_checks` helper (flags the rejected "Gradient Descent" topic, placeholder author/date, and missing mandatory elements). The test suite remains offline and never calls a model or `kickoff`.
 - **ruff is configured** for linting and formatting; `uv run ruff check .` and `uv run ruff format --check .` both pass. Every Python file is under the 150-line limit.
 - **The first real full run technically passed** (Stage 8C.3/8C.4): all four tasks (outline, draft, review, references) produced output, recorded under `results/stage8c3-full-gemini-20260611-164153/`; the **evidence secret scan was clean** (presence booleans only).
 - **The generated content is rejected for the final PDF** — wrong topic ("Understanding and Implementing Gradient Descent" instead of the project topic), placeholder author/date (`[Your Name/Placeholder Name]`, "October 2023"), and only ~10 pages per the review output (target ~15). It is kept as **diagnostic evidence only**; no accepted final content exists.
