@@ -1,0 +1,15 @@
+{
+  "label": "run-full",
+  "started_at": 1781196118.5070393,
+  "ended_at": 1781196354.3530107,
+  "elapsed_seconds": 249.02091293899866,
+  "prompt_tokens": 153748,
+  "completion_tokens": 200472,
+  "model": "gemini/gemini-2.5-flash",
+  "llm_environment": {
+    "provider": "gemini",
+    "model": "gemini/gemini-2.5-flash",
+    "base_url_present": false,
+    "api_key_present": true
+  }
+}
