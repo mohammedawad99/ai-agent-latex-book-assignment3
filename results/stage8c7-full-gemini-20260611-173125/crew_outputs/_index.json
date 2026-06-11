@@ -1,0 +1,26 @@
+{
+  "outline": {
+    "file": "crew_outputs/outline.txt",
+    "output_schema": "outline_output",
+    "length": 9830,
+    "non_empty": true
+  },
+  "draft": {
+    "file": "crew_outputs/draft.txt",
+    "output_schema": "draft_output",
+    "length": 71623,
+    "non_empty": true
+  },
+  "review": {
+    "file": "crew_outputs/review.txt",
+    "output_schema": "review_output",
+    "length": 75497,
+    "non_empty": true
+  },
+  "references": {
+    "file": "crew_outputs/references.txt",
+    "output_schema": "references_output",
+    "length": 84201,
+    "non_empty": true
+  }
+}
