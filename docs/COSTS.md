@@ -34,13 +34,16 @@ If the provider does not expose token counts, that limitation is stated rather t
 - Validation reports (build/run context): `results/validation_reports/`
 - The summarized cost figures: this document, referencing the underlying run records.
 
-## Future Run Cost Record Template
+## Run Cost Records
 
-Use this table for each real run once measurements exist:
+Measured data from real runs. This is **only the minimal wiring-check run** — not
+the full pipeline and not the final cost. Token/runtime figures are read straight
+from the committed `runtime.json`; no money cost is estimated (Gemini pricing is
+not asserted here).
 
 | Run ID / date | Model / provider | Runtime (s) | Prompt tokens | Completion tokens | Agent calls | Retries | PDF build time (s) | Notes / evidence link |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| _none yet_ | _n/a_ | _n/a_ | _n/a_ | _n/a_ | _n/a_ | _n/a_ | _n/a_ | No paid run has been performed |
+| stage8b1-minimal-gemini-20260611-154559 / 2026-06-11 | gemini/gemini-2.5-flash / Gemini | 3.181496632001654 | 85 | 33 | 1 (minimal task) | not recorded | n/a (no PDF build yet) | `results/stage8b1-minimal-gemini-20260611-154559/runtime.json` |
 
 ## Minimal-Run Metadata Format (Stage 8A scaffolding)
 
@@ -83,11 +86,10 @@ CrewAI core. Stage 8A added the controlled-run scaffolding (LLM resolver, minima
 runner, `run-minimal` CLI) and its offline tests — but performed **no real run**:
 no `kickoff`, no LLM/API call, no tokens consumed, and no `runtime.json` written.
 Stage 8A.1 extended the resolver with Gemini provider support, still fully offline.
-Stage 8B.0 installed the Gemini provider dependency (`crewai[google-genai]`) so a
-Gemini `LLM` can be constructed — but **no real Gemini call or cost occurred in
-Stage 8B.0**: the dependency was installed and an offline construction test added,
-with no `kickoff` and no model call. **No cost was incurred in Stages 8A, 8A.1, or
-8B.0.** The only resources used so far are local editing, testing, dependency
-installation, and Git operations, which are not metered for this assignment. The
-first real cost data is expected when the student executes the minimal run
-(Stage 8B.1); fuller figures follow at the end-to-end run (Stage 14).
+Stage 8B.0 installed the Gemini provider dependency (`crewai[google-genai]`) with no
+real call. **Stage 8B.1 performed the first real run:** a single minimal Gemini
+`kickoff` to `gemini/gemini-2.5-flash` (3.18 s; 85 prompt + 33 completion tokens),
+recorded in the table below from its committed `runtime.json`. This is a tiny
+wiring-check run only — **not the full pipeline and not the final cost**, and no
+money figure is asserted (provider pricing is not claimed here). Fuller figures
+follow at the full content-generation and end-to-end runs (Stages 8C / 14).

@@ -6,11 +6,12 @@ This document defines how quality is enforced in the project: the gates that con
 
 ## Current Status
 
-As of Stage 8B.0 (Gemini provider dependency installed, offline):
+As of Stage 8B.1 (first real minimal Gemini run recorded):
 
-- **pytest is configured** and the offline test suite passes (`uv run pytest`): the Stage 5/6/7/8A/8A.1 tests plus the Stage 8B.0 offline Gemini construction test (builds a Gemini `LLM` with a fake key, no model call) — 67 tests passing.
+- **pytest is configured** and the offline test suite passes (`uv run pytest`): 67 tests passing (Stage 5–8B.0, including the offline Gemini construction test). The test suite itself remains offline and never calls a model.
 - **ruff is configured** for linting and formatting; `uv run ruff check .` and `uv run ruff format --check .` both pass.
-- Stages 8A/8A.1/8B.0 remain **offline**: only dry-run, safety-gate, and offline-construction tests run. The single `kickoff` call lives solely in the runner's explicit `real=True` path and is never exercised by tests. The `crewai[google-genai]` provider package is now installed (D-021), so a Gemini `LLM` constructs offline; the **real run is still deferred** to Stage 8B.1. **No real crew run, no LLM/API call, and no generated evidence** have occurred (see decisions D-017, D-018, D-019, D-020, D-021); `results/` still holds only `.gitkeep` markers.
+- **The first real minimal Gemini run passed and its evidence exists** under `results/stage8b1-minimal-gemini-20260611-154559/` (one controlled `kickoff` to `gemini/gemini-2.5-flash`; 3.18 s; 85 + 33 tokens). The **evidence secret scan was clean** — only presence booleans, no raw key.
+- This proves the agentic path works at minimal scale only. **No PDF quality gate has run, because no PDF exists**; full content generation (Stage 8C) and the end-to-end run are **not started**. No claim of full-pipeline or PDF success is made.
 - All Python files are well under the 150-line course limit (largest is `config.py` at 131 lines; the CLI was split into `cli.py` and `cli_commands.py` to keep each small), though an automated **file-length check is not yet enforced**.
 - There is still **no coverage measurement** yet.
 - **mypy is deferred** (see decision D-013); it may be adopted in Stage 13.

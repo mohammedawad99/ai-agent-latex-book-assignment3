@@ -229,6 +229,16 @@ Each record uses these fields:
 - **Rationale:** The CrewAI `[google-genai]` extra is the supported, minimal way to enable CrewAI's native Gemini provider. It is the package CrewAI itself recommended in the earlier ImportError message.
 - **Consequences:** A Gemini `LLM` now **constructs offline** (verified with a fake key, no model call), so the offline construction test is enabled. This stage installs the dependency only — **it runs nothing**: no `kickoff`, no LLM/API call, no tokens, no evidence. The first real Gemini run is Stage 8B.1, executed by the student with their own key in their own terminal.
 
+## D-022 — Confirmed Provider/Model for Content Generation: Gemini 2.5 Flash
+
+- **Date:** 2026-06-11
+- **Status:** Accepted (provisional — may be revisited on quality/cost grounds)
+- **Context:** Stage 8B.1 executed the first real minimal run and proved the Gemini path works end-to-end at minimal scale, with concrete evidence: a single `kickoff` to `gemini/gemini-2.5-flash` (3.18 s; 85 prompt + 33 completion tokens; secret scan clean) under `results/stage8b1-minimal-gemini-20260611-154559/`.
+- **Decision:** Use `gemini/gemini-2.5-flash` (provider Gemini) as the confirmed provider/model for the next real content-generation stage (Stage 8C).
+- **Alternatives considered:** Switching to OpenAI (the student does not have an OpenAI key); choosing a larger Gemini model now.
+- **Rationale:** It is the path the student has credentials for and which is now proven to run; a small/fast model keeps cost low while the pipeline is built out.
+- **Consequences:** Stage 8C proceeds with Gemini unless a later quality or cost problem forces a new decision. **A successful minimal run does not prove final PDF quality** — it only confirms the wiring; quality is judged at the full-generation and validation stages.
+
 ---
 
 ## Open Decisions (To Be Recorded Later)

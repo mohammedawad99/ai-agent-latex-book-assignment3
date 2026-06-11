@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–8B.0 are complete and pushed; Stages 8B.1–16 are future work. Stages 8A/8A.1/8B.0 prepare the first real minimal CrewAI run but do not execute it — no real crew run, no `kickoff`, no LLM/API call, no generated evidence, and no LaTeX/PDF. Stage 8B.0 installed `crewai[google-genai]` so a Gemini `LLM` constructs offline; the first real Gemini run remains Stage 8B.1. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–8B.1 are complete and pushed; Stage 8C and later are future work. Stage 8B.1 executed the **first real minimal Gemini run** (a single controlled `kickoff` to `gemini/gemini-2.5-flash`) and committed its evidence — but no full content-generation run, and no LaTeX/PDF, exist yet. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-11.
 
@@ -27,7 +27,8 @@
 - [x] Stage 8A — Controlled-run scaffolding committed and pushed (`d9acbf7`).
 - [x] Stage 8A.1 — Offline Gemini provider support committed and pushed (`a31f80a`).
 - [x] Stage 8B.0 — Gemini provider dependency installed, committed and pushed (`7e28f01`).
-- [ ] Stages 8B.1–16 — not started; no real crew run, no LaTeX, and no generated evidence exist yet.
+- [x] Stage 8B.1 — First real minimal Gemini run executed by the student; evidence committed and pushed (`81e5b26`).
+- [ ] Stages 8C–16 — not started; no full content-generation run, no LaTeX, and no PDF exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
 
@@ -237,9 +238,21 @@ evidence (see decision D-021).
 - [x] Record D-021; note no real Gemini call/cost occurred.
 - [x] Commit the Gemini provider dependency and push.
 
-Deferred (run-dependent), not Stage 8A / 8A.1 / 8B.0:
+#### Stage 8B.1 — First Real Minimal Gemini Run (Completed, `81e5b26`)
 
-- [ ] Stage 8B.1 — first real minimal run executed by the student in their own terminal with their own Gemini credentials; review evidence for secrets; then commit it.
+The student executed a single controlled minimal run (`run-minimal --real`) against
+`gemini/gemini-2.5-flash` in their own terminal with their own key, reviewed the
+evidence for secrets, and committed it.
+
+- [x] Execute one real minimal Gemini run (`gemini/gemini-2.5-flash`); a single `kickoff`, no loops, no retries.
+- [x] Review the run evidence; confirm the secret scan is clean (only presence booleans, no raw key).
+- [x] Commit the four evidence files under `results/stage8b1-minimal-gemini-20260611-154559/` and push (`81e5b26`).
+- [x] Record the measured runtime/token data in `docs/COSTS.md` (3.18s; 85 prompt + 33 completion tokens).
+
+Evidence: `results/stage8b1-minimal-gemini-20260611-154559/` (`runtime.json`, `logs/run.log`, `crew_outputs/minimal_task.txt`, `validation_reports/run_note.md`). This proves the agentic path works at minimal scale only — **no LaTeX, no PDF, and no full content-generation run exist yet**.
+
+Deferred (run-dependent), not Stage 8A / 8A.1 / 8B.0 / 8B.1:
+
 - [ ] Stage 8C — the full content-planning/generation pipeline below (outline → draft → review → references) as a real run.
 
 ### Stage 8C — Content Planning and Generation
