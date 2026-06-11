@@ -276,6 +276,15 @@ Each record uses these fields:
 - **Alternatives considered:** Rejecting it outright and re-running (costly, and the basics are now correct); accepting it as-is for the PDF (dishonest — fabricated citations/metrics); editing the evidence by hand (rejected — evidence stays as produced).
 - **Consequences:** Avoids another immediate expensive real run; shifts effort to deterministic/human cleanup before PDF work. A constrained re-run remains possible if QA finds gaps that cleanup cannot fix.
 
+## D-027 — Content QA Cleanup Plan: Derived Cleaned Content, Evidence Immutable
+
+- **Date:** 2026-06-12
+- **Status:** Accepted (plan)
+- **Context:** The Stage 8C.7 candidate (`results/stage8c7-full-gemini-20260611-173125/`) passes the basic content gate but is not final PDF-ready: questionable `example.com`/"Internal Publication" citations, unsupported in-text metrics (185 minutes / 99.1% / 1.8M tokens), GPT-4o references despite the Gemini run, and conceptual-only headers/footers (D-026).
+- **Decision:** Clean the candidate into final source content **without editing the committed evidence**. The run evidence under `results/` is immutable diagnostic record. Curated, human-reviewed content is created later as a **separate derived artifact** under `latex_project/content/` (chosen over `content/cleaned/` because the cleaned content is the direct input to the LaTeX assembler, so it belongs inside the LaTeX project that produces the PDF — keeping the build self-contained per LR-1/LR-2). An offline deterministic QA scanner gates the cleaned content. Measured claims use the committed `runtime.json` values only (Gemini, ~300.7 s, 213,664 + 235,436 tokens); unmeasured metrics are removed or turned into clearly-labelled *proposed* evaluation metrics. Citations follow a conservative policy: course materials, official CrewAI/LaTeX/CTAN docs, and project evidence files only — no fake URLs, no fabricated reports, no invented internal publications; any external source is verified before final use.
+- **Alternatives considered:** Editing the evidence in place (rejected — breaks evidence immutability); accepting the candidate as-is for the PDF (rejected — dishonest citations/metrics); regenerating via another paid run (deferred — the basics are correct; cleanup is cheaper and deterministic).
+- **Consequences:** No further token cost for cleanup itself; the LaTeX project gains a `latex_project/content/` source tree later; the QA scanner becomes a reusable gate. This is **plan-only** — no cleaned content, LaTeX, or PDF is created in 8C.8.0, and no real run occurs.
+
 ---
 
 ## Open Decisions (To Be Recorded Later)
