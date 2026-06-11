@@ -179,6 +179,16 @@ Each record uses these fields:
 - **Rationale:** The needs are small, so stdlib keeps the dependency surface minimal and the code easy to read. Temp-only tests keep `results/` holding only `.gitkeep` markers and honor the evidence-only-from-real-runs rule (D-008).
 - **Consequences:** No new dependencies were added in Stage 6; `results/` stays clean; the runtime tracker keeps token/cost fields as `None` until a real provider supplies values.
 
+## D-017 — CrewAI Core: Offline Specs/Blueprint First, Real Kickoff Deferred
+
+- **Date:** 2026-06-11
+- **Status:** Accepted
+- **Context:** Stage 7 builds the CrewAI core, but a real crew run needs a chosen LLM provider/model and credentials, which are deferred (D-014).
+- **Decision:** Model the crew as plain `AgentSpec`/`TaskSpec` dataclasses plus offline `OutputSchemaSpec` output-schema specs (in `crew/schemas.py`), with a validated dry-run blueprint, and keep all execution out of Stage 7. The schema specs are plain data (no Pydantic, no dependency) describing the structure each task output is intended to follow; they are not yet enforced against real LLM output. A `build_crew()` function constructs real CrewAI `Agent`/`Task`/`Crew` objects (which is safe offline in the installed version) but never calls `kickoff` and passes only the text `expected_output` to tasks (no structured-output enforcement yet); running the crew is deferred to a later controlled stage once a provider/model is chosen.
+- **Alternatives considered:** Building and running the crew now with a default provider; using Pydantic schemas with enforced structured output immediately; or not constructing any CrewAI objects until the run stage.
+- **Rationale:** Specs + schema specs + blueprint give a fully testable, offline, reviewable core that names its output contracts explicitly. Constructing real objects (without running) proves the wiring works without spending tokens or requiring a key. This keeps the stage safe and honest.
+- **Consequences:** No tokens are spent and no evidence is produced in Stage 7; the `crew-plan` CLI command and tests rely only on the offline blueprint. Real structured-output enforcement, intermediate-output persistence, prompt/token capture, and the first real invocation move to the run stage.
+
 ---
 
 ## Open Decisions (To Be Recorded Later)

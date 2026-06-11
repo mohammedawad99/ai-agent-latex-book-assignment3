@@ -10,7 +10,7 @@ This document records the AI prompts used during the project so the workflow is 
 - Record what was asked for, the important constraints we imposed, what artifact resulted, and the result of our review.
 - Do not paste secrets, API keys, or environment values into this log.
 - Do not claim an artifact exists or works if it does not. Entries describe only work actually performed.
-- Where a tool/model is not yet decided, record it as such rather than guessing. Planning and foundation stages used a general AI coding assistant; the concrete pipeline LLM model/provider is deferred until before the first real CrewAI execution (per decision D-014), and no CrewAI agents or LLM calls exist yet.
+- Where a tool/model is not yet decided, record it as such rather than guessing. Planning and foundation stages used a general AI coding assistant; the concrete pipeline LLM model/provider is deferred until before the first real CrewAI execution (per decision D-014). Stage 7 added offline CrewAI agent/task specs and output-schema specs, but there is still no real crew run, no `kickoff`, no LLM/API call, no LaTeX, and no generated evidence.
 
 ## Prompt Record Template
 
@@ -27,9 +27,9 @@ Use this template for new entries:
 | Output artifact | The file(s) produced or changed |
 | Review result | Outcome of group review (accepted / revised / rejected) |
 
-## Logged Prompts (Stages 0–6)
+## Logged Prompts (Stages 0–7)
 
-These entries summarize the AI-assisted work already completed. They are summaries, not raw prompts. Stages 0–4 produced repository structure and planning documentation only; Stages 5–6 added project setup and deterministic foundation code (config, paths, evidence, logging, runtime) with offline tests. No CrewAI agents/tasks, LLM calls, LaTeX, or generated evidence have been produced yet.
+These entries summarize the AI-assisted work already completed. They are summaries, not raw prompts. Stages 0–4 produced repository structure and planning documentation only; Stages 5–6 added project setup and deterministic foundation code (config, paths, evidence, logging, runtime) with offline tests; Stage 7 added offline CrewAI agent/task specs and output-schema specs with a dry-run blueprint. No real crew run (`kickoff`), no LLM/API calls, no LaTeX, and no generated evidence have been produced yet.
 
 | Stage | Date | Goal | Tool/Model | Prompt summary | Important constraints | Output artifact | Review result |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -40,6 +40,7 @@ These entries summarize the AI-assisted work already completed. They are summari
 | 4 | 2026-06-11 | Write supporting documentation | AI coding assistant | Asked to write AI_WORKFLOW, PROMPTS, DECISIONS, COSTS, QUALITY, SUBMISSION_CHECKLIST, and an initial README | Docs only; planned-status wording; no implementation claims | This document and the other Stage 4 files | Accepted for initial Stage 4 documentation after review |
 | 5 | 2026-06-11 | Project setup (uv, deps, CLI skeleton) | AI coding assistant | Asked to create `pyproject.toml`, uv lock, `.env.example`, config, a safe CLI skeleton, and a smoke test | Setup only; no agents/LLM; no secrets; pytest+ruff pass | Stage 5 setup files | Accepted (commit `d21b3c7`) |
 | 6 | 2026-06-11 | Deterministic foundation modules | AI coding assistant | Asked to implement config/paths/evidence/logging/runtime modules and their offline tests | Deterministic only; no CrewAI/LLM; temp-only evidence; files under the line limit | `config.py`, `paths.py`, `evidence.py`, `logging_setup.py`, `runtime.py`, and their tests | Accepted (commit `3e538af`) |
+| 7 | 2026-06-11 | CrewAI core (offline specs + schemas + blueprint) | AI coding assistant | Asked to define agent/task specs, output-schema specs, a validated dry-run blueprint, a deferred object builder, and a `crew-plan` CLI command | Offline only; no kickoff; no LLM/API; no real run/evidence | `crew/specs.py`, `crew/schemas.py`, `crew/agents.py`, `crew/tasks.py`, `crew/builder.py`, CLI `crew-plan`, and tests | In review |
 
 ## Future Prompts
 

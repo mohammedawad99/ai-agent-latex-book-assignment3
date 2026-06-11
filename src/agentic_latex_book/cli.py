@@ -1,9 +1,9 @@
 """Command-line entry point for the agentic LaTeX book project.
 
-This is a Stage 5 setup skeleton. It is intentionally safe: it does not run
-CrewAI, does not call any LLM, and does not create any output artifacts. Its
-only job for now is to confirm the package is installed and to report the
-current project status.
+The CLI currently supports safe, offline commands: a project ``status`` report
+and a ``crew-plan`` that prints the planned agents, tasks, and output schemas. It
+is intentionally safe: it does not run CrewAI (no ``kickoff``), does not call any
+LLM, and does not create any output artifacts.
 """
 
 from __future__ import annotations
@@ -19,8 +19,9 @@ from agentic_latex_book.paths import repo_paths
 _DEFAULT_CONFIG = repo_paths().default_config
 
 _NOT_IMPLEMENTED_NOTICE = (
-    "The CrewAI pipeline is not implemented yet. This command only reports "
-    "project status; it does not generate content, call an LLM, or build a PDF."
+    "The CrewAI pipeline is not implemented yet. The current commands only report "
+    "project status or a dry-run crew plan; they do not generate content, call an "
+    "LLM, run kickoff, or build a PDF."
 )
 
 
@@ -42,12 +43,34 @@ def _print_status(config_path: Path) -> int:
     return 0
 
 
+def _print_crew_plan() -> int:
+    """Print the planned crew agents and tasks. Builds no objects, runs nothing."""
+    from agentic_latex_book.crew.builder import crew_blueprint
+
+    blueprint = crew_blueprint()
+    print(f"crew process: {blueprint['process']}")
+    print("agents:")
+    for agent in blueprint["agents"]:
+        print(f"  - {agent['name']}: {agent['role']}")
+    print("tasks (in order):")
+    for task in blueprint["tasks"]:
+        context = ", ".join(task["context"]) or "-"
+        print(
+            f"  - {task['name']} (agent: {task['agent']}, "
+            f"schema: {task['output_schema']}, context: {context})"
+        )
+    print(_NOT_IMPLEMENTED_NOTICE)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     """Parse arguments and dispatch. Returns a process exit code."""
     parser = argparse.ArgumentParser(
         prog="agentic-latex-book",
         description=(
-            "Setup skeleton for the CrewAI LaTeX book pipeline. No pipeline is implemented yet."
+            "Safe offline CLI for the CrewAI LaTeX book pipeline. It can report "
+            "status and print the planned crew blueprint; it does not run the "
+            "pipeline yet."
         ),
     )
     parser.add_argument(
@@ -66,8 +89,15 @@ def main(argv: list[str] | None = None) -> int:
         "status",
         help="Print current project status and exit (safe, offline).",
     )
+    subparsers.add_parser(
+        "crew-plan",
+        help="Print the planned crew agents and tasks (safe, offline; no run).",
+    )
 
     args = parser.parse_args(argv)
+
+    if args.command == "crew-plan":
+        return _print_crew_plan()
 
     # Default behavior (no subcommand) is the safe status report.
     if args.command in (None, "status"):

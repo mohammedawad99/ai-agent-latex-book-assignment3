@@ -6,16 +6,17 @@ This document defines how quality is enforced in the project: the gates that con
 
 ## Current Status
 
-As of Stage 6 (core deterministic foundation):
+As of Stage 7 (CrewAI core):
 
-- **pytest is configured** and the offline test suite passes (`uv run pytest`): the Stage 5 smoke tests plus Stage 6 deterministic tests for config, paths, evidence, logging, and runtime (35 tests passing).
+- **pytest is configured** and the offline test suite passes (`uv run pytest`): the Stage 5/6 tests plus Stage 7 CrewAI-core tests for agent/task specs, output-schema specs, blueprint/schema validation, and the `crew-plan` CLI (49 tests passing).
 - **ruff is configured** for linting and formatting; `uv run ruff check .` and `uv run ruff format --check .` both pass.
+- The CrewAI core is **offline only**: tests build the dry-run blueprint and construct CrewAI objects without running them. **No real crew run (`kickoff`), no LLM/API call, and no generated evidence** have occurred (see decision D-017).
 - All Python files are well under the 150-line course limit (largest is `config.py` at 113 lines), though an automated **file-length check is not yet enforced**.
 - There is still **no coverage measurement** yet.
 - **mypy is deferred** (see decision D-013); it may be adopted in Stage 13.
 - No PDF quality gate has been executed against a real PDF yet, because no pipeline or PDF exists.
 
-The pytest/ruff results above are real (the tests actually pass). Everything related to the generated PDF, coverage, mypy, and an enforced file-length check is still planned, and no passing result is claimed for them.
+The pytest/ruff results above are real (the tests actually pass). Everything related to a real crew run, the generated PDF, coverage, mypy, and an enforced file-length check is still planned, and no passing result is claimed for them.
 
 ## Planned Quality Gates (Mandatory PDF and Repository Checks)
 

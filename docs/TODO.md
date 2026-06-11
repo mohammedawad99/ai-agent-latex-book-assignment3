@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–6 are complete and pushed; Stages 7–16 are future work and contain no implementation yet. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–6 are complete and pushed; Stage 7 (CrewAI core) is the current stage, in review before commit (offline specs/schemas/blueprint only); Stages 8–16 are future work and contain no implementation yet. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-11.
 
@@ -23,7 +23,8 @@
 - [x] Stage 4 — Supporting documentation committed and pushed (`495f966`).
 - [x] Stage 5 — Project setup committed and pushed (`d21b3c7`).
 - [x] Stage 6 — Core deterministic foundation committed and pushed (`3e538af`).
-- [ ] Stages 7–16 — not started; no CrewAI agents, no LaTeX, and no generated evidence exist yet.
+- [ ] Stage 7 — CrewAI core (current stage, in review before commit; offline specs/schemas/blueprint only).
+- [ ] Stages 8–16 — not started; no real crew run, no LaTeX, and no generated evidence exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
 
@@ -51,7 +52,7 @@ Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; C
 | 4 | Supporting documentation before code | Completed (`495f966`) | Stage 3 done | Doc set populated |
 | 5 | Project setup (uv, deps, CLI skeleton) | Completed (`d21b3c7`) | Stage 4 done | `pyproject.toml`, runnable CLI stub |
 | 6 | Core deterministic foundation | Completed (`3e538af`) | Stage 5 done | config/evidence/cost modules + tests |
-| 7 | CrewAI core | Not started | Stage 6 done | crew builder + agents/tasks |
+| 7 | CrewAI core | Current / in review | Stage 6 done | crew specs/schemas/blueprint + builder |
 | 8 | Content planning and generation | Not started | Stage 7 done | outline→draft→review→refs flow |
 | 9 | LaTeX assembler | Not started | Stage 8 done | `latex_project/` sources |
 | 10 | Python-generated graph and assets | Not started | Stage 9 done | generated graph integrated |
@@ -177,21 +178,25 @@ Entry condition: Stage 5 done. Exit criteria: deterministic modules exist with p
 - [x] Run the quality command sequence (`uv run pytest`, `uv run ruff check .`, `uv run ruff format --check .`) and confirm it passes. (No single consolidated script exists yet; this is the command sequence.)
 - [x] Commit the deterministic foundation and push.
 
-### Stage 7 — CrewAI Core
+### Stage 7 — CrewAI Core (Current / in review)
 
-Entry condition: Stage 6 done. Exit criteria: a crew can be built and run end-to-end on a trivial input, persisting outputs.
+Entry condition: Stage 6 done. Exit criteria (offline scope): offline agent/task specs, structured output-schema specs, a validated dry-run blueprint, a non-executing object builder, the `crew-plan` CLI command, and offline tests — all with no real crew run, no `kickoff`, and no LLM/API call. A real crew run and evidence persistence are explicitly out of Stage 7 scope (deferred below).
 
-- [ ] Define agent roles (planner/outliner, writer, reviewer/editor, reference curator) in small per-role modules.
-- [ ] Define task definitions for outline, drafting, review, and references.
-- [ ] Define structured output schemas for each task (typed, not free text).
-- [ ] Implement the crew builder that assembles agents + tasks + process from config.
-- [ ] Configure the crew process as sequential by default (parallelism deferred per PLAN open question 3).
-- [ ] Persist each intermediate crew output to `results/crew_outputs/`.
-- [ ] Capture prompts used by each agent into the `docs/PROMPTS.md` format / a prompts log.
-- [ ] Record token/cost usage from the provider where exposed, via the cost tracker.
-- [ ] Add a smoke test that builds the crew object without executing a paid run.
-- [ ] Run a minimal real crew invocation to confirm wiring and output persistence.
+- [x] Define agent roles (planner/outliner, writer, reviewer/editor, reference curator) in small per-role modules.
+- [x] Define task definitions for outline, drafting, review, and references.
+- [x] Define structured output-schema specs for each task (offline dataclass contracts; not Pydantic, not yet LLM-enforced).
+- [x] Implement the crew builder that assembles agents + tasks + process (sequential), with spec/schema validation and a dry-run blueprint.
+- [x] Configure the crew process as sequential by default (parallelism deferred per PLAN open question 3).
+- [x] Add the safe offline `crew-plan` CLI command and offline tests for specs, schemas, blueprint, and validation.
+- [x] Add a smoke test that builds the crew object without executing a paid run (no `kickoff`).
 - [ ] Commit the CrewAI core and push.
+
+Deferred to the controlled-run stage (Stage 8 wiring / Stage 14 real run), not Stage 7:
+
+- [ ] Persist each intermediate crew output to `results/crew_outputs/` (needs a real run).
+- [ ] Capture prompts used by each agent during runs into the prompts log (needs a real run).
+- [ ] Record token/cost usage from the provider where exposed, via the cost tracker (needs a real run).
+- [ ] Run a minimal real crew invocation to confirm wiring and output persistence (needs a chosen provider/model and credentials; see D-014, D-017).
 
 ### Stage 8 — Content Planning and Generation
 
@@ -348,7 +353,7 @@ Entry condition: Stage 15 done. Exit criteria: repository is share-ready and the
 | 4 | All listed docs are real (non-placeholder); no overclaiming; no fake results. |
 | 5 | `pyproject.toml` valid; environment builds; CLI `--help` runs; dependency decisions recorded. |
 | 6 | Unit tests for config/evidence/cost/paths pass; no secrets in logs; files within length limit. |
-| 7 | Crew builds; smoke test passes; intermediate outputs persisted; prompts captured. |
+| 7 | Specs/schemas/blueprint validate; crew object construction smoke test passes; no `kickoff`/LLM/API; no generated evidence. |
 | 8 | Outline assigns all mandatory elements; bounded re-draft policy in place; outputs persisted. |
 | 9 | LaTeX project organized; all mandatory structural elements present in sources. |
 | 10 | Python-generated graph and authored image produced and referenced in LaTeX. |
@@ -372,7 +377,7 @@ Entry condition: Stage 15 done. Exit criteria: repository is share-ready and the
 | 4 | Populated `docs/*.md` and `README.md`; commits. |
 | 5 | `pyproject.toml`, lock file, `.env.example`, config, CLI stub; commit. |
 | 6 | Deterministic modules + passing tests; test output. |
-| 7 | `results/crew_outputs/` sample outputs; prompts log; crew smoke test. |
+| 7 | Code/tests/docs only: crew specs, schema specs, blueprint, `crew-plan` CLI, passing tests. Real crew outputs deferred to the Stage 8/14 controlled run. |
 | 8 | Outline/draft/review/references in `results/crew_outputs/`. |
 | 9 | `latex_project/` sources with all mandatory elements. |
 | 10 | `assets/generated/` graph + `assets/figures/` image; LaTeX references. |
