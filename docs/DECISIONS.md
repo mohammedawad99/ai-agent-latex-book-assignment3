@@ -249,6 +249,15 @@ Each record uses these fields:
 - **Rationale:** A separate runner keeps the minimal path untouched and the files small. Per-task raw outputs keep results reviewable; `_index.json` records the contract without enforcing it yet.
 - **Consequences:** **Stage 8C.1 is offline scaffolding only — no real run, no `kickoff` at runtime, no LLM/API call, no evidence created.** The first real full run is Stage 8C.3, executed by the student with their own Gemini key; structured-output enforcement and the LaTeX/PDF stages remain future work.
 
+## D-024 — Reject First Full Gemini Content for Final PDF; Harden Topic/Prompt Controls
+
+- **Date:** 2026-06-11
+- **Status:** Accepted
+- **Context:** Stage 8C.3 executed the first real full run (`stage8c3-full-gemini-20260611-164153`; ~249 s; 153,748 + 200,472 tokens). It proved the full runner and per-task persistence work end-to-end, but the generated content is unsuitable: it produced a "Gradient Descent" article instead of the intended project topic, included placeholder author/date fields (`[Your Name/Placeholder Name]`, "October 2023"), and the review itself states the draft is only ~10 pages (target ~15).
+- **Decision:** Keep the run's output as **diagnostic evidence only** (committed at `cf89e51`); do **not** use it for the final PDF. Before any second full run, add prompt/config hardening: make the topic configurable and actually passed to the crew, remove placeholder author/date (wire group/date from config), and steer the outline/draft toward ~15 pages.
+- **Alternatives considered:** Editing the generated text by hand (rejected — evidence must come from real runs, not hand-edits); building LaTeX from the wrong content anyway (rejected — wasted effort on off-topic content); switching model/provider (not warranted — the issue is prompt/config, not the model).
+- **Consequences:** Another real full run will be needed after hardening, adding token cost; this avoids building LaTeX from wrong content. The evidence stays in the repository as an honest record of what the first full run produced.
+
 ---
 
 ## Open Decisions (To Be Recorded Later)

@@ -27,7 +27,7 @@ Use this template for new entries:
 | Output artifact | The file(s) produced or changed |
 | Review result | Outcome of group review (accepted / revised / rejected) |
 
-## Logged Prompts (Stages 0–8C.1)
+## Logged Prompts (Stages 0–8C.5)
 
 These entries summarize the AI-assisted work already completed. They are summaries, not raw prompts. Stages 0–4 produced repository structure and planning documentation only; Stages 5–6 added project setup and deterministic foundation code (config, paths, evidence, logging, runtime) with offline tests; Stage 7 added offline CrewAI agent/task specs and output-schema specs with a dry-run blueprint. No real crew run (`kickoff`), no LLM/API calls, no LaTeX, and no generated evidence have been produced yet.
 
@@ -45,7 +45,9 @@ These entries summarize the AI-assisted work already completed. They are summari
 | 8A.1 | 2026-06-11 | Add Gemini provider support (offline) | AI coding assistant | Asked to extend the resolver to support `provider="gemini"` with `GEMINI_API_KEY`/`GOOGLE_API_KEY`, plus offline tests | Offline only; env-only secrets; no `.env` auto-load; no kickoff/LLM/API; no dependency added; no real run/evidence | `crew/llm.py`, `tests/test_crew_llm.py`, and docs | Accepted (commit `a31f80a`) |
 | 8B.0 | 2026-06-11 | Install Gemini provider dependency (offline) | AI coding assistant | Asked to add `crewai[google-genai]` via uv and an offline Gemini construction test | Dependency only; offline; no kickoff/LLM/API; no real run/evidence; no source-logic change | `pyproject.toml`, `uv.lock`, `tests/test_crew_llm.py`, and docs | Accepted (commit `7e28f01`) |
 | 8B.1 | 2026-06-11 | Commit first real minimal Gemini run evidence | AI coding assistant | Asked to review and commit the evidence the student produced by running `run-minimal --real` against Gemini | Student executed the real run manually with their own key in their own terminal; no key logged or used by the assistant; evidence reviewed (secret scan clean) and committed; assistant ran no real call | `results/stage8b1-minimal-gemini-20260611-154559/` (evidence only) | Accepted (commit `81e5b26`) |
-| 8C.1 | 2026-06-11 | Offline full content-pipeline scaffolding | AI coding assistant | Asked to add the full runner, per-task persistence, the `run-full` CLI, and offline tests | Offline only; dry-run default; single new `kickoff` only in the full real path; no real run/LLM/API/evidence; no dependency added | `crew/full_runner.py`, `crew/persist.py`, `cli.py`, `cli_commands.py`, `tests/test_full_runner.py`, and docs | In review |
+| 8C.1 | 2026-06-11 | Offline full content-pipeline scaffolding | AI coding assistant | Asked to add the full runner, per-task persistence, the `run-full` CLI, and offline tests | Offline only; dry-run default; single new `kickoff` only in the full real path; no real run/LLM/API/evidence; no dependency added | `crew/full_runner.py`, `crew/persist.py`, `cli.py`, `cli_commands.py`, `tests/test_full_runner.py`, and docs | Accepted (commit `20e1774`) |
+| 8C.4 | 2026-06-11 | Commit first full Gemini run evidence | AI coding assistant | Asked to review and commit the evidence the student produced by running `run-full --real` against Gemini | Student executed the real run manually with their own key; no key logged/used by the assistant; evidence reviewed (secret scan clean) and committed; assistant ran no real call | `results/stage8c3-full-gemini-20260611-164153/` (evidence only) | Evidence accepted (commit `cf89e51`); content **rejected for final PDF** (wrong topic, placeholders, ~10 pages) |
+| 8C.5 | 2026-06-11 | Document the rejected first full run | AI coding assistant | Asked to update docs to record the full run worked technically but its content is rejected; next step is prompt/config hardening | Docs only; no real run/LLM/API; no evidence/source/dependency change | `docs/TODO.md`, `docs/PROMPTS.md`, `docs/COSTS.md`, `docs/QUALITY.md`, `docs/DECISIONS.md` | In review |
 
 ## Future Prompts
 

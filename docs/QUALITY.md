@@ -6,13 +6,14 @@ This document defines how quality is enforced in the project: the gates that con
 
 ## Current Status
 
-As of Stage 8C.1 (offline full content-pipeline scaffolding):
+As of Stage 8C.5 (first full Gemini run recorded; content rejected):
 
-- **pytest is configured** and the offline test suite passes (`uv run pytest`): **76 tests passing** (Stage 5–8B.0 plus Stage 8C.1 tests for `run-full` dry-run safety, the gating conflict, safe failure, the timestamped default run id, ordered task output mapping, and fake per-task persistence). The test suite remains offline and never calls a model or `kickoff`.
+- **pytest is configured** and the offline test suite passes (`uv run pytest`): **76 tests passing**. The test suite remains offline and never calls a model or `kickoff`.
 - **ruff is configured** for linting and formatting; `uv run ruff check .` and `uv run ruff format --check .` both pass. Every Python file is under the 150-line limit.
-- The first real **minimal** Gemini run is recorded (Stage 8B.1) under `results/stage8b1-minimal-gemini-20260611-154559/`; its evidence secret scan was clean. The full pipeline now has an **offline `run-full` runner** (Stage 8C.1), but **no full content-generation run has been executed** — that is Stage 8C.3.
-- There are now exactly two `kickoff` calls in the source, both in real-only paths (minimal + full runners); neither is exercised by tests.
-- **No PDF/LaTeX quality gate has run, because no PDF or LaTeX exists**; full content generation and the end-to-end run are still future work. No claim of full-pipeline or PDF success is made.
+- **The first real full run technically passed** (Stage 8C.3/8C.4): all four tasks (outline, draft, review, references) produced output, recorded under `results/stage8c3-full-gemini-20260611-164153/`; the **evidence secret scan was clean** (presence booleans only).
+- **The generated content is rejected for the final PDF** — wrong topic ("Understanding and Implementing Gradient Descent" instead of the project topic), placeholder author/date (`[Your Name/Placeholder Name]`, "October 2023"), and only ~10 pages per the review output (target ~15). It is kept as **diagnostic evidence only**; no accepted final content exists.
+- There are exactly two `kickoff` calls in the source, both in real-only paths (minimal + full runners); neither is exercised by tests.
+- **No PDF/LaTeX quality gate has run, because no PDF or LaTeX exists.** No claim of full-pipeline or PDF success is made; the next step is prompt/config hardening before a second full run.
 - All Python files are well under the 150-line course limit (largest is `config.py` at 131 lines; the CLI was split into `cli.py` and `cli_commands.py` to keep each small), though an automated **file-length check is not yet enforced**.
 - There is still **no coverage measurement** yet.
 - **mypy is deferred** (see decision D-013); it may be adopted in Stage 13.

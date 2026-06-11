@@ -44,6 +44,14 @@ not asserted here).
 | Run ID / date | Model / provider | Runtime (s) | Prompt tokens | Completion tokens | Agent calls | Retries | PDF build time (s) | Notes / evidence link |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | stage8b1-minimal-gemini-20260611-154559 / 2026-06-11 | gemini/gemini-2.5-flash / Gemini | 3.181496632001654 | 85 | 33 | 1 (minimal task) | not recorded | n/a (no PDF build yet) | `results/stage8b1-minimal-gemini-20260611-154559/runtime.json` |
+| stage8c3-full-gemini-20260611-164153 / 2026-06-11 | gemini/gemini-2.5-flash / Gemini | 249.02091293899866 | 153748 | 200472 | 4 (outline, draft, review, references) | not recorded | n/a (no PDF build yet) | `results/stage8c3-full-gemini-20260611-164153/runtime.json` — technically successful, content **rejected for final PDF** |
+
+The full run (`stage8c3-...`) is the first end-to-end content run: it proves the
+runner and persistence work, but its content is rejected (wrong topic, placeholder
+author/date, ~10 pages). **Another real full run is expected after prompt/config
+hardening (Stage 8C.6/8C.7), which will add token cost.** Token/resource data is
+recorded from the committed `runtime.json`; no money cost is asserted (Gemini
+pricing is not claimed here).
 
 ## Minimal-Run Metadata Format (Stage 8A scaffolding)
 
