@@ -239,6 +239,16 @@ Each record uses these fields:
 - **Rationale:** It is the path the student has credentials for and which is now proven to run; a small/fast model keeps cost low while the pipeline is built out.
 - **Consequences:** Stage 8C proceeds with Gemini unless a later quality or cost problem forces a new decision. **A successful minimal run does not prove final PDF quality** — it only confirms the wiring; quality is judged at the full-generation and validation stages.
 
+## D-023 — Stage 8C.1: Full-Pipeline Runner and Evidence Format (Offline Scaffolding)
+
+- **Date:** 2026-06-11
+- **Status:** Accepted
+- **Context:** The minimal runner proved the wiring (Stage 8B.1). The full content pipeline (outline → draft → review → references) needs a runner that executes the existing `build_crew()` crew and persists each task's output.
+- **Decision:** Add `crew/full_runner.py` (`run_full`) and `crew/persist.py`, plus a `run-full` CLI command. `run_full` is dry-run by default (reports the blueprint, constructs no LLM, writes nothing). The single new `kickoff` lives only in `_run_real_full` (`real=True`); the minimal runner's `kickoff` is unchanged — so exactly two `kickoff` calls now exist, both in real-only paths. A real run persists per-task raw outputs (`crew_outputs/{outline,draft,review,references}.txt`), `crew_outputs/_index.json` (task → file → `output_schema` → length → non-empty), `runtime.json`, `logs/run.log` (presence booleans only), and `validation_reports/run_note.md`, under a fresh `create_run_directory` (no overwrite). Future run-id format: `stage8c3-full-gemini-<UTC-YYYYMMDD-HHMMSS>`.
+- **Alternatives considered:** Extending the minimal runner; enforcing Pydantic output schemas now; writing a combined single output file instead of per-task files.
+- **Rationale:** A separate runner keeps the minimal path untouched and the files small. Per-task raw outputs keep results reviewable; `_index.json` records the contract without enforcing it yet.
+- **Consequences:** **Stage 8C.1 is offline scaffolding only — no real run, no `kickoff` at runtime, no LLM/API call, no evidence created.** The first real full run is Stage 8C.3, executed by the student with their own Gemini key; structured-output enforcement and the LaTeX/PDF stages remain future work.
+
 ---
 
 ## Open Decisions (To Be Recorded Later)

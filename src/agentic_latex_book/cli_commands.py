@@ -14,9 +14,9 @@ from agentic_latex_book.config import ConfigError, load_config
 from agentic_latex_book.crew.llm import LLMConfigError
 
 NOT_IMPLEMENTED_NOTICE = (
-    "The CrewAI pipeline is not implemented yet. The current commands only report "
-    "project status or a dry-run crew plan; they do not generate content, call an "
-    "LLM, run kickoff, or build a PDF."
+    "status and crew-plan are safe offline commands. PDF/LaTeX generation is not "
+    "implemented yet. Real CrewAI runs require an explicit --real flag and "
+    "credentials; no command prints raw secrets."
 )
 
 
@@ -58,6 +58,18 @@ def print_crew_plan() -> int:
     return 0
 
 
+def _print_run_summary(summary: dict) -> None:
+    """Print a run summary using presence booleans only (never a raw key)."""
+    env = summary["llm_environment"]
+    print(f"mode: {summary['mode']}")
+    print(f"provider: {env['provider'] or '<unset>'}  model: {env['model'] or '<unset>'}")
+    print(f"api_key_present: {env['api_key_present']}  base_url_present: {env['base_url_present']}")
+    if summary["mode"] == "dry-run":
+        print(summary["note"])
+    else:
+        print(f"run_dir: {summary.get('run_dir')}")
+
+
 def run_minimal_command(config_path: Path, real: bool, run_id: str | None) -> int:
     """Run the minimal crew (dry-run by default). Real mode fails safe if unconfigured."""
     from agentic_latex_book.crew.runner import run_minimal
@@ -68,13 +80,19 @@ def run_minimal_command(config_path: Path, real: bool, run_id: str | None) -> in
         # Safe failure: clear message, no secret values, no files created.
         print(f"run-minimal could not start a real run: {exc}")
         return 1
+    _print_run_summary(summary)
+    return 0
 
-    env = summary["llm_environment"]
-    print(f"mode: {summary['mode']}")
-    print(f"provider: {env['provider'] or '<unset>'}  model: {env['model'] or '<unset>'}")
-    print(f"api_key_present: {env['api_key_present']}  base_url_present: {env['base_url_present']}")
-    if summary["mode"] == "dry-run":
-        print(summary["note"])
-    else:
-        print(f"run_dir: {summary.get('run_dir')}")
+
+def run_full_command(config_path: Path, real: bool, run_id: str | None) -> int:
+    """Run the full content pipeline (dry-run by default). Real mode fails safe if unconfigured."""
+    from agentic_latex_book.crew.full_runner import run_full
+
+    try:
+        summary = run_full(dry_run=not real, real=real, config_path=config_path, run_id=run_id)
+    except (ConfigError, LLMConfigError) as exc:
+        # Safe failure: clear message, no secret values, no files created.
+        print(f"run-full could not start a real run: {exc}")
+        return 1
+    _print_run_summary(summary)
     return 0

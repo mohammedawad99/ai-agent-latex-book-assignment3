@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–8B.1 are complete and pushed; Stage 8C and later are future work. Stage 8B.1 executed the **first real minimal Gemini run** (a single controlled `kickoff` to `gemini/gemini-2.5-flash`) and committed its evidence — but no full content-generation run, and no LaTeX/PDF, exist yet. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–8B.1 are complete and pushed; Stage 8C.1 (offline full content-pipeline scaffolding) is the current sub-stage, in review before commit; Stage 8C.3 and later are future work. Stage 8B.1 executed the first real minimal Gemini run; Stage 8C.1 adds the offline `run-full` scaffolding only — no full content-generation run, no real `kickoff` at runtime, and no LaTeX/PDF exist yet. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-11.
 
@@ -28,7 +28,8 @@
 - [x] Stage 8A.1 — Offline Gemini provider support committed and pushed (`a31f80a`).
 - [x] Stage 8B.0 — Gemini provider dependency installed, committed and pushed (`7e28f01`).
 - [x] Stage 8B.1 — First real minimal Gemini run executed by the student; evidence committed and pushed (`81e5b26`).
-- [ ] Stages 8C–16 — not started; no full content-generation run, no LaTeX, and no PDF exist yet.
+- [ ] Stage 8C.1 — Offline full content-pipeline scaffolding (current sub-stage, in review before commit; no real run).
+- [ ] Stages 8C.3–16 — not started; no full content-generation run, no LaTeX, and no PDF exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
 
@@ -251,9 +252,21 @@ evidence for secrets, and committed it.
 
 Evidence: `results/stage8b1-minimal-gemini-20260611-154559/` (`runtime.json`, `logs/run.log`, `crew_outputs/minimal_task.txt`, `validation_reports/run_note.md`). This proves the agentic path works at minimal scale only — **no LaTeX, no PDF, and no full content-generation run exist yet**.
 
-Deferred (run-dependent), not Stage 8A / 8A.1 / 8B.0 / 8B.1:
+#### Stage 8C.1 — Offline Full Content-Pipeline Scaffolding (Current / in review)
 
-- [ ] Stage 8C — the full content-planning/generation pipeline below (outline → draft → review → references) as a real run.
+Offline scaffolding for the full pipeline runner — no real run, no `kickoff` at
+runtime, no LLM/API call, no evidence (see decision D-023).
+
+- [x] Add `crew/full_runner.py` (`run_full`, dry-run default) and `crew/persist.py` (per-task evidence writer).
+- [x] Add the `run-full` CLI command with mutually-exclusive `--dry-run`/`--real` and `--run-id`.
+- [x] Add offline tests: dry-run no-file, gating conflict (exit 2), safe failure when unconfigured, ordered task output mapping, and fake persistence (all files + schema names, no secrets).
+- [x] Confirm exactly two `kickoff` calls exist, both in real-only paths (minimal + full runners).
+- [x] Record D-023.
+- [ ] Commit the offline full-pipeline scaffolding and push.
+
+Deferred (run-dependent), not Stage 8C.1:
+
+- [ ] Stage 8C.3 — first real full content-generation run with Gemini, executed by the student in their own terminal; review and commit the evidence (8C.4); then update docs (8C.5).
 
 ### Stage 8C — Content Planning and Generation
 

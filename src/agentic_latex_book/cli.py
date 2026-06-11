@@ -17,6 +17,7 @@ from agentic_latex_book import __version__
 from agentic_latex_book.cli_commands import (
     print_crew_plan,
     print_status,
+    run_full_command,
     run_minimal_command,
 )
 from agentic_latex_book.paths import repo_paths
@@ -46,18 +47,27 @@ def _build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser(
         "crew-plan", help="Print the planned crew agents and tasks (safe, offline; no run)."
     )
-    run_parser = subparsers.add_parser(
-        "run-minimal",
-        help="Run a minimal crew; dry-run by default, --real for a controlled run.",
+    _add_run_subparser(
+        subparsers, "run-minimal", "Run a minimal crew; dry-run by default, --real to execute."
     )
+    _add_run_subparser(
+        subparsers,
+        "run-full",
+        "Run the full content pipeline; dry-run by default, --real to execute.",
+    )
+    return parser
+
+
+def _add_run_subparser(subparsers, name: str, help_text: str) -> None:
+    """Add a run subcommand with mutually-exclusive --dry-run/--real and --run-id."""
+    parser = subparsers.add_parser(name, help=help_text)
     # Dry-run and real are mutually exclusive so a real run is never ambiguous.
-    run_mode = run_parser.add_mutually_exclusive_group()
-    run_mode.add_argument("--dry-run", action="store_true", help="Safe offline dry-run (default).")
-    run_mode.add_argument(
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--dry-run", action="store_true", help="Safe offline dry-run (default).")
+    mode.add_argument(
         "--real", action="store_true", help="Real run (needs provider/model + credentials)."
     )
-    run_parser.add_argument("--run-id", default=None, help="Optional run id for the evidence dir.")
-    return parser
+    parser.add_argument("--run-id", default=None, help="Optional run id for the evidence dir.")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -69,6 +79,8 @@ def main(argv: list[str] | None = None) -> int:
         return print_crew_plan()
     if args.command == "run-minimal":
         return run_minimal_command(args.config, args.real, args.run_id)
+    if args.command == "run-full":
+        return run_full_command(args.config, args.real, args.run_id)
     if args.command in (None, "status"):
         return print_status(args.config)
 

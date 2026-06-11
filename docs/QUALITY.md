@@ -6,12 +6,13 @@ This document defines how quality is enforced in the project: the gates that con
 
 ## Current Status
 
-As of Stage 8B.1 (first real minimal Gemini run recorded):
+As of Stage 8C.1 (offline full content-pipeline scaffolding):
 
-- **pytest is configured** and the offline test suite passes (`uv run pytest`): 67 tests passing (Stage 5–8B.0, including the offline Gemini construction test). The test suite itself remains offline and never calls a model.
-- **ruff is configured** for linting and formatting; `uv run ruff check .` and `uv run ruff format --check .` both pass.
-- **The first real minimal Gemini run passed and its evidence exists** under `results/stage8b1-minimal-gemini-20260611-154559/` (one controlled `kickoff` to `gemini/gemini-2.5-flash`; 3.18 s; 85 + 33 tokens). The **evidence secret scan was clean** — only presence booleans, no raw key.
-- This proves the agentic path works at minimal scale only. **No PDF quality gate has run, because no PDF exists**; full content generation (Stage 8C) and the end-to-end run are **not started**. No claim of full-pipeline or PDF success is made.
+- **pytest is configured** and the offline test suite passes (`uv run pytest`): **76 tests passing** (Stage 5–8B.0 plus Stage 8C.1 tests for `run-full` dry-run safety, the gating conflict, safe failure, the timestamped default run id, ordered task output mapping, and fake per-task persistence). The test suite remains offline and never calls a model or `kickoff`.
+- **ruff is configured** for linting and formatting; `uv run ruff check .` and `uv run ruff format --check .` both pass. Every Python file is under the 150-line limit.
+- The first real **minimal** Gemini run is recorded (Stage 8B.1) under `results/stage8b1-minimal-gemini-20260611-154559/`; its evidence secret scan was clean. The full pipeline now has an **offline `run-full` runner** (Stage 8C.1), but **no full content-generation run has been executed** — that is Stage 8C.3.
+- There are now exactly two `kickoff` calls in the source, both in real-only paths (minimal + full runners); neither is exercised by tests.
+- **No PDF/LaTeX quality gate has run, because no PDF or LaTeX exists**; full content generation and the end-to-end run are still future work. No claim of full-pipeline or PDF success is made.
 - All Python files are well under the 150-line course limit (largest is `config.py` at 131 lines; the CLI was split into `cli.py` and `cli_commands.py` to keep each small), though an automated **file-length check is not yet enforced**.
 - There is still **no coverage measurement** yet.
 - **mypy is deferred** (see decision D-013); it may be adopted in Stage 13.

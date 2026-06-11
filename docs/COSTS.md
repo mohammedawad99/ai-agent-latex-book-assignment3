@@ -91,5 +91,7 @@ real call. **Stage 8B.1 performed the first real run:** a single minimal Gemini
 `kickoff` to `gemini/gemini-2.5-flash` (3.18 s; 85 prompt + 33 completion tokens),
 recorded in the table below from its committed `runtime.json`. This is a tiny
 wiring-check run only — **not the full pipeline and not the final cost**, and no
-money figure is asserted (provider pricing is not claimed here). Fuller figures
-follow at the full content-generation and end-to-end runs (Stages 8C / 14).
+money figure is asserted (provider pricing is not claimed here). Stage 8C.1 added
+the offline `run-full` scaffolding and **incurred no LLM/API cost** (no real run,
+no `kickoff`, no tokens). Fuller figures follow at the first full content-generation
+run (Stage 8C.3) and the end-to-end run (Stage 14).
