@@ -14,7 +14,7 @@ keywords = ["crewai", "latex", "multi-agent", "pdf"]
 # Runtime dependencies. CrewAI is the required orchestration framework (decision D-003).
 # It is declared here so the environment is ready; no agents/tasks are implemented yet.
 dependencies = [
-    "crewai>=0.80",
+    "crewai[google-genai]>=0.80",
 ]
 
 [project.scripts]

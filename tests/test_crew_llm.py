@@ -127,6 +127,13 @@ def test_resolve_llm_gemini_fails_without_credentials(tmp_path, monkeypatch) -> 
         resolve_llm(_config(tmp_path, "gemini", "gemini/gemini-2.5-flash"))
 
 
-# Note: a successful Gemini LLM construction is NOT tested here. Building it needs
-# the google-genai provider package (crewai[google-genai]), which is not installed
-# and which Stage 8A.1 must not add. The real Gemini path is validated at Stage 8B.
+def test_resolve_llm_gemini_constructs_offline_with_fake_key(tmp_path, monkeypatch) -> None:
+    """With the google-genai provider installed (Stage 8B.0), a Gemini LLM builds offline.
+
+    A fake key is used; the object is only constructed — no model call, no kickoff.
+    """
+    monkeypatch.setenv("GEMINI_API_KEY", "FAKEKEY-NO-CALL")
+    monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
+    llm = resolve_llm(_config(tmp_path, "gemini", "gemini/gemini-2.5-flash"))
+    assert llm is not None
+    assert getattr(llm, "model", None)

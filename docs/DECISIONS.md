@@ -219,6 +219,16 @@ Each record uses these fields:
 - **Rationale:** Adding Gemini lets the student run with the key they actually have, while keeping OpenAI available. Stage 8A.1 stays fully offline: **no real run, no `kickoff`, no LLM/API call, and no dependency added.**
 - **Consequences:** Building a Gemini `LLM` requires the `crewai[google-genai]` provider package, which is **not installed** — constructing one offline raises `ImportError`, which `resolve_llm` wraps into a clear `LLMConfigError`. Installing that provider package is a **Stage 8B dependency decision** made by the student before the first real Gemini run. Gemini support is therefore only offline-tested in this stage (validation + safe-metadata paths); the construction/real path is validated at Stage 8B.
 
+## D-021 — Stage 8B.0: Install the Gemini Provider Dependency
+
+- **Date:** 2026-06-11
+- **Status:** Accepted
+- **Context:** D-020 wired Gemini support into the resolver, but building a Gemini `LLM` raised `ImportError` because the provider package was not installed. The student needs the Gemini path to actually work for the first real run.
+- **Decision:** Add the Gemini provider extra via `uv add "crewai[google-genai]"`. uv updated the single existing dependency from `crewai>=0.80` to `crewai[google-genai]>=0.80` (no other dependency loosened) and refreshed `uv.lock` (added `google-genai`, `google-auth`, `pyasn1`, `pyasn1-modules`).
+- **Alternatives considered:** Installing `litellm` to route Gemini; adding `google-genai` directly without the CrewAI extra; staying deferred.
+- **Rationale:** The CrewAI `[google-genai]` extra is the supported, minimal way to enable CrewAI's native Gemini provider. It is the package CrewAI itself recommended in the earlier ImportError message.
+- **Consequences:** A Gemini `LLM` now **constructs offline** (verified with a fake key, no model call), so the offline construction test is enabled. This stage installs the dependency only — **it runs nothing**: no `kickoff`, no LLM/API call, no tokens, no evidence. The first real Gemini run is Stage 8B.1, executed by the student with their own key in their own terminal.
+
 ---
 
 ## Open Decisions (To Be Recorded Later)

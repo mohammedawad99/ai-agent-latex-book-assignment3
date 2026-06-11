@@ -6,11 +6,11 @@ This document defines how quality is enforced in the project: the gates that con
 
 ## Current Status
 
-As of Stage 8A.1 (controlled-run scaffolding + Gemini provider support):
+As of Stage 8B.0 (Gemini provider dependency installed, offline):
 
-- **pytest is configured** and the offline test suite passes (`uv run pytest`): the Stage 5/6/7/8A tests plus Stage 8A.1 Gemini tests (provider metadata for `GEMINI_API_KEY`/`GOOGLE_API_KEY` and safe failure with no Gemini key) — 66 tests passing.
+- **pytest is configured** and the offline test suite passes (`uv run pytest`): the Stage 5/6/7/8A/8A.1 tests plus the Stage 8B.0 offline Gemini construction test (builds a Gemini `LLM` with a fake key, no model call) — 67 tests passing.
 - **ruff is configured** for linting and formatting; `uv run ruff check .` and `uv run ruff format --check .` both pass.
-- Stage 8A/8A.1 remain **offline**: only dry-run and safety-gate tests run. The single `kickoff` call lives solely in the runner's explicit `real=True` path and is never exercised by tests. **Gemini support is offline-tested only** — building a Gemini `LLM` needs the `crewai[google-genai]` provider package (not installed; a Stage 8B decision), so the construction/real path is validated at Stage 8B. **No real crew run, no LLM/API call, and no generated evidence** have occurred (see decisions D-017, D-018, D-019, D-020); `results/` still holds only `.gitkeep` markers.
+- Stages 8A/8A.1/8B.0 remain **offline**: only dry-run, safety-gate, and offline-construction tests run. The single `kickoff` call lives solely in the runner's explicit `real=True` path and is never exercised by tests. The `crewai[google-genai]` provider package is now installed (D-021), so a Gemini `LLM` constructs offline; the **real run is still deferred** to Stage 8B.1. **No real crew run, no LLM/API call, and no generated evidence** have occurred (see decisions D-017, D-018, D-019, D-020, D-021); `results/` still holds only `.gitkeep` markers.
 - All Python files are well under the 150-line course limit (largest is `config.py` at 131 lines; the CLI was split into `cli.py` and `cli_commands.py` to keep each small), though an automated **file-length check is not yet enforced**.
 - There is still **no coverage measurement** yet.
 - **mypy is deferred** (see decision D-013); it may be adopted in Stage 13.

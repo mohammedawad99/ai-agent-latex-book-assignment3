@@ -82,9 +82,12 @@ Stages 0–4 are documentation-only. Stages 5–7 added project setup and the of
 CrewAI core. Stage 8A added the controlled-run scaffolding (LLM resolver, minimal
 runner, `run-minimal` CLI) and its offline tests — but performed **no real run**:
 no `kickoff`, no LLM/API call, no tokens consumed, and no `runtime.json` written.
-Stage 8A.1 extended the resolver with Gemini provider support, still fully offline:
-**no Gemini run and no Gemini cost have occurred** (and no provider dependency was
-added). **No cost was incurred in Stage 8A or 8A.1.** The only resources used so far
-are local editing, testing, and Git operations, which are not metered for this
-assignment. The first real cost data is expected when the student executes the
-minimal run (Stage 8B); fuller figures follow at the end-to-end run (Stage 14).
+Stage 8A.1 extended the resolver with Gemini provider support, still fully offline.
+Stage 8B.0 installed the Gemini provider dependency (`crewai[google-genai]`) so a
+Gemini `LLM` can be constructed — but **no real Gemini call or cost occurred in
+Stage 8B.0**: the dependency was installed and an offline construction test added,
+with no `kickoff` and no model call. **No cost was incurred in Stages 8A, 8A.1, or
+8B.0.** The only resources used so far are local editing, testing, dependency
+installation, and Git operations, which are not metered for this assignment. The
+first real cost data is expected when the student executes the minimal run
+(Stage 8B.1); fuller figures follow at the end-to-end run (Stage 14).
