@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–8C.7 are complete and pushed; Stage 8C.6 hardened the topic/metadata (`0858c44`), and the second full Gemini run (8C.7, `0611993`) produced **candidate content** that passes the basic offline content gate (on-topic, real cover metadata, no placeholders). The candidate is **not final PDF-ready** (questionable citations, unsupported metrics, conceptual-only headers/footers). **No final accepted content and no LaTeX/PDF exist yet.** Stage 8C.8.0 (the cleanup plan) is committed (`dd18878`); Stage 8C.8.1 (the deterministic offline QA scanner) is committed and pushed (`dcac0eb`). Stage 8C.8.2/8C.8.3 (cleaned Markdown content under `latex_project/content/`) is **committed and pushed (`98a50f2`)** after human review — `book.md` and `README.md` are derived from the 8C.7 candidate and **pass the strict `content-qa` scanner (`ok: True`, exit 0)**; this is cleaned source only, so **no LaTeX and no PDF exist yet**. **Stage 9.x (LaTeX assembly from the cleaned content) is the next stage.** The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–8C.7 are complete and pushed; Stage 8C.6 hardened the topic/metadata (`0858c44`), and the second full Gemini run (8C.7, `0611993`) produced **candidate content** that passes the basic offline content gate (on-topic, real cover metadata, no placeholders). The candidate is **not final PDF-ready** (questionable citations, unsupported metrics, conceptual-only headers/footers). **No final accepted content and no LaTeX/PDF exist yet.** Stage 8C.8.0 (the cleanup plan) is committed (`dd18878`); Stage 8C.8.1 (the deterministic offline QA scanner) is committed and pushed (`dcac0eb`). Stage 8C.8.2/8C.8.3 (cleaned Markdown content under `latex_project/content/`) is **committed and pushed (`98a50f2`)** after human review — `book.md` and `README.md` are derived from the 8C.7 candidate and **pass the strict `content-qa` scanner (`ok: True`, exit 0)**; this is cleaned source only, so **no LaTeX and no PDF exist yet**. **Stage 9.x (LaTeX assembly from the cleaned content) is the current milestone:** the Stage 9.0 assembly plan (docs only; engine, packages, structure, mapping, gates — see D-030 and the Stage 9.0 section below) is **in review before commit**. Still **no LaTeX and no PDF exist**. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-12.
 
@@ -38,7 +38,8 @@
 - [x] Stage 8C.8.1 — Deterministic offline QA scanner committed and pushed (`dcac0eb`).
 - [x] Stage 8C.8.2 — cleaned Markdown content created (`book.md`, `README.md` under `latex_project/content/`, derived from the 8C.7 candidate); passes `content-qa` (`ok: True`, exit 0). Cleaned source only — no LaTeX/PDF. (Committed and pushed: `98a50f2`.)
 - [x] Stage 8C.8.3 — cleaned content reviewed (human review, minor citation/source fixes) and committed/pushed (`98a50f2`).
-- [ ] Stages 9–16 — not started; no LaTeX and no PDF exist yet. **Stage 9.x (LaTeX assembly) is next.**
+- [~] Stage 9.0 — LaTeX assembly plan (docs only; D-030; **in review before commit**). No `.tex`/`.bib`/image/script/PDF created.
+- [ ] Stages 9.1–16 — not started; no LaTeX and no PDF exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
 
@@ -354,7 +355,8 @@ no invented internal publications; any external source is verified before final 
 - [x] Stage 8C.8.1 — implement the deterministic offline QA scanner for candidate/cleaned content (`content_qa.py`, `content-qa` CLI, offline tests). The committed Stage 8C.7 candidate **fails** the scanner on its known risks (example.com, 185 minutes/99.1%/1.8M tokens, GPT-4o Technical Report, conceptual headers/footers); a clean sample passes. (Committed and pushed: `dcac0eb`.)
 - [x] Stage 8C.8.2 — created cleaned Markdown content under `latex_project/content/` (`book.md`, `README.md`) from the candidate, preserving evidence immutability; passes `content-qa` (`ok: True`, exit 0). (Committed and pushed: `98a50f2`.)
 - [x] Stage 8C.8.3 — reviewed the cleaned content (scanner green, human review with minor citation/source fixes) and committed/pushed it (`98a50f2`).
-- [ ] Stage 9.x — LaTeX assembly from the cleaned content (**next stage**).
+- [~] Stage 9.0 — LaTeX assembly plan (docs only; D-030; **in review before commit**).
+- [ ] Stages 9.1–9.6 — LaTeX assembly implementation (see the Stage 9.0 plan section below).
 - [ ] Later — PDF compile + validation gates.
 
 ### Stage 8C — Content Planning and Generation
@@ -371,6 +373,63 @@ Entry condition: Stage 8A scaffolding done and a real minimal run (8B) confirmed
 - [ ] Manually review one generated outline+draft for sanity (length and coverage).
 - [ ] Record content-generation decisions in `docs/DECISIONS.md`.
 - [ ] Commit content planning/generation and push.
+
+### Stage 9.0 — LaTeX Assembly Plan (plan only; D-030)
+
+Converts the committed cleaned Markdown (`latex_project/content/book.md`, `98a50f2`) into a polished ~15-page article PDF. This section is the roadmap; nothing below exists yet (no `.tex`, no `.bib`, no images, no scripts, no PDF). Design decisions and rationale are recorded in D-030.
+
+**Proposed structure** (under `latex_project/`; `content/` stays the immutable cleaned source):
+
+```
+latex_project/
+├── main.tex          # document class, includes, titlepage, \tableofcontents
+├── preamble.tex      # packages, fonts, polyglossia/bidi, fancyhdr, listings, biblatex
+├── chapters/         # 00-abstract.tex, 01-introduction.tex … 08-conclusion.tex
+├── figures/          # architecture diagram + Python-generated graph (created in 9.2)
+├── scripts/          # generate_architecture.py, generate_graph.py (created in 9.2)
+├── references.bib    # transcribed from book.md bibliography only (created in 9.1)
+├── build/            # compile output (already gitignored)
+├── README.md         # build prerequisites + exact commands (created in 9.1)
+└── content/          # cleaned Markdown source — never edited by assembly
+```
+
+**Engine and fonts:** XeLaTeX + `fontspec` + `polyglossia` (loads `bidi` for Hebrew); main font DejaVu Sans — verified installed and Hebrew-capable (`fc-list :lang=he`); LuaLaTeX is the fallback. TeX Live is **not installed yet** — installing `texlive-xetex`, `texlive-latex-extra`, `texlive-bibtex-extra`, `biber`, `fonts-dejavu` (system packages, no repo change) is the Stage 9.1 entry step, plus a font-availability check before any compile.
+
+**Packages (minimal):** `geometry` (a4, ~2.5 cm margins), `fontspec`, `polyglossia`, `amsmath`, `booktabs`, `graphicx`, `fancyhdr`, `listings`+`xcolor`, `biblatex` (biber backend, numeric), `hyperref` last.
+
+**Mapping from `book.md`:** cover page → `titlepage` with title/group `MaRs-777`/authors/course/lecturer/date; the "Mandatory PDF Elements", "Note on headers and footers", and hand-written ToC sections are assembly instructions — not typeset; ToC → `\tableofcontents`; `## n.`→`\chapter`, `### n.m`→`\section`; the two tables → `booktabs`; the two equations → `equation` environments; code blocks → `listings`; ASCII pipeline diagram → generated architecture figure; BiDi snippet → an actually rendered Hebrew–English passage; `[n]` markers → `\cite{key}` (numbers regenerated by biblatex). No manual page numbers; all numbering is automatic.
+
+**Figures (Stage 9.2):** both Python-generated to `figures/` by scripts under `scripts/` run with `uv run --with matplotlib python …` (no dependency change): the Chapter 3 architecture diagram (chosen over TikZ for first-compile safety; D-030) and the Chapter 6 illustrative graph (the script already shown in `book.md` §6.2, labelled illustrative).
+
+**Headers/footers (Stage 9.1):** `fancyhdr` — short title in header, `MaRs-777` opposite, automatic page numbers in footer; `plain` on chapter pages.
+
+**Page target 13–17:** `report`/11pt/a4/2.5 cm margins; tune figure widths (0.7–0.9`\textwidth`) and listing font size at 9.5; no artificial padding.
+
+**Build sequence (executed only from Stage 9.4 on):**
+
+```
+uv run --with matplotlib python latex_project/scripts/generate_architecture.py
+uv run --with matplotlib python latex_project/scripts/generate_graph.py
+cd latex_project
+xelatex -interaction=nonstopmode -halt-on-error -output-directory=build main.tex
+biber build/main
+xelatex -interaction=nonstopmode -halt-on-error -output-directory=build main.tex
+xelatex -interaction=nonstopmode -halt-on-error -output-directory=build main.tex
+```
+
+**Validation gates (Stage 9.5; deterministic, see QUALITY.md):** compile exits 0; `build/main.pdf` exists; page count 13–17; pdftotext contains title/authors/group/date; ToC present; no `??` / no "Citation … undefined" / no "Reference … undefined" in output or log; bibliography section present; both figure files exist and are included; table + formulas + Hebrew BiDi text present in the PDF text layer; overfull `\hbox` warnings above ~50 pt: zero; the content-qa risk strings stay absent from the `.tex` sources; `content-qa latex_project/content/` stays green as the pre-assembly gate.
+
+**Sub-stages:**
+
+- [~] 9.0 — this plan (docs only; in review).
+- [ ] 9.1 — LaTeX skeleton + bibliography setup (TeX Live install prerequisite, font check, `main.tex`/`preamble.tex`/`chapters/` stubs, `references.bib`, fancyhdr, titlepage, `latex_project/README.md`).
+- [ ] 9.2 — figure/graph generation scripts + generated images under `figures/`.
+- [ ] 9.3 — convert cleaned Markdown into LaTeX chapters (full mapping above).
+- [ ] 9.4 — first compile; fix compile errors (build sequence above).
+- [ ] 9.5 — PDF validation and polish (gates above; 13–17 pages).
+- [ ] 9.6 — commit final LaTeX sources + PDF evidence (final PDF to `results/final_pdf/` per Stage 11).
+
+These sub-stages absorb the older Stage 9/10/11/12 checklists below: 9.1/9.3 ≈ Stage 9, 9.2 ≈ Stage 10 (figures under `latex_project/figures/`, not `assets/`; D-030), 9.4/9.6 ≈ Stage 11, 9.5 ≈ Stage 12 gates. The original checklist items are ticked as the matching sub-stage completes.
 
 ### Stage 9 — LaTeX Assembler
 
