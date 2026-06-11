@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–8C.5 are complete and pushed; the first real full Gemini run (8C.3/8C.4, `cf89e51`) ran but its content is **rejected for the final PDF**. Stage 8C.6 (offline topic/metadata hardening) is accepted in this commit (its commit hash is recorded in the next docs update). **No accepted full content and no LaTeX/PDF exist yet.** After 8C.6, a second full run (8C.7) is needed. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–8C.5 are complete and pushed; the first real full Gemini run (8C.3/8C.4, `cf89e51`) ran but its content is **rejected for the final PDF**. Stage 8C.6 (offline topic/metadata hardening) is complete and pushed (`0858c44`). **No accepted full content and no LaTeX/PDF exist yet.** The next work is a second full run (8C.7). The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-11.
 
@@ -32,7 +32,7 @@
 - [x] Stage 8C.3 — First real full Gemini run executed by the student (4 outputs produced; content rejected for final PDF).
 - [x] Stage 8C.4 — First full-run evidence committed and pushed (`cf89e51`), as diagnostic/rejected content.
 - [x] Stage 8C.5 — Documentation update after the rejected run, committed and pushed (`c2127f2`).
-- [x] Stage 8C.6 — Offline topic/metadata hardening, accepted in this commit (hash recorded in the next docs update; no real run).
+- [x] Stage 8C.6 — Offline topic/metadata hardening committed and pushed (`0858c44`).
 - [ ] Stages 8C.7–16 — not started; no accepted full content, no LaTeX, and no PDF exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
@@ -285,7 +285,7 @@ diagnostic evidence under `results/stage8c3-full-gemini-20260611-164153/`.
 - [x] Record D-024 (reject first full content; harden topic/prompt controls before another run).
 - [x] Commit the documentation update and push.
 
-#### Stage 8C.6 — Offline Topic/Metadata Hardening (Accepted in this commit)
+#### Stage 8C.6 — Offline Topic/Metadata Hardening (Completed, `0858c44`)
 
 Bind the crew to the configured topic and real cover metadata before a second run —
 offline only, no real run, no `kickoff`, no LLM/API call, no evidence (see D-025).
@@ -296,7 +296,7 @@ offline only, no real run, no `kickoff`, no LLM/API call, no evidence (see D-025
 - [x] Add `crew/content_checks.py` (offline helper flagging forbidden terms, placeholders, off-topic text, and missing mandatory elements).
 - [x] Add offline tests (config metadata validation, topic binding in blueprint/instructions, content checks); confirm exactly two `kickoff` calls remain (both real-only paths).
 - [x] Record D-025.
-- [x] Commit the offline hardening and push (accepted in this commit; hash recorded in the next docs update).
+- [x] Commit the offline hardening and push (`0858c44`).
 
 Deferred (not Stage 8C.6):
 
