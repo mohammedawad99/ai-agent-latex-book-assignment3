@@ -189,6 +189,26 @@ Each record uses these fields:
 - **Rationale:** Specs + schema specs + blueprint give a fully testable, offline, reviewable core that names its output contracts explicitly. Constructing real objects (without running) proves the wiring works without spending tokens or requiring a key. This keeps the stage safe and honest.
 - **Consequences:** No tokens are spent and no evidence is produced in Stage 7; the `crew-plan` CLI command and tests rely only on the offline blueprint. Real structured-output enforcement, intermediate-output persistence, prompt/token capture, and the first real invocation move to the run stage.
 
+## D-018 — Stage 8A Provider Strategy: OpenAI / OpenAI-Compatible Only
+
+- **Date:** 2026-06-11
+- **Status:** Accepted (for Stage 8A; broader providers revisited later)
+- **Context:** The first real run needs a provider, but the installed environment has the `openai` SDK only — `litellm`, `anthropic`, and `google-generativeai` are not installed.
+- **Decision:** Stage 8A supports the `openai` provider only (`crewai.LLM` with `model`, optional `base_url`). An OpenAI-compatible local endpoint is supported via `OPENAI_BASE_URL` so a real run can be exercised at zero cost without a cloud key.
+- **Alternatives considered:** Adding `litellm` or other provider SDKs to support Anthropic/Gemini/Ollama-native now.
+- **Rationale:** Using the already-present OpenAI path adds no dependency (Stage 8A forbids dependency changes). The `base_url` escape hatch keeps a cost-free local option open.
+- **Consequences:** `resolve_llm` rejects non-OpenAI providers with a clear error; supporting other providers later will be its own decision and may add a dependency.
+
+## D-019 — Controlled-Run Safety Gates
+
+- **Date:** 2026-06-11
+- **Status:** Accepted
+- **Context:** A real CrewAI run spends tokens and needs credentials; it must never happen by accident.
+- **Decision:** A real run requires the explicit `run-minimal --real` flag *and* a configured provider/model *and* credentials in the environment. Secrets are read only from `os.environ` (no `.env` auto-loading, no `python-dotenv`); the raw key is never printed, logged, or written to evidence (only presence booleans). The single `kickoff` call lives solely in the runner's `real=True` path. Stage 8A performs no real run; it ships only the scaffolding, gates, and offline tests.
+- **Alternatives considered:** Auto-loading `.env`; allowing a real run as the default; logging the key for debugging.
+- **Rationale:** Explicit opt-in plus env-only secrets minimizes accidental spend and leakage and keeps the default experience safe and offline.
+- **Consequences:** The student runs the first real minimal run themselves (Stage 8B) after exporting env vars in their own terminal; evidence is reviewed for secrets before being committed.
+
 ---
 
 ## Open Decisions (To Be Recorded Later)

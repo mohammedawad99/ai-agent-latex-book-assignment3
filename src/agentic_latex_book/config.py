@@ -111,3 +111,21 @@ def load_config(path: Path | None = None) -> Config:
         cost_tracking_enabled=tracking,
         source_path=config_path,
     )
+
+
+def is_model_configured(config: Config) -> bool:
+    """True only when both the model provider and name are non-empty."""
+    return bool(config.model_provider.strip()) and bool(config.model_name.strip())
+
+
+def require_model_config(config: Config) -> None:
+    """Raise ConfigError unless a concrete provider and model name are set.
+
+    Offline commands keep working with empty placeholders; only a real run
+    calls this.
+    """
+    if not is_model_configured(config):
+        raise ConfigError(
+            "A real run requires [model].provider and [model].name to be set "
+            "in the config (see docs/DECISIONS.md, D-014)."
+        )

@@ -42,6 +42,33 @@ Use this table for each real run once measurements exist:
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | _none yet_ | _n/a_ | _n/a_ | _n/a_ | _n/a_ | _n/a_ | _n/a_ | _n/a_ | No paid run has been performed |
 
+## Minimal-Run Metadata Format (Stage 8A scaffolding)
+
+The Stage 8A runner is prepared to write a per-run `runtime.json` for the first
+real minimal run (Stage 8B). It captures only safe, non-secret fields:
+
+```json
+{
+  "label": "run-minimal",
+  "started_at": <unix-seconds>,
+  "ended_at": <unix-seconds>,
+  "elapsed_seconds": <float>,
+  "prompt_tokens": <int|null>,
+  "completion_tokens": <int|null>,
+  "model": "<model-name>",
+  "llm_environment": {
+    "provider": "openai",
+    "model": "<model-name>",
+    "base_url_present": <bool>,
+    "api_key_present": <bool>
+  }
+}
+```
+
+Token fields are `null` when the provider does not expose usage; that is recorded
+honestly as "not available" rather than estimated. No API key or base-URL value is
+ever written — only presence booleans.
+
 ## Honest Reporting Policy
 
 - Record **measured data only**. Do not present estimates as facts.
@@ -49,6 +76,13 @@ Use this table for each real run once measurements exist:
 - Note any assumptions behind a figure (for example, the model version or pricing basis) next to it.
 - Do not retroactively invent costs for stages that did no paid work.
 
-## Current Stage 0–4 Cost Note
+## Current Cost Note (through Stage 8A)
 
-Stages 0–4 are documentation-only. No paid API run has been recorded, no tokens were consumed by the pipeline (which does not exist yet), and no LaTeX build has been performed. The only resources used so far are local editing and Git operations, which are not metered for this assignment. The first real cost data is expected at Stage 14, when the end-to-end pipeline runs for real.
+Stages 0–4 are documentation-only. Stages 5–7 added project setup and the offline
+CrewAI core. Stage 8A added the controlled-run scaffolding (LLM resolver, minimal
+runner, `run-minimal` CLI) and its offline tests — but performed **no real run**:
+no `kickoff`, no LLM/API call, no tokens consumed, and no `runtime.json` written.
+**No cost was incurred in Stage 8A.** The only resources used so far are local
+editing, testing, and Git operations, which are not metered for this assignment.
+The first real cost data is expected when the student executes the minimal run
+(Stage 8B); fuller figures follow at the end-to-end run (Stage 14).

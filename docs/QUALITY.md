@@ -6,12 +6,12 @@ This document defines how quality is enforced in the project: the gates that con
 
 ## Current Status
 
-As of Stage 7 (CrewAI core):
+As of Stage 8A (controlled-run scaffolding):
 
-- **pytest is configured** and the offline test suite passes (`uv run pytest`): the Stage 5/6 tests plus Stage 7 CrewAI-core tests for agent/task specs, output-schema specs, blueprint/schema validation, and the `crew-plan` CLI (49 tests passing).
+- **pytest is configured** and the offline test suite passes (`uv run pytest`): the Stage 5/6/7 tests plus Stage 8A tests for config helpers, LLM resolution, dry-run safety, the no-file guarantee, and the `run-minimal` CLI gates including the mutually-exclusive `--dry-run`/`--real` conflict (63 tests passing).
 - **ruff is configured** for linting and formatting; `uv run ruff check .` and `uv run ruff format --check .` both pass.
-- The CrewAI core is **offline only**: tests build the dry-run blueprint and construct CrewAI objects without running them. **No real crew run (`kickoff`), no LLM/API call, and no generated evidence** have occurred (see decision D-017).
-- All Python files are well under the 150-line course limit (largest is `config.py` at 113 lines), though an automated **file-length check is not yet enforced**.
+- Stage 8A remains **offline**: only dry-run and safety-gate tests run. The single `kickoff` call lives solely in the runner's explicit `real=True` path and is never exercised by tests. **No real crew run, no LLM/API call, and no generated evidence** have occurred (see decisions D-017, D-018, D-019); `results/` still holds only `.gitkeep` markers.
+- All Python files are well under the 150-line course limit (largest is `config.py` at 131 lines; the CLI was split into `cli.py` and `cli_commands.py` to keep each small), though an automated **file-length check is not yet enforced**.
 - There is still **no coverage measurement** yet.
 - **mypy is deferred** (see decision D-013); it may be adopted in Stage 13.
 - No PDF quality gate has been executed against a real PDF yet, because no pipeline or PDF exists.
