@@ -66,10 +66,11 @@ offline QA scanner), and 8C.8.2 (the cleaned Markdown content under
 human-reviewed text editing, no real run, no `kickoff`, no new tokens. The
 cleaned content reuses the already-measured 8C.7 run values rather than
 generating new ones. Further token cost would only arise if content QA later
-requires a constrained re-run. **Stage 9.0 (the LaTeX assembly plan, D-030) is
-likewise docs-only and incurred no LLM/API cost** — no real run, no `kickoff`,
-no tokens; the planned Stages 9.1–9.6 are deterministic (TeX Live compilation
-and matplotlib scripts) and are expected to incur no LLM/API cost either.
+requires a constrained re-run. **Stages 9.0 (the LaTeX assembly plan, D-030)
+and 9.1 (the LaTeX skeleton + bibliography) incurred no LLM/API cost** — no
+real run, no `kickoff`, no tokens; the remaining Stages 9.2–9.6 are
+deterministic (TeX Live compilation and matplotlib scripts) and are expected
+to incur no LLM/API cost either.
 
 ## Minimal-Run Metadata Format (Stage 8A scaffolding)
 

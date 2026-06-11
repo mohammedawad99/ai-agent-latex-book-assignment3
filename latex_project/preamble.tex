@@ -1,0 +1,44 @@
+% preamble.tex — packages, fonts, languages, headers/footers, bibliography.
+% Engine: XeLaTeX (D-030). LuaLaTeX is the recorded fallback.
+% Package order matters:
+%   - fontspec before polyglossia;
+%   - hyperref near the end (but before biblatex, which detects it);
+%   - polyglossia + Hebrew LAST, because it loads bidi, which must load last.
+
+% --- Page geometry (A4, ~2.5 cm margins; sized for the 13-17 page target) ---
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+% --- Fonts (XeLaTeX/fontspec; Unicode input) -------------------------------
+\usepackage{fontspec}
+% Latin Modern (default) for English text; DejaVu Sans for Hebrew below.
+% DejaVu Sans availability was verified with fc-match before this was written.
+
+% --- Core packages (minimal, stable set) -----------------------------------
+\usepackage{graphicx}   % figures (architecture diagram + generated graph, Stage 9.2)
+\usepackage{booktabs}   % tables 4.1 and 6.1
+\usepackage{amsmath}    % the two numbered equations
+\usepackage{xcolor}     % link colors only
+
+% --- Headers and footers (real implementation, not conceptual) -------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small From PoC to Production}
+\fancyhead[R]{\small MaRs-777}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+% Chapter-opening pages fall back to "plain" (page number only), as usual.
+
+% --- Hyperlinks -------------------------------------------------------------
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+% --- Bibliography: biblatex + biber, numeric style, linked citations -------
+\usepackage[backend=biber,style=numeric,sorting=nyt]{biblatex}
+\addbibresource{references.bib}
+
+% --- Languages: English main, Hebrew other (loads bidi under XeTeX) --------
+% Kept last on purpose (bidi wants to be the last loaded package).
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setotherlanguage{hebrew}
+\newfontfamily\hebrewfont[Script=Hebrew]{DejaVu Sans}

@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–8C.7 are complete and pushed; Stage 8C.6 hardened the topic/metadata (`0858c44`), and the second full Gemini run (8C.7, `0611993`) produced **candidate content** that passes the basic offline content gate (on-topic, real cover metadata, no placeholders). The candidate is **not final PDF-ready** (questionable citations, unsupported metrics, conceptual-only headers/footers). **No final accepted content and no LaTeX/PDF exist yet.** Stage 8C.8.0 (the cleanup plan) is committed (`dd18878`); Stage 8C.8.1 (the deterministic offline QA scanner) is committed and pushed (`dcac0eb`). Stage 8C.8.2/8C.8.3 (cleaned Markdown content under `latex_project/content/`) is **committed and pushed (`98a50f2`)** after human review — `book.md` and `README.md` are derived from the 8C.7 candidate and **pass the strict `content-qa` scanner (`ok: True`, exit 0)**; this is cleaned source only, so **no LaTeX and no PDF exist yet**. **Stage 9.x (LaTeX assembly from the cleaned content) is the current milestone:** the Stage 9.0 assembly plan (docs only; engine, packages, structure, mapping, gates — see D-030 and the Stage 9.0 section below) is **in review before commit**. Still **no LaTeX and no PDF exist**. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–8C.7 are complete and pushed; Stage 8C.6 hardened the topic/metadata (`0858c44`), and the second full Gemini run (8C.7, `0611993`) produced **candidate content** that passes the basic offline content gate (on-topic, real cover metadata, no placeholders). The candidate is **not final PDF-ready** (questionable citations, unsupported metrics, conceptual-only headers/footers). **No final accepted content and no LaTeX/PDF exist yet.** Stage 8C.8.0 (the cleanup plan) is committed (`dd18878`); Stage 8C.8.1 (the deterministic offline QA scanner) is committed and pushed (`dcac0eb`). Stage 8C.8.2/8C.8.3 (cleaned Markdown content under `latex_project/content/`) is **committed and pushed (`98a50f2`)** after human review — `book.md` and `README.md` are derived from the 8C.7 candidate and **pass the strict `content-qa` scanner (`ok: True`, exit 0)**; this is cleaned source only, so **no LaTeX and no PDF exist yet**. **Stage 9.x (LaTeX assembly from the cleaned content) is the current milestone:** the Stage 9.0 assembly plan is committed and pushed (`c3ca705`; D-030), and **Stage 9.1 (LaTeX skeleton + bibliography only) is created and accepted for commit** after human review — `main.tex`, `preamble.tex`, nine skeleton chapter files (headings + TODO markers, not full text), and `references.bib` (transcribed from the cleaned bibliography only) now exist under `latex_project/`. **No compile has been attempted (TeX Live is not installed on this machine yet) and no PDF exists.** (The exact commit hash is recorded in a later docs update.) The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-12.
 
@@ -38,8 +38,9 @@
 - [x] Stage 8C.8.1 — Deterministic offline QA scanner committed and pushed (`dcac0eb`).
 - [x] Stage 8C.8.2 — cleaned Markdown content created (`book.md`, `README.md` under `latex_project/content/`, derived from the 8C.7 candidate); passes `content-qa` (`ok: True`, exit 0). Cleaned source only — no LaTeX/PDF. (Committed and pushed: `98a50f2`.)
 - [x] Stage 8C.8.3 — cleaned content reviewed (human review, minor citation/source fixes) and committed/pushed (`98a50f2`).
-- [~] Stage 9.0 — LaTeX assembly plan (docs only; D-030; **in review before commit**). No `.tex`/`.bib`/image/script/PDF created.
-- [ ] Stages 9.1–16 — not started; no LaTeX and no PDF exist yet.
+- [x] Stage 9.0 — LaTeX assembly plan (docs only; D-030). (Committed and pushed: `c3ca705`.)
+- [~] Stage 9.1 — LaTeX skeleton + bibliography created and accepted for commit (`main.tex`, `preamble.tex`, `chapters/` stubs, `references.bib`, `latex_project/README.md`). No compile attempted because TeX Live is not installed; no figures/scripts; **no PDF**. (Commit hash recorded in a later docs update.)
+- [ ] Stages 9.2–16 — not started; no PDF exists yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
 
@@ -355,8 +356,9 @@ no invented internal publications; any external source is verified before final 
 - [x] Stage 8C.8.1 — implement the deterministic offline QA scanner for candidate/cleaned content (`content_qa.py`, `content-qa` CLI, offline tests). The committed Stage 8C.7 candidate **fails** the scanner on its known risks (example.com, 185 minutes/99.1%/1.8M tokens, GPT-4o Technical Report, conceptual headers/footers); a clean sample passes. (Committed and pushed: `dcac0eb`.)
 - [x] Stage 8C.8.2 — created cleaned Markdown content under `latex_project/content/` (`book.md`, `README.md`) from the candidate, preserving evidence immutability; passes `content-qa` (`ok: True`, exit 0). (Committed and pushed: `98a50f2`.)
 - [x] Stage 8C.8.3 — reviewed the cleaned content (scanner green, human review with minor citation/source fixes) and committed/pushed it (`98a50f2`).
-- [~] Stage 9.0 — LaTeX assembly plan (docs only; D-030; **in review before commit**).
-- [ ] Stages 9.1–9.6 — LaTeX assembly implementation (see the Stage 9.0 plan section below).
+- [x] Stage 9.0 — LaTeX assembly plan (docs only; D-030). (Committed and pushed: `c3ca705`.)
+- [~] Stage 9.1 — LaTeX skeleton + bibliography created and accepted for commit (no compile — TeX Live not installed; no PDF).
+- [ ] Stages 9.2–9.6 — LaTeX assembly implementation (see the Stage 9.0 plan section below).
 - [ ] Later — PDF compile + validation gates.
 
 ### Stage 8C — Content Planning and Generation
@@ -421,8 +423,8 @@ xelatex -interaction=nonstopmode -halt-on-error -output-directory=build main.tex
 
 **Sub-stages:**
 
-- [~] 9.0 — this plan (docs only; in review).
-- [ ] 9.1 — LaTeX skeleton + bibliography setup (TeX Live install prerequisite, font check, `main.tex`/`preamble.tex`/`chapters/` stubs, `references.bib`, fancyhdr, titlepage, `latex_project/README.md`).
+- [x] 9.0 — this plan (docs only). (Committed and pushed: `c3ca705`.)
+- [~] 9.1 — LaTeX skeleton + bibliography setup (font check done — DejaVu Sans confirmed via `fc-match`; `main.tex`/`preamble.tex`/`chapters/` stubs, `references.bib`, fancyhdr, titlepage, `latex_project/README.md` created; **accepted for commit after human review**). **Environment limitation:** TeX Live is still not installed (`xelatex`/`biber` absent), so no syntax-check compile was attempted; the install command is documented in `latex_project/README.md` and runs before Stage 9.4.
 - [ ] 9.2 — figure/graph generation scripts + generated images under `figures/`.
 - [ ] 9.3 — convert cleaned Markdown into LaTeX chapters (full mapping above).
 - [ ] 9.4 — first compile; fix compile errors (build sequence above).

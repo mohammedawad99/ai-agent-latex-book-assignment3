@@ -1,0 +1,40 @@
+% 06_results.tex — skeleton. Source: content/book.md, "6. Results and
+% Evaluation". Citations mirror the [13]/[14] markers in book.md section 6.2.
+% TODO (Stage 9.3): transcribe sections 6.1-6.3, Table 6.1 (booktabs), the
+% LaTeX-example listings, and the two equations from content/book.md.
+
+\chapter{Results and Evaluation}
+
+\section{Generated LaTeX Examples}
+% TODO (Stage 9.3): content + chapter-skeleton listing from book.md 6.1.
+% The agent-utility equation (already valid LaTeX in book.md):
+\begin{equation}
+U_i(s, a_i) = R_i(s, a_i) + \alpha \sum_{j \neq i} C_{ij}(s, a_i, a_j)
+\label{eq:agent_utility}
+\end{equation}
+
+\section{Measured Run and Proposed Metrics}
+% TODO (Stage 9.3): content + Table 6.1 (measured cost of the Stage 8C.7 run)
+% from book.md 6.2.
+The measured figures come from the committed run
+evidence~\cite{mars777_runtime_evidence}, with the per-task breakdown in the
+crew output index~\cite{mars777_crew_index}.
+% TODO (Stage 9.2): Python-generated graph figure. The image does not exist
+% yet, so the figure block stays commented out until
+% figures/generation_time.png is produced by scripts/generate_graph.py:
+%
+% \begin{figure}[htbp]
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{figures/generation_time.png}
+%   \caption{Illustrative generation time per chapter (Python-generated).}
+%   \label{fig:generation_time}
+% \end{figure}
+%
+% The weighted quality score (already valid LaTeX in book.md):
+\begin{equation}
+Q = w_A \cdot S_{A} + w_C \cdot S_{C} + w_F \cdot S_{F} + w_V \cdot S_{V}
+\label{eq:quality}
+\end{equation}
+
+\section{Qualitative Assessment}
+% TODO (Stage 9.3): content from book.md section 6.3.

@@ -1,0 +1,51 @@
+% main.tex — entry point for the article PDF.
+% Compile (Stage 9.4+, from latex_project/):
+%   xelatex -interaction=nonstopmode -halt-on-error -output-directory=build main.tex
+%   biber build/main
+%   xelatex ... (twice more for ToC and citations)
+% Source of truth for all content: content/book.md (cleaned Markdown, immutable).
+
+\documentclass[11pt,a4paper]{report}
+
+\input{preamble}
+
+\begin{document}
+
+% --- Cover page (mandatory PDF element) ------------------------------------
+\begin{titlepage}
+  \centering
+  \vspace*{2cm}
+  {\LARGE\bfseries From PoC to Production:\\[0.4em]
+   A CrewAI Multi-Agent Pipeline for Generating a \LaTeX{} Book\par}
+  \vspace{2cm}
+  {\large Group: MaRs-777\par}
+  \vspace{0.8cm}
+  {\large Mohamed Awad \quad\textbullet\quad Rawey Sleiman\par}
+  \vspace{2cm}
+  {\large AI Agents / Vibe Coding course project\par}
+  \vspace{0.4cm}
+  {\large Lecturer contact: \href{mailto:rmisegal@gmail.com}{rmisegal@gmail.com}\par}
+  \vfill
+  {\large June 11, 2026\par}
+\end{titlepage}
+
+% --- Abstract ---------------------------------------------------------------
+\input{chapters/00_abstract}
+
+% --- Table of contents (generated automatically; no manual page numbers) ---
+\tableofcontents
+
+% --- Chapters ---------------------------------------------------------------
+\input{chapters/01_introduction}
+\input{chapters/02_background}
+\input{chapters/03_architecture}
+\input{chapters/04_implementation}
+\input{chapters/05_poc_to_production}
+\input{chapters/06_results}
+\input{chapters/07_discussion}
+\input{chapters/08_conclusion}
+
+% --- Bibliography (linked citations via biblatex/hyperref) -----------------
+\printbibliography[heading=bibintoc,title={Bibliography}]
+
+\end{document}

@@ -1,0 +1,30 @@
+% 04_implementation.tex — skeleton. Source: content/book.md,
+% "4. Implementation Details". Citations mirror the [6]/[7] markers in
+% book.md section 4.4.
+% TODO (Stage 9.3): transcribe sections 4.1-4.4, the two code listings, and
+% Table 4.1 (booktabs) from content/book.md.
+
+\chapter{Implementation Details}
+
+\section{Agent Definitions and Personalities}
+% TODO (Stage 9.3): content + agent-definition code listing from book.md 4.1.
+
+\section{Custom Tool Integration}
+% TODO (Stage 9.3): content + validation-tool listing from book.md 4.2.
+
+\section{Task Design and Execution Flow}
+% TODO (Stage 9.3): content + Table 4.1 (agents/roles/tools, booktabs) from
+% book.md 4.3.
+
+\section{Handling Multilingual Content}
+% TODO (Stage 9.3): full section text from book.md 4.4.
+Bidirectional text support comes from the \texttt{bidi}
+package~\cite{ctan_bidi}, compiled with XeLaTeX~\cite{tug_xetex}.
+
+% Minimal Hebrew-English BiDi snippet (safe to compile with the preamble's
+% polyglossia + DejaVu Sans setup; the full BiDi passage lands here in 9.3):
+This sentence is English;
+\begin{hebrew}
+זוהי דוגמה למקטע הממחיש יצירת תוכן דו-לשוני.
+\end{hebrew}
+the Hebrew above flows right-to-left within the same page.
