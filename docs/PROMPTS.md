@@ -39,7 +39,7 @@ These entries summarize the AI-assisted work already completed. They are summari
 | 3 | 2026-06-11 | Write a detailed staged TODO | AI coding assistant | Asked to break the PLAN into staged, actionable checklist tasks | Task plan only; ≥120 checkboxes; match PLAN roadmap | `docs/TODO.md` (commit `a722f64`) | Accepted after quality-timing correction |
 | 4 | 2026-06-11 | Write supporting documentation | AI coding assistant | Asked to write AI_WORKFLOW, PROMPTS, DECISIONS, COSTS, QUALITY, SUBMISSION_CHECKLIST, and an initial README | Docs only; planned-status wording; no implementation claims | This document and the other Stage 4 files | Accepted for initial Stage 4 documentation after review |
 | 5 | 2026-06-11 | Project setup (uv, deps, CLI skeleton) | AI coding assistant | Asked to create `pyproject.toml`, uv lock, `.env.example`, config, a safe CLI skeleton, and a smoke test | Setup only; no agents/LLM; no secrets; pytest+ruff pass | Stage 5 setup files | Accepted (commit `d21b3c7`) |
-| 6 | 2026-06-11 | Deterministic foundation modules | AI coding assistant | Asked to implement config/paths/evidence/logging/runtime modules and their offline tests | Deterministic only; no CrewAI/LLM; temp-only evidence; files under the line limit | `config.py`, `paths.py`, `evidence.py`, `logging_setup.py`, `runtime.py`, and their tests | In review |
+| 6 | 2026-06-11 | Deterministic foundation modules | AI coding assistant | Asked to implement config/paths/evidence/logging/runtime modules and their offline tests | Deterministic only; no CrewAI/LLM; temp-only evidence; files under the line limit | `config.py`, `paths.py`, `evidence.py`, `logging_setup.py`, `runtime.py`, and their tests | Accepted (commit `3e538af`) |
 
 ## Future Prompts
 
