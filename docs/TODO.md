@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–7 are complete and pushed; Stage 8A (controlled-run scaffolding) is the current stage, in review before commit; Stages 8B–16 are future work. Stage 8A prepares the first real minimal CrewAI run but does not execute it — no real crew run, no `kickoff`, no LLM/API call, and no generated evidence. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–8A are complete and pushed; Stages 8B–16 are future work. Stage 8A added the controlled-run scaffolding that prepares the first real minimal CrewAI run but does not execute it — no real crew run, no `kickoff`, no LLM/API call, no generated evidence, and no LaTeX/PDF. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-11.
 
@@ -24,7 +24,7 @@
 - [x] Stage 5 — Project setup committed and pushed (`d21b3c7`).
 - [x] Stage 6 — Core deterministic foundation committed and pushed (`3e538af`).
 - [x] Stage 7 — Offline CrewAI core committed and pushed (`aeb39dc`).
-- [ ] Stage 8A — Controlled-run scaffolding (current stage, in review before commit; offline, no real run).
+- [x] Stage 8A — Controlled-run scaffolding committed and pushed (`d9acbf7`).
 - [ ] Stages 8B–16 — not started; no real crew run, no LaTeX, and no generated evidence exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
@@ -54,7 +54,7 @@ Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; C
 | 5 | Project setup (uv, deps, CLI skeleton) | Completed (`d21b3c7`) | Stage 4 done | `pyproject.toml`, runnable CLI stub |
 | 6 | Core deterministic foundation | Completed (`3e538af`) | Stage 5 done | config/evidence/cost modules + tests |
 | 7 | CrewAI core | Completed (`aeb39dc`) | Stage 6 done | crew specs/schemas/blueprint + builder |
-| 8A | Controlled-run scaffolding | Current / in review | Stage 7 done | `run-minimal` + `--real` gate + tests |
+| 8A | Controlled-run scaffolding | Completed (`d9acbf7`) | Stage 7 done | `run-minimal` + `--real` gate + tests |
 | 8B/8C | Content planning and generation (real run) | Not started | Stage 8A done | outline→draft→review→refs flow |
 | 9 | LaTeX assembler | Not started | Stage 8 done | `latex_project/` sources |
 | 10 | Python-generated graph and assets | Not started | Stage 9 done | generated graph integrated |
@@ -200,7 +200,7 @@ Deferred to the controlled-run stage (Stage 8 wiring / Stage 14 real run), not S
 - [ ] Record token/cost usage from the provider where exposed, via the cost tracker (needs a real run).
 - [ ] Run a minimal real crew invocation to confirm wiring and output persistence (needs a chosen provider/model and credentials; see D-014, D-017).
 
-### Stage 8A — Controlled-Run Scaffolding (Current / in review)
+### Stage 8A — Controlled-Run Scaffolding (Completed, `d9acbf7`)
 
 Entry condition: Stage 7 done. Exit criteria (offline scope): safe `run-minimal` scaffolding with an explicit `--real` gate, an OpenAI-only LLM resolver that reads secrets from `os.environ` only, evidence/cost metadata format, and offline tests — with no real run, no `kickoff`, no LLM/API call, and `results/` still holding only `.gitkeep`.
 
@@ -210,7 +210,7 @@ Entry condition: Stage 7 done. Exit criteria (offline scope): safe `run-minimal`
 - [x] Add the `run-minimal` CLI command with `--dry-run` (default), `--real`, and `--run-id`.
 - [x] Add offline tests for config helpers, LLM resolution, dry-run safety, no-file guarantee, and CLI gates.
 - [x] Record D-018 (OpenAI-only provider strategy) and D-019 (controlled-run safety gates); document the run-cost metadata format in `docs/COSTS.md`.
-- [ ] Commit the controlled-run scaffolding and push.
+- [x] Commit the controlled-run scaffolding and push.
 
 Deferred (run-dependent), not Stage 8A:
 
