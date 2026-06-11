@@ -192,7 +192,7 @@ Each record uses these fields:
 ## D-018 — Stage 8A Provider Strategy: OpenAI / OpenAI-Compatible Only
 
 - **Date:** 2026-06-11
-- **Status:** Accepted (for Stage 8A; broader providers revisited later)
+- **Status:** Accepted (Stage 8A); extended by D-020, which adds Gemini in Stage 8A.1. Not reverted — the OpenAI path remains supported.
 - **Context:** The first real run needs a provider, but the installed environment has the `openai` SDK only — `litellm`, `anthropic`, and `google-generativeai` are not installed.
 - **Decision:** Stage 8A supports the `openai` provider only (`crewai.LLM` with `model`, optional `base_url`). An OpenAI-compatible local endpoint is supported via `OPENAI_BASE_URL` so a real run can be exercised at zero cost without a cloud key.
 - **Alternatives considered:** Adding `litellm` or other provider SDKs to support Anthropic/Gemini/Ollama-native now.
@@ -208,6 +208,16 @@ Each record uses these fields:
 - **Alternatives considered:** Auto-loading `.env`; allowing a real run as the default; logging the key for debugging.
 - **Rationale:** Explicit opt-in plus env-only secrets minimizes accidental spend and leakage and keeps the default experience safe and offline.
 - **Consequences:** The student runs the first real minimal run themselves (Stage 8B) after exporting env vars in their own terminal; evidence is reviewed for secrets before being committed.
+
+## D-020 — Stage 8A.1: Add Gemini Provider Support (Offline)
+
+- **Date:** 2026-06-11
+- **Status:** Accepted (extends D-018; does not revert it)
+- **Context:** The student has a Gemini API key, not an OpenAI key. The resolver previously supported `openai` only (D-018).
+- **Decision:** Extend `resolve_llm` to support `provider = "gemini"` alongside `openai`. The Gemini credential is read from the environment as `GEMINI_API_KEY` (preferred, matching the `gemini/` model prefix) with `GOOGLE_API_KEY` as the documented fallback; if both are set, `GEMINI_API_KEY` wins. The raw key is never logged or returned; `describe_llm_environment` still reports presence booleans only (and `base_url_present` is always `False` for Gemini, since no Gemini base-url path is supported here). The recommended Gemini model string is **`gemini/gemini-2.5-flash`**.
+- **Alternatives considered:** Preferring `GOOGLE_API_KEY`; supporting a Gemini base_url; switching the whole project to Gemini and dropping OpenAI.
+- **Rationale:** Adding Gemini lets the student run with the key they actually have, while keeping OpenAI available. Stage 8A.1 stays fully offline: **no real run, no `kickoff`, no LLM/API call, and no dependency added.**
+- **Consequences:** Building a Gemini `LLM` requires the `crewai[google-genai]` provider package, which is **not installed** — constructing one offline raises `ImportError`, which `resolve_llm` wraps into a clear `LLMConfigError`. Installing that provider package is a **Stage 8B dependency decision** made by the student before the first real Gemini run. Gemini support is therefore only offline-tested in this stage (validation + safe-metadata paths); the construction/real path is validated at Stage 8B.
 
 ---
 

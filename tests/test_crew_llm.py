@@ -93,3 +93,40 @@ def test_resolve_llm_fails_without_credentials(tmp_path, monkeypatch) -> None:
     monkeypatch.delenv("OPENAI_BASE_URL", raising=False)
     with pytest.raises(LLMConfigError):
         resolve_llm(_config(tmp_path, "openai", "gpt-4o-mini"))
+
+
+def _gemini_describe(tmp_path):
+    return describe_llm_environment(_config(tmp_path, "gemini", "gemini/gemini-2.5-flash"))
+
+
+def test_gemini_describe_with_gemini_key(tmp_path, monkeypatch) -> None:
+    """Gemini reports api_key_present=True for GEMINI_API_KEY, no leak, no base_url."""
+    monkeypatch.setenv("GEMINI_API_KEY", "FAKE-GEMINI-DO-NOT-LOG")
+    monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
+    meta = _gemini_describe(tmp_path)
+    assert meta["provider"] == "gemini"
+    assert meta["api_key_present"] is True
+    assert meta["base_url_present"] is False
+    assert "FAKE-GEMINI-DO-NOT-LOG" not in str(meta)
+
+
+def test_gemini_describe_with_google_key(tmp_path, monkeypatch) -> None:
+    """Gemini also accepts GOOGLE_API_KEY as the fallback credential."""
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.setenv("GOOGLE_API_KEY", "FAKE-GOOGLE-DO-NOT-LOG")
+    meta = _gemini_describe(tmp_path)
+    assert meta["api_key_present"] is True
+    assert "FAKE-GOOGLE-DO-NOT-LOG" not in str(meta)
+
+
+def test_resolve_llm_gemini_fails_without_credentials(tmp_path, monkeypatch) -> None:
+    """Gemini with no GEMINI_API_KEY/GOOGLE_API_KEY raises before constructing anything."""
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
+    with pytest.raises(LLMConfigError):
+        resolve_llm(_config(tmp_path, "gemini", "gemini/gemini-2.5-flash"))
+
+
+# Note: a successful Gemini LLM construction is NOT tested here. Building it needs
+# the google-genai provider package (crewai[google-genai]), which is not installed
+# and which Stage 8A.1 must not add. The real Gemini path is validated at Stage 8B.

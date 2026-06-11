@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–8A are complete and pushed; Stages 8B–16 are future work. Stage 8A added the controlled-run scaffolding that prepares the first real minimal CrewAI run but does not execute it — no real crew run, no `kickoff`, no LLM/API call, no generated evidence, and no LaTeX/PDF. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–8A are complete and pushed; Stage 8A.1 (add Gemini provider support, offline) is the current sub-stage, in review before commit; Stages 8B–16 are future work. Stages 8A/8A.1 prepare the first real minimal CrewAI run but do not execute it — no real crew run, no `kickoff`, no LLM/API call, no generated evidence, and no LaTeX/PDF. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-11.
 
@@ -25,6 +25,7 @@
 - [x] Stage 6 — Core deterministic foundation committed and pushed (`3e538af`).
 - [x] Stage 7 — Offline CrewAI core committed and pushed (`aeb39dc`).
 - [x] Stage 8A — Controlled-run scaffolding committed and pushed (`d9acbf7`).
+- [ ] Stage 8A.1 — Add Gemini provider support (current sub-stage, in review before commit; offline, no real run).
 - [ ] Stages 8B–16 — not started; no real crew run, no LaTeX, and no generated evidence exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
@@ -212,9 +213,21 @@ Entry condition: Stage 7 done. Exit criteria (offline scope): safe `run-minimal`
 - [x] Record D-018 (OpenAI-only provider strategy) and D-019 (controlled-run safety gates); document the run-cost metadata format in `docs/COSTS.md`.
 - [x] Commit the controlled-run scaffolding and push.
 
-Deferred (run-dependent), not Stage 8A:
+#### Stage 8A.1 — Add Gemini Provider Support (Current / in review; offline)
 
-- [ ] Stage 8B — first real minimal run executed by the student in their own terminal with their own credentials; review evidence for secrets; then commit it.
+The student has a Gemini key, not OpenAI. This sub-stage adds Gemini support to the
+resolver while staying fully offline — no real run, no `kickoff`, no LLM/API call,
+and no dependency added (see decision D-020).
+
+- [x] Extend `resolve_llm` to support `provider = "gemini"` (alongside `openai`), reading `GEMINI_API_KEY` (preferred) or `GOOGLE_API_KEY` from `os.environ`; raw key never logged/returned.
+- [x] Keep `describe_llm_environment` safe (presence booleans only; `base_url_present` is `False` for Gemini).
+- [x] Add offline tests: Gemini metadata for both key vars (no leak), and a safe failure when no Gemini key is set; document why Gemini construction is not unit-tested (needs `crewai[google-genai]`).
+- [x] Record D-020 and note the recommended Gemini model string `gemini/gemini-2.5-flash`.
+- [ ] Commit the Gemini provider support and push.
+
+Deferred (run-dependent), not Stage 8A / 8A.1:
+
+- [ ] Stage 8B — first real minimal run executed by the student in their own terminal with their own credentials; for Gemini this also requires installing the `crewai[google-genai]` provider package (a Stage 8B dependency decision). Review evidence for secrets; then commit it.
 - [ ] Stage 8C — the full content-planning/generation pipeline below (outline → draft → review → references) as a real run.
 
 ### Stage 8C — Content Planning and Generation

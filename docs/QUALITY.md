@@ -6,11 +6,11 @@ This document defines how quality is enforced in the project: the gates that con
 
 ## Current Status
 
-As of Stage 8A (controlled-run scaffolding):
+As of Stage 8A.1 (controlled-run scaffolding + Gemini provider support):
 
-- **pytest is configured** and the offline test suite passes (`uv run pytest`): the Stage 5/6/7 tests plus Stage 8A tests for config helpers, LLM resolution, dry-run safety, the no-file guarantee, and the `run-minimal` CLI gates including the mutually-exclusive `--dry-run`/`--real` conflict (63 tests passing).
+- **pytest is configured** and the offline test suite passes (`uv run pytest`): the Stage 5/6/7/8A tests plus Stage 8A.1 Gemini tests (provider metadata for `GEMINI_API_KEY`/`GOOGLE_API_KEY` and safe failure with no Gemini key) — 66 tests passing.
 - **ruff is configured** for linting and formatting; `uv run ruff check .` and `uv run ruff format --check .` both pass.
-- Stage 8A remains **offline**: only dry-run and safety-gate tests run. The single `kickoff` call lives solely in the runner's explicit `real=True` path and is never exercised by tests. **No real crew run, no LLM/API call, and no generated evidence** have occurred (see decisions D-017, D-018, D-019); `results/` still holds only `.gitkeep` markers.
+- Stage 8A/8A.1 remain **offline**: only dry-run and safety-gate tests run. The single `kickoff` call lives solely in the runner's explicit `real=True` path and is never exercised by tests. **Gemini support is offline-tested only** — building a Gemini `LLM` needs the `crewai[google-genai]` provider package (not installed; a Stage 8B decision), so the construction/real path is validated at Stage 8B. **No real crew run, no LLM/API call, and no generated evidence** have occurred (see decisions D-017, D-018, D-019, D-020); `results/` still holds only `.gitkeep` markers.
 - All Python files are well under the 150-line course limit (largest is `config.py` at 131 lines; the CLI was split into `cli.py` and `cli_commands.py` to keep each small), though an automated **file-length check is not yet enforced**.
 - There is still **no coverage measurement** yet.
 - **mypy is deferred** (see decision D-013); it may be adopted in Stage 13.
