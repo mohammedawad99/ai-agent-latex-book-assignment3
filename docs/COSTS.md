@@ -45,14 +45,23 @@ not asserted here).
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | stage8b1-minimal-gemini-20260611-154559 / 2026-06-11 | gemini/gemini-2.5-flash / Gemini | 3.181496632001654 | 85 | 33 | 1 (minimal task) | not recorded | n/a (no PDF build yet) | `results/stage8b1-minimal-gemini-20260611-154559/runtime.json` |
 | stage8c3-full-gemini-20260611-164153 / 2026-06-11 | gemini/gemini-2.5-flash / Gemini | 249.02091293899866 | 153748 | 200472 | 4 (outline, draft, review, references) | not recorded | n/a (no PDF build yet) | `results/stage8c3-full-gemini-20260611-164153/runtime.json` — technically successful, content **rejected for final PDF** |
+| stage8c7-full-gemini-20260611-173125 / 2026-06-11 | gemini/gemini-2.5-flash / Gemini | 300.68034328000067 | 213664 | 235436 | 4 (outline, draft, review, references) | not recorded | n/a (no PDF build yet) | `results/stage8c7-full-gemini-20260611-173125/runtime.json` — technically successful; **candidate** content; not final PDF-ready |
+
+**Important:** the figures above (runtime/tokens) are the project's measured resource
+data from `runtime.json`. Numbers that appear *inside the generated text* — e.g.
+"185 minutes", "99.1%", "1.8M tokens" in the 8C.7 draft/review — are **not** accepted
+project measurements; they are unsupported values produced by the model and must be
+removed or replaced during content QA (Stage 8C.8).
 
 The full run (`stage8c3-...`) is the first end-to-end content run: it proves the
 runner and persistence work, but its content is rejected (wrong topic, placeholder
 author/date, ~10 pages). **Stage 8C.6 hardened topic/metadata binding offline and
-incurred no LLM/API cost** (no real run, no `kickoff`, no tokens). **Another real
-full run is expected at Stage 8C.7, which will add token cost.** Token/resource
-data is recorded from the committed `runtime.json`; no money cost is asserted
-(Gemini pricing is not claimed here).
+incurred no LLM/API cost.** **Stage 8C.7 ran a second full run** (table row above):
+~300.7 s, 213,664 + 235,436 tokens, producing accepted **candidate** content (basic
+content gate passes) that is **not yet final PDF-ready**. Token/resource data is
+recorded from each committed `runtime.json`; no money cost is asserted (Gemini
+pricing is not claimed here). Further token cost may follow if content QA (8C.8)
+requires a constrained re-run.
 
 ## Minimal-Run Metadata Format (Stage 8A scaffolding)
 

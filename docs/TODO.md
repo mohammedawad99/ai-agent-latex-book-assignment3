@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–8C.5 are complete and pushed; the first real full Gemini run (8C.3/8C.4, `cf89e51`) ran but its content is **rejected for the final PDF**. Stage 8C.6 (offline topic/metadata hardening) is complete and pushed (`0858c44`). **No accepted full content and no LaTeX/PDF exist yet.** The next work is a second full run (8C.7). The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–8C.7 are complete and pushed; Stage 8C.6 hardened the topic/metadata (`0858c44`), and the second full Gemini run (8C.7, `0611993`) produced **candidate content** that passes the basic offline content gate (on-topic, real cover metadata, no placeholders). The candidate is **not final PDF-ready** (questionable citations, unsupported metrics, conceptual-only headers/footers). **No final accepted content and no LaTeX/PDF exist yet.** The next work is Stage 8C.8 — a content-QA cleanup plan before LaTeX assembly. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-11.
 
@@ -33,7 +33,9 @@
 - [x] Stage 8C.4 — First full-run evidence committed and pushed (`cf89e51`), as diagnostic/rejected content.
 - [x] Stage 8C.5 — Documentation update after the rejected run, committed and pushed (`c2127f2`).
 - [x] Stage 8C.6 — Offline topic/metadata hardening committed and pushed (`0858c44`).
-- [ ] Stages 8C.7–16 — not started; no accepted full content, no LaTeX, and no PDF exist yet.
+- [x] Stage 8C.7 — Second real full Gemini run executed by the student; candidate evidence committed and pushed (`0611993`).
+- [ ] Stage 8C.8 — Content-QA cleanup plan before LaTeX assembly (next stage).
+- [ ] Stages 9–16 — not started; no final accepted content, no LaTeX, and no PDF exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
 
@@ -298,9 +300,26 @@ offline only, no real run, no `kickoff`, no LLM/API call, no evidence (see D-025
 - [x] Record D-025.
 - [x] Commit the offline hardening and push (`0858c44`).
 
-Deferred (not Stage 8C.6):
+#### Stage 8C.7 — Second Real Full Gemini Run + Candidate Evidence (Completed, `0611993`)
 
-- [ ] Stage 8C.7 — second real full content-generation run after hardening, executed by the student; review and commit accepted content (or record another rejection).
+The student executed a second real full run after the 8C.6 hardening; all four
+tasks produced output, committed as **candidate** evidence under
+`results/stage8c7-full-gemini-20260611-173125/`.
+
+- [x] Execute one real full run (`gemini/gemini-2.5-flash`); ~300.7 s; 213,664 prompt + 235,436 completion tokens.
+- [x] Run the offline `content_checks` gate: on-topic, no forbidden terms, no placeholders, no missing mandatory elements (basic gate passes).
+- [x] Confirm the previous failure modes are fixed (no Gradient Descent topic, no `[Your Name]` placeholder, no stale date; correct group/authors/topic appear).
+- [x] Commit the eight evidence files (`0611993`).
+- [x] Record the verdict: **candidate content accepted, not final PDF-ready** — remaining risks: conceptual-only headers/footers, questionable `example.com` citations, unsupported metrics (185 minutes / 99.1% / 1.8M tokens), GPT-4o references despite the Gemini run, and "Internal Publication" citations.
+
+#### Stage 8C.8 — Content QA Cleanup Plan (Next)
+
+Deterministic / human-reviewed cleanup of the candidate content before LaTeX assembly —
+no new real run unless a gap forces one.
+
+- [ ] Plan how to fix the remaining quality risks: implement real headers/footers in LaTeX (not prose), replace/remove fake `example.com` and "Internal Publication" citations with real project files or valid references, remove unsupported metrics, and correct GPT-4o→Gemini references.
+- [ ] Decide which fixes are deterministic (LaTeX/edits) vs require a constrained re-run.
+- [ ] Then proceed to the LaTeX assembler / PDF stages (still unchecked).
 
 ### Stage 8C — Content Planning and Generation
 

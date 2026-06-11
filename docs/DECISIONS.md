@@ -267,6 +267,15 @@ Each record uses these fields:
 - **Alternatives considered:** Re-running with the same prompts and hoping for better luck; hardcoding the topic into the prompts (less flexible than config-driven); enforcing Pydantic output schemas now (deferred).
 - **Consequences:** The next real run (Stage 8C.7) is strongly bound to the assignment topic and metadata. This is offline scaffolding only — **no real run, no `kickoff`, no LLM/API call, and no evidence are produced in 8C.6.** The `content_checks` helper can gate future evidence before acceptance.
 
+## D-026 — Accept Second Full Gemini Run as Candidate Evidence, Not Final PDF-Ready Content
+
+- **Date:** 2026-06-11
+- **Status:** Accepted
+- **Context:** After the 8C.6 hardening, the second full run (`stage8c7-full-gemini-20260611-173125`; ~300.7 s; 213,664 + 235,436 tokens) produced on-topic content with the real cover metadata and passed the basic offline `content_checks` gate (no forbidden terms, no placeholders, no missing mandatory-element keywords). It fixes the previous off-topic/placeholder failure (D-024). However, it still contains questionable citations (`example.com` links, "Internal Publication"), unsupported in-text metrics (185 minutes / 99.1% / 1.8M tokens), GPT-4o references despite the Gemini run, and headers/footers described only conceptually.
+- **Decision:** Accept the run as a **candidate content source** (committed at `0611993`), but do **not** treat it as final content. Perform Stage 8C.8 content QA — deterministic/human-reviewed cleanup — before LaTeX assembly: implement real headers/footers in LaTeX, replace/remove fake citations with real project files or valid references, remove unsupported metrics, and correct GPT-4o→Gemini references.
+- **Alternatives considered:** Rejecting it outright and re-running (costly, and the basics are now correct); accepting it as-is for the PDF (dishonest — fabricated citations/metrics); editing the evidence by hand (rejected — evidence stays as produced).
+- **Consequences:** Avoids another immediate expensive real run; shifts effort to deterministic/human cleanup before PDF work. A constrained re-run remains possible if QA finds gaps that cleanup cannot fix.
+
 ---
 
 ## Open Decisions (To Be Recorded Later)
