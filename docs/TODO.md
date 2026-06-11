@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–8A.1 are complete and pushed; Stage 8B.0 (install the Gemini provider dependency, offline) is the current sub-stage, in review before commit; Stages 8B.1–16 are future work. Stages 8A/8A.1/8B.0 prepare the first real minimal CrewAI run but do not execute it — no real crew run, no `kickoff`, no LLM/API call, no generated evidence, and no LaTeX/PDF. Stage 8B.0 installs `crewai[google-genai]` so a Gemini `LLM` constructs offline; the real run remains Stage 8B.1. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–8B.0 are complete and pushed; Stages 8B.1–16 are future work. Stages 8A/8A.1/8B.0 prepare the first real minimal CrewAI run but do not execute it — no real crew run, no `kickoff`, no LLM/API call, no generated evidence, and no LaTeX/PDF. Stage 8B.0 installed `crewai[google-genai]` so a Gemini `LLM` constructs offline; the first real Gemini run remains Stage 8B.1. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-11.
 
@@ -26,7 +26,7 @@
 - [x] Stage 7 — Offline CrewAI core committed and pushed (`aeb39dc`).
 - [x] Stage 8A — Controlled-run scaffolding committed and pushed (`d9acbf7`).
 - [x] Stage 8A.1 — Offline Gemini provider support committed and pushed (`a31f80a`).
-- [ ] Stage 8B.0 — Install Gemini provider dependency (current sub-stage, in review before commit; offline, no real run).
+- [x] Stage 8B.0 — Gemini provider dependency installed, committed and pushed (`7e28f01`).
 - [ ] Stages 8B.1–16 — not started; no real crew run, no LaTeX, and no generated evidence exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
@@ -226,7 +226,7 @@ and no dependency added (see decision D-020).
 - [x] Record D-020 and note the recommended Gemini model string `gemini/gemini-2.5-flash`.
 - [x] Commit the Gemini provider support and push.
 
-#### Stage 8B.0 — Install the Gemini Provider Dependency (Current / in review; offline)
+#### Stage 8B.0 — Install the Gemini Provider Dependency (Completed, `7e28f01`; offline)
 
 Dependency-only sub-stage: install `crewai[google-genai]` so a Gemini `LLM` can be
 constructed. Still fully offline — no real run, no `kickoff`, no LLM/API call, no
@@ -235,7 +235,7 @@ evidence (see decision D-021).
 - [x] Run `uv add "crewai[google-genai]"` (updates the single dependency to `crewai[google-genai]>=0.80`; refreshes `uv.lock`).
 - [x] Verify a Gemini `LLM` now constructs offline with a fake key (no model call) and add the offline construction test.
 - [x] Record D-021; note no real Gemini call/cost occurred.
-- [ ] Commit the Gemini provider dependency and push.
+- [x] Commit the Gemini provider dependency and push.
 
 Deferred (run-dependent), not Stage 8A / 8A.1 / 8B.0:
 
