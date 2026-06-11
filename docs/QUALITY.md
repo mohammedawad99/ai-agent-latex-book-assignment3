@@ -6,14 +6,16 @@ This document defines how quality is enforced in the project: the gates that con
 
 ## Current Status
 
-No implementation exists yet. Therefore:
+As of Stage 5 (project setup):
 
-- There are **no tests** yet.
-- There is **no lint/format configuration** running yet.
-- There is **no coverage measurement** yet.
-- No quality gate has been executed against a real PDF yet.
+- **pytest is configured** and a small offline smoke-test suite passes (`uv run pytest`).
+- **ruff is configured** for linting and formatting; `uv run ruff check .` and `uv run ruff format --check .` both pass.
+- There is still **no coverage measurement** yet.
+- **mypy is deferred** (see decision D-013); it may be adopted in Stage 13.
+- There is **no file-length check** yet.
+- No PDF quality gate has been executed against a real PDF yet, because no pipeline or PDF exists.
 
-Nothing in this document should be read as a passing result. These are planned checks, and their real outcomes will be recorded once they run.
+The pytest/ruff results above are real (the smoke tests actually pass). Everything related to the generated PDF, coverage, mypy, and the file-length check is still planned, and no passing result is claimed for them.
 
 ## Planned Quality Gates (Mandatory PDF and Repository Checks)
 

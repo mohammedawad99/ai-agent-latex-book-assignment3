@@ -109,14 +109,72 @@ Each record uses these fields:
 - **Rationale:** Incremental history demonstrates the engineering process and makes review easier.
 - **Consequences:** Each stage is its own commit (or coherent set of commits) with standard student authorship.
 
+## D-010 — uv as Dependency / Environment Manager
+
+- **Date:** 2026-06-11
+- **Status:** Accepted
+- **Context:** Stage 5 needs a reproducible Python environment and dependency lock.
+- **Decision:** Use `uv` for environment creation, dependency resolution, and locking (`uv.lock`).
+- **Alternatives considered:** pip + venv + requirements.txt; Poetry; PDM.
+- **Rationale:** uv is fast, produces a deterministic lock file, and is the course-aligned tool; `uv sync` reproduces the environment from a clean checkout.
+- **Consequences:** `uv.lock` is committed and only modified through uv; setup commands are `uv sync` / `uv run ...`.
+
+## D-011 — Initial Runtime and Dev Dependencies
+
+- **Date:** 2026-06-11
+- **Status:** Accepted
+- **Context:** The setup stage should declare only what is needed now, without implementing the pipeline.
+- **Decision:** Runtime dependency: `crewai` (declared, not yet used). Dev dependencies: `pytest` and `ruff`.
+- **Alternatives considered:** Adding LLM client libraries, plotting, or LaTeX-related packages now.
+- **Rationale:** CrewAI is the required framework and is declared so the environment is ready; pytest/ruff enable quality from the start. Other libraries are deferred until the stage that needs them, to avoid premature commitment.
+- **Consequences:** The environment installs CrewAI's dependency tree; no agents/tasks exist yet. TOML config is read with the standard-library `tomllib`, so no TOML dependency is needed.
+
+## D-012 — Configuration Format
+
+- **Date:** 2026-06-11
+- **Status:** Accepted
+- **Context:** The project needs a non-secret configuration file for topic, paths, thresholds, and model placeholders.
+- **Decision:** Use TOML (`config/default.toml`), read with the standard-library `tomllib`.
+- **Alternatives considered:** YAML (requires an extra dependency); JSON (no comments); Python config module.
+- **Rationale:** TOML is readable, supports comments, and needs no extra dependency on Python 3.11+.
+- **Consequences:** Config is loaded via `tomllib`; secrets stay out of this file and come from the environment.
+
+## D-013 — mypy Deferred
+
+- **Date:** 2026-06-11
+- **Status:** Deferred (revisit at Stage 13)
+- **Context:** Static typing could be adopted now or later.
+- **Decision:** Do not add mypy in Stage 5; revisit during Stage 13 quality hardening.
+- **Alternatives considered:** Adopting mypy immediately.
+- **Rationale:** The Stage 5 surface is tiny (a CLI skeleton); type-checking adds little value now and would add tooling overhead. The codebase uses type hints already, so adopting mypy later is straightforward.
+- **Consequences:** No mypy config yet; the decision is recorded so it is a deliberate deferral, not an omission.
+
+## D-014 — Concrete LLM Provider/Model Deferred
+
+- **Date:** 2026-06-11
+- **Status:** Deferred (revisit before the first real CrewAI run, Stage 7/8)
+- **Context:** Stage 5 sets up the project but performs no real CrewAI execution and makes no LLM calls. The config and `.env.example` carry provider/model placeholders only.
+- **Decision:** Do not select a concrete LLM provider/model in Stage 5; defer the choice until just before the first real CrewAI execution.
+- **Alternatives considered:** Choosing a provider/model now to "lock it in" during setup.
+- **Rationale:** No code calls a model yet, so a concrete choice would add no value and would risk committing to a provider before its cost/token-exposure characteristics are evaluated against the pipeline's needs. The placeholders keep the setup runnable offline.
+- **Consequences:** `config/default.toml` `[model]` and `.env.example` stay as placeholders; the choice and its rationale are recorded as a new decision when made (Stage 7/8). This supersedes the Stage 5 timing implied earlier for PLAN open question 1.
+
+## D-015 — Plotting Library Deferred
+
+- **Date:** 2026-06-11
+- **Status:** Deferred (revisit at Stage 10, graph generation)
+- **Context:** The Python-generated graph is produced in Stage 10; Stage 5 generates no graphs.
+- **Decision:** Do not add or select a plotting library in Stage 5; defer until the graph-generation stage.
+- **Alternatives considered:** Adding a plotting dependency now.
+- **Rationale:** Adding a plotting dependency before any graph code exists would be premature and would enlarge the environment without need. Deferring keeps Stage 5 dependencies minimal.
+- **Consequences:** No plotting dependency is declared yet; the library is chosen and recorded when Stage 10 begins.
+
 ---
 
 ## Open Decisions (To Be Recorded Later)
 
-The following are not yet decided and will become decision records when resolved (sourced from PLAN §27 / TODO §11):
+The following are not yet decided and will become decision records when resolved (sourced from PLAN §27 / TODO §11). The LLM provider/model and plotting-library deferrals are now recorded explicitly above (D-014, D-015):
 
-- LLM provider/model for CrewAI (Stage 5).
-- Python plotting library for the generated graph (Stage 5/10).
 - LaTeX engine and BiDi package (Stage 9/11).
 - Sequential vs parallel chapter drafting (Stage 8).
 - Page-count threshold for the page-count gate (Stage 12).

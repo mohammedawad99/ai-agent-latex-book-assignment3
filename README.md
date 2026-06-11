@@ -16,7 +16,7 @@ Working topic for the generated book: *"From PoC to Production: Building Reliabl
 
 ## Current Status
 
-**Planning / documentation stage. No implementation exists yet.**
+**Project setup stage. A safe CLI skeleton, uv setup, pytest, and ruff are configured. The CrewAI pipeline itself is not implemented yet.**
 
 Completed and pushed so far:
 
@@ -26,9 +26,10 @@ Completed and pushed so far:
 | 1 | PRD (`docs/PRD.md`) | `b501a36` |
 | 2 | PLAN (`docs/PLAN.md`) | `6baece3` |
 | 3 | TODO (`docs/TODO.md`) | `a722f64` |
-| 4 | Supporting documentation (this set) | Stage 4 documentation prepared |
+| 4 | Supporting documentation | `495f966` |
+| 5 | Project setup (uv, deps, CLI skeleton) | setup prepared for review |
 
-There is currently no pipeline code, no dependencies, and no LaTeX sources. Everything in the "planned" sections below is design intent, not working software.
+There are declared dependencies and a safe CLI skeleton, but no CrewAI agents, no LLM calls, no LaTeX sources, no PDF build, and no generated evidence yet. Everything in the "planned" sections below is design intent, not working software.
 
 ## What This Project Will Build
 
@@ -65,15 +66,43 @@ assets/figures/                Authored figures
 assets/generated/              Python-generated assets
 ```
 
+## Setup and Working Commands (Stage 5)
+
+The project uses [uv](https://docs.astral.sh/uv/) for environment and dependency
+management. The following commands work now:
+
+```bash
+# Create/sync the virtual environment from pyproject.toml + uv.lock
+uv sync
+
+# Show the CLI help (safe, offline)
+uv run agentic-latex-book --help
+
+# Print current project status (safe, offline; does not run the pipeline)
+uv run agentic-latex-book
+
+# Run the test suite
+uv run pytest
+
+# Lint and format checks
+uv run ruff check .
+uv run ruff format --check .
+```
+
+Secrets: copy `.env.example` to `.env` and fill in real values locally. Never
+commit a real `.env`.
+
+> The CLI is a **setup skeleton only**. It reports status and does not run
+> CrewAI, call an LLM, or build a PDF — none of that is implemented yet.
+
 ## Planned Usage (Not Working Yet)
 
-> The commands below are **planned** for later stages. They do not work yet because the implementation does not exist. They are listed here to show the intended workflow and will be finalized in Stage 5 (setup) and Stage 11 (PDF build).
+> The items below are **planned** for later stages and do not work yet.
 
-- Project setup and dependency installation will be defined in Stage 5 (uv + `pyproject.toml`).
-- Running the pipeline via a CLI entry point will be defined in Stages 5–8.
+- Running the full CrewAI pipeline will be defined in Stages 6–8.
 - Building the PDF via a reproducible script under `scripts/` will be defined in Stage 11.
 
-Exact, runnable commands will be added to this README only once they actually work.
+Exact, runnable pipeline commands will be added to this README only once they actually work.
 
 ## Development Workflow
 

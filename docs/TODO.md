@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Draft — Stage 3 (TODO). This is a task plan only. Stages 0–2 are complete; Stage 3 is in progress; Stages 4–16 are future work and contain no implementation yet. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–4 are complete and pushed; Stage 5 (project setup) is the current stage, in review before commit; Stages 6–16 are future work and contain no implementation yet. The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-11.
 
@@ -19,8 +19,10 @@
 - [x] Stage 0 — Repository skeleton committed and pushed (`a0f8734`).
 - [x] Stage 1 — PRD committed and pushed (`b501a36`).
 - [x] Stage 2 — PLAN committed and pushed (`6baece3`).
-- [ ] Stage 3 — TODO in progress (this document).
-- [ ] Stages 4–16 — not started; no implementation code, dependencies, or LaTeX exist yet.
+- [x] Stage 3 — TODO committed and pushed (`a722f64`).
+- [x] Stage 4 — Supporting documentation committed and pushed (`495f966`).
+- [ ] Stage 5 — Project setup (current stage, in review before commit).
+- [ ] Stages 6–16 — not started; no CrewAI agents, no LaTeX, and no generated evidence exist yet.
 
 Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
 
@@ -44,9 +46,9 @@ Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; C
 | 0 | Repository skeleton + GitHub setup | Completed (`a0f8734`) | — | Skeleton on `main` |
 | 1 | PRD | Completed (`b501a36`) | Stage 0 done | `docs/PRD.md` |
 | 2 | PLAN | Completed (`6baece3`) | Stage 1 done | `docs/PLAN.md` |
-| 3 | TODO | In progress | Stage 2 done | `docs/TODO.md` |
-| 4 | Supporting documentation before code | Not started | Stage 3 done | Doc set populated |
-| 5 | Project setup (uv, deps, CLI skeleton) | Not started | Stage 4 done | `pyproject.toml`, runnable CLI stub |
+| 3 | TODO | Completed (`a722f64`) | Stage 2 done | `docs/TODO.md` |
+| 4 | Supporting documentation before code | Completed (`495f966`) | Stage 3 done | Doc set populated |
+| 5 | Project setup (uv, deps, CLI skeleton) | Current / in review | Stage 4 done | `pyproject.toml`, runnable CLI stub |
 | 6 | Core deterministic foundation | Not started | Stage 5 done | config/evidence/cost modules + tests |
 | 7 | CrewAI core | Not started | Stage 6 done | crew builder + agents/tasks |
 | 8 | Content planning and generation | Not started | Stage 7 done | outline→draft→review→refs flow |
@@ -101,7 +103,7 @@ Entry condition: Stage 1 done. Exit criteria: real technical PLAN committed and 
 - [x] Verify no Assignment 2 or wrong-exercise-number references remain.
 - [x] Commit the PLAN (`6baece3`) and push to GitHub with standard student authorship.
 
-### Stage 3 — TODO (Current Stage)
+### Stage 3 — TODO (Completed, `a722f64`)
 
 Entry condition: Stage 2 done and pushed. Exit criteria: this TODO is complete, reviewed, committed, and pushed.
 
@@ -116,42 +118,42 @@ Entry condition: Stage 2 done and pushed. Exit criteria: this TODO is complete, 
 - [x] Confirm only `docs/TODO.md` changed and no code/deps/LaTeX/evidence were added.
 - [x] Commit `docs/TODO.md` with a clear message and push to GitHub.
 
-### Stage 4 — Supporting Documentation Before Code
+### Stage 4 — Supporting Documentation Before Code (Completed, `495f966`)
 
 Entry condition: Stage 3 committed and pushed. Exit criteria: all doc files below are real (non-placeholder) and committed.
 
-- [ ] Write `docs/AI_WORKFLOW.md` describing how AI assistance is used across the project and how it is logged.
-- [ ] Write `docs/PROMPTS.md` with the prompt-capture format the pipeline will use (and seed it with the documentation-stage prompts).
-- [ ] Write `docs/DECISIONS.md` and record the first decisions (group setup, doc-first approach, deferral of dependencies to Stage 5).
-- [ ] Write `docs/COSTS.md` initial resource-awareness plan: what will be measured (runtime, tokens), how, and where summarized.
-- [ ] Write `docs/QUALITY.md` quality strategy: gates, tools, thresholds (page-count range, coverage target, file-length limit).
-- [ ] Write `docs/SUBMISSION_CHECKLIST.md` with the concrete Moodle + GitHub submission items.
-- [ ] Replace the root `README.md` placeholder with an initial professional version (overview, structure, planned usage, status).
-- [ ] Cross-link the documents (PRD ↔ PLAN ↔ TODO ↔ QUALITY ↔ COSTS) where helpful.
-- [ ] Verify no document overclaims production readiness or includes fake results.
-- [ ] Commit the documentation set in coherent increments and push.
+- [x] Write `docs/AI_WORKFLOW.md` describing how AI assistance is used across the project and how it is logged.
+- [x] Write `docs/PROMPTS.md` with the prompt-capture format the pipeline will use (and seed it with the documentation-stage prompts).
+- [x] Write `docs/DECISIONS.md` and record the first decisions (group setup, doc-first approach, deferral of dependencies to Stage 5).
+- [x] Write `docs/COSTS.md` initial resource-awareness plan: what will be measured (runtime, tokens), how, and where summarized.
+- [x] Write `docs/QUALITY.md` quality strategy: gates, tools, thresholds (page-count range, coverage target, file-length limit).
+- [x] Write `docs/SUBMISSION_CHECKLIST.md` with the concrete Moodle + GitHub submission items.
+- [x] Replace the root `README.md` placeholder with an initial professional version (overview, structure, planned usage, status).
+- [x] Cross-link the documents (PRD ↔ PLAN ↔ TODO ↔ QUALITY ↔ COSTS) where helpful.
+- [x] Verify no document overclaims production readiness or includes fake results.
+- [x] Commit the documentation set in coherent increments and push.
 
-### Stage 5 — Project Setup
+### Stage 5 — Project Setup (Current / in review)
 
 Entry condition: Stage 4 done. Exit criteria: project installs/runs a CLI stub reproducibly; dependency choices recorded.
 
-- [ ] Decide the LLM provider/model for CrewAI and record it in `docs/DECISIONS.md` (resolves PLAN open question 1).
-- [ ] Decide the plotting library and record it in `docs/DECISIONS.md`.
-- [ ] Choose and record the initial test/lint tooling decision (pytest + ruff, and whether mypy is adopted) in `docs/DECISIONS.md`.
-- [ ] Create a minimal `pyproject.toml` configured for uv with project metadata.
-- [ ] Add the chosen runtime dependencies (CrewAI and required libraries) to `pyproject.toml`.
-- [ ] Add pytest and ruff as dev dependencies in `pyproject.toml`.
-- [ ] Add basic pytest configuration (test paths, options) when `pyproject.toml` is created.
-- [ ] Add basic ruff configuration (rules, target version) when `pyproject.toml` is created.
-- [ ] Create the uv environment and generate/commit the lock file.
-- [ ] Add a `.env.example` template listing required environment variables (no real secrets).
-- [ ] Add a project config file (e.g. topic, model, page-count thresholds, paths) under version control.
-- [ ] Create a CLI entry point stub (`src/agentic_latex_book/cli.py`) that parses arguments and prints planned steps.
-- [ ] Wire the CLI as a console script / runnable module.
-- [ ] Add a package import sanity check (import the package and run the CLI `--help`).
+- [ ] Decide the concrete LLM provider/model for CrewAI — explicitly deferred in Stage 5 (see D-014); to resolve before the first real CrewAI execution (Stage 7/8).
+- [ ] Decide the plotting library — explicitly deferred in Stage 5 (see D-015); to resolve by Stage 10.
+- [x] Choose and record the initial test/lint tooling decision (pytest + ruff, and whether mypy is adopted) in `docs/DECISIONS.md`.
+- [x] Create a minimal `pyproject.toml` configured for uv with project metadata.
+- [x] Add the chosen runtime dependencies (CrewAI and required libraries) to `pyproject.toml`.
+- [x] Add pytest and ruff as dev dependencies in `pyproject.toml`.
+- [x] Add basic pytest configuration (test paths, options) when `pyproject.toml` is created.
+- [x] Add basic ruff configuration (rules, target version) when `pyproject.toml` is created.
+- [x] Create the uv environment and generate/commit the lock file.
+- [x] Add a `.env.example` template listing required environment variables (no real secrets).
+- [x] Add a project config file (e.g. topic, model, page-count thresholds, paths) under version control.
+- [x] Create a CLI entry point stub (`src/agentic_latex_book/cli.py`) that parses arguments and prints planned steps.
+- [x] Wire the CLI as a console script / runnable module.
+- [x] Add a package import sanity check (import the package and run the CLI `--help`).
 - [ ] Add an initial local quality command/script that runs at least lint + tests (usable once the first tests exist).
-- [ ] Add one trivial smoke test so the quality command has something to run.
-- [ ] Document the exact setup, run, and quality-command instructions in `README.md`.
+- [x] Add one trivial smoke test so the quality command has something to run.
+- [x] Document the exact setup, run, and quality-command instructions in `README.md`.
 - [ ] Commit project setup and push.
 
 ### Stage 6 — Core Deterministic Foundation
@@ -438,11 +440,11 @@ The project is done when all of the following hold (mirrors PRD §18 and PLAN §
 
 These carry over from `docs/PLAN.md` §27 and must be resolved at the stage noted; none are guessed here.
 
-- [ ] LLM provider/model for CrewAI and its cost/token-exposure characteristics (resolve by Stage 5).
+- [ ] LLM provider/model for CrewAI and its cost/token-exposure characteristics — deferred in Stage 5 (see D-014); resolve before the first real CrewAI execution (Stage 7/8).
 - [ ] LaTeX engine + BiDi package combination most reliable for Hebrew–English (resolve by Stage 9/11).
 - [ ] Sequential vs parallel chapter drafting (resolve by Stage 8).
 - [ ] Exact page-count threshold for the page-count gate, e.g. 13–17 (resolve by Stage 12).
-- [ ] Python plotting library for the generated graph (resolve by Stage 5/10).
+- [ ] Python plotting library for the generated graph — deferred in Stage 5 (see D-015); resolve by Stage 10 (graph generation).
 - [ ] Per-gate detection methods (PDF text extraction vs source inspection) and their robustness (resolve by Stage 12).
 - [ ] Reference sourcing: hand-curated vs agent-assembled with human review; how citation linking is verified (resolve by Stage 8/12).
 - [ ] Test framework + quality tooling final selection, recorded in `docs/QUALITY.md` (resolve by Stage 5/13).
