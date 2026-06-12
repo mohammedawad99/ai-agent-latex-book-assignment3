@@ -70,9 +70,10 @@ requires a constrained re-run. **Stages 9.0 (the LaTeX assembly plan, D-030),
 9.1 (the LaTeX skeleton + bibliography), 9.2 (the deterministic matplotlib
 figure scripts and generated PNGs), and 9.3 (the manual conversion of the
 cleaned Markdown into full LaTeX chapters) incurred no LLM/API cost** — no
-real run, no `kickoff`, no tokens; the remaining Stages 9.4–9.6 are
-deterministic (TeX Live compilation and validation) and are expected to incur
-no LLM/API cost either.
+real run, no `kickoff`, no tokens. **Stage 9.4 (the first XeLaTeX/biber
+compile) likewise incurred no LLM/API cost** — purely local TeX compilation;
+the remaining Stages 9.5–9.6 are deterministic validation/commit steps and
+are expected to incur no LLM/API cost either.
 
 ## Minimal-Run Metadata Format (Stage 8A scaffolding)
 

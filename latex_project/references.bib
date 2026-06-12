@@ -98,16 +98,19 @@
   note   = {Project repository file: \texttt{docs/DECISIONS.md}},
 }
 
+% The two long paths below use \path (url/hyperref, already loaded) instead of
+% \texttt: the Stage 9.4 compile log flagged severe overfull \hbox warnings
+% (310pt/176pt) because \texttt cannot break these paths across lines.
 @misc{mars777_runtime_evidence,
   author = {{MaRs-777}},
   title  = {Measured run evidence},
   year   = {2026},
-  note   = {Project repository file: \texttt{results/stage8c7-full-gemini-20260611-173125/runtime.json}},
+  note   = {Project repository file: \path{results/stage8c7-full-gemini-20260611-173125/runtime.json}},
 }
 
 @misc{mars777_crew_index,
   author = {{MaRs-777}},
   title  = {Crew task index for the measured run},
   year   = {2026},
-  note   = {Project repository file: \texttt{results/stage8c7-full-gemini-20260611-173125/crew\_outputs/\_index.json}},
+  note   = {Project repository file: \path{results/stage8c7-full-gemini-20260611-173125/crew_outputs/_index.json}},
 }

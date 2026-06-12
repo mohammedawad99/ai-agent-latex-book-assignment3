@@ -30,15 +30,19 @@
 % Chapter-opening pages fall back to "plain" (page number only), as usual.
 
 % --- Hyperlinks -------------------------------------------------------------
+% Loaded BEFORE polyglossia/bidi: bidi errors if hyperref comes after it
+% ("Please load package hyperref before bidi package", main.tex:12).
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 
-% --- Bibliography: biblatex + biber, numeric style, linked citations -------
-\usepackage[backend=biber,style=numeric,sorting=nyt]{biblatex}
-\addbibresource{references.bib}
-
-% --- Languages: English main, Hebrew other (loads bidi under XeTeX) --------
-% Kept last on purpose (bidi wants to be the last loaded package).
+% --- Languages: English main, Hebrew other (pulls bidi under XeTeX) --------
+% Loaded AFTER hyperref (bidi's requirement, above) and BEFORE biblatex (the
+% first compile failed with "Package biblatex Error: 'polyglossia' loaded
+% after biblatex.", main.tex:12). Both orderings are demanded by the logs.
 \usepackage{polyglossia}
 \setmainlanguage{english}
 \setotherlanguage{hebrew}
 \newfontfamily\hebrewfont[Script=Hebrew]{DejaVu Sans}
+
+% --- Bibliography: biblatex + biber, numeric style, linked citations -------
+\usepackage[backend=biber,style=numeric,sorting=nyt]{biblatex}
+\addbibresource{references.bib}
