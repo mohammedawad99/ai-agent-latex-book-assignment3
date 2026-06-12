@@ -133,7 +133,7 @@ The project follows a staged plan (`docs/TODO.md`): skeleton → PRD → PLAN �
 
 Two separate PDFs are involved in this assignment:
 
-1. The **generated article/book PDF** — produced by the pipeline, stored in `results/final_pdf/`; this is the main evaluated artifact.
+1. The **generated article/book PDF** — produced by the pipeline, committed at `results/final_pdf/MaRs-777-article.pdf` (16 pages, validated; see `results/final_pdf/validation_report.md`); this is the main evaluated artifact.
 2. The **Moodle submission PDF** — `MaRs-777-ex03.pdf`, created separately from the official Word template, carrying the exercise number, group code, GitHub link, and final self-assessment score.
 
 The GitHub repository will be public or shared with the lecturer at rmisegal@gmail.com before submission.
