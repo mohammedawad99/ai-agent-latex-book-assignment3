@@ -1,12 +1,15 @@
 % preamble.tex — packages, fonts, languages, headers/footers, bibliography.
 % Engine: XeLaTeX (D-030). LuaLaTeX is the recorded fallback.
-% Package order matters:
+% Package order matters (proven by the Stage 9.4 compile errors):
 %   - fontspec before polyglossia;
-%   - hyperref near the end (but before biblatex, which detects it);
-%   - polyglossia + Hebrew LAST, because it loads bidi, which must load last.
+%   - hyperref BEFORE polyglossia/bidi (bidi errors if hyperref comes after);
+%   - polyglossia loads bidi under XeLaTeX for the Hebrew RTL support;
+%   - biblatex AFTER polyglossia (biblatex error: "'polyglossia' loaded
+%     after biblatex") and after hyperref, which it detects.
 
-% --- Page geometry (A4, ~2.5 cm margins; sized for the 13-17 page target) ---
-\usepackage[a4paper,margin=2.5cm]{geometry}
+% --- Page geometry (A4; margins reduced 2.5 -> 2.2 cm in Stage 9.5 to meet
+% the 13-17 page target while staying readable) -----------------------------
+\usepackage[a4paper,margin=2.2cm]{geometry}
 
 % --- Fonts (XeLaTeX/fontspec; Unicode input) -------------------------------
 \usepackage{fontspec}
@@ -18,6 +21,17 @@
 \usepackage{booktabs}   % tables 4.1 and 6.1
 \usepackage{amsmath}    % the two numbered equations
 \usepackage{xcolor}     % link colors only
+
+% --- Compact list spacing (Stage 9.5: enumitem ships with the installed
+% TeX Live; tightens the five itemize/enumerate lists for the page target) --
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=4pt}
+
+% --- Verbatim code blocks in \small (Stage 9.5: keeps the five code
+% listings compact and inside the text width) -------------------------------
+\makeatletter
+\renewcommand{\verbatim@font}{\normalfont\small\ttfamily}
+\makeatother
 
 % --- Headers and footers (real implementation, not conceptual) -------------
 \usepackage{fancyhdr}
@@ -46,3 +60,8 @@
 % --- Bibliography: biblatex + biber, numeric style, linked citations -------
 \usepackage[backend=biber,style=numeric,sorting=nyt]{biblatex}
 \addbibresource{references.bib}
+% Allow URLs in the bibliography to break at digits/letters too (Stage 9.5:
+% removes the overfull lines for long URLs such as the CrewAI docs entry).
+\setcounter{biburlnumpenalty}{9000}
+\setcounter{biburllcpenalty}{9000}
+\setcounter{biburlucpenalty}{9000}

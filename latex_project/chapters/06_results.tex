@@ -44,7 +44,7 @@ weight on collaboration.
 
 We report only what we actually measured. The figures below come directly
 from the committed evidence of one real full run
-(\texttt{results/stage8c7-full-gemini-20260611-173125/runtime.json})%
+(\path{results/stage8c7-full-gemini-20260611-173125/runtime.json})%
 ~\cite{mars777_runtime_evidence}, with the per-task breakdown recorded in the
 crew output index of the same run~\cite{mars777_crew_index}. They describe a
 single content-generation run, not an average over many books, and we do not
@@ -53,6 +53,7 @@ values.
 
 \begin{table}[htbp]
   \centering
+  \small
   \caption{Measured cost of the Stage 8C.7 full run.}
   \label{tab:measured-run}
   \begin{tabular}{lll}
@@ -110,7 +111,7 @@ plt.savefig("figures/generation_time.png", dpi=150)
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.8\textwidth]{figures/generation_time.png}
+  \includegraphics[width=0.7\textwidth]{figures/generation_time.png}
   \caption{Illustrative generation time per chapter (Python-generated).}
   \label{fig:generation_time}
 \end{figure}

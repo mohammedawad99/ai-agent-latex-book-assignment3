@@ -5,7 +5,9 @@
 %   xelatex ... (twice more for ToC and citations)
 % Source of truth for all content: content/book.md (cleaned Markdown, immutable).
 
-\documentclass[11pt,a4paper]{report}
+% 10pt (Stage 9.5): 11pt produced 18-19 pages; 10pt + 2.2cm margins lands the
+% document inside the 13-17 page target while staying readable.
+\documentclass[10pt,a4paper]{report}
 
 \input{preamble}
 
