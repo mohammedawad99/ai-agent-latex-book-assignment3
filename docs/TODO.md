@@ -8,7 +8,7 @@
 
 **Group:** MaRs-777 (Mohamed Awad, Rawey Sleiman). Mohamed Awad is the current repository maintainer.
 
-**Document status:** Living task plan. Stages 0–8C.7 are complete and pushed; Stage 8C.6 hardened the topic/metadata (`0858c44`), and the second full Gemini run (8C.7, `0611993`) produced **candidate content** that passes the basic offline content gate (on-topic, real cover metadata, no placeholders). The candidate is **not final PDF-ready** (questionable citations, unsupported metrics, conceptual-only headers/footers). **No final accepted content and no LaTeX/PDF exist yet.** Stage 8C.8.0 (the cleanup plan) is committed (`dd18878`); Stage 8C.8.1 (the deterministic offline QA scanner) is committed and pushed (`dcac0eb`). Stage 8C.8.2/8C.8.3 (cleaned Markdown content under `latex_project/content/`) is **committed and pushed (`98a50f2`)** after human review — `book.md` and `README.md` are derived from the 8C.7 candidate and **pass the strict `content-qa` scanner (`ok: True`, exit 0)**; this is cleaned source only, so **no LaTeX and no PDF exist yet**. **Stage 9.x (LaTeX assembly from the cleaned content) is the current milestone:** the Stage 9.0 assembly plan is committed and pushed (`c3ca705`; D-030), and **Stage 9.1 (LaTeX skeleton + bibliography only) is committed and pushed (`af71265`)** after human review — `main.tex`, `preamble.tex`, nine skeleton chapter files (headings + TODO markers, not full text), and `references.bib` (transcribed from the cleaned bibliography only) now exist under `latex_project/`. **No compile has been attempted (TeX Live is not installed on this machine yet) and no PDF exists.** **Stage 9.2 (figure/graph generation) is committed and pushed (`6aa2cf1`)** after human review (including the matplotlib backend hardening fix) — two deterministic matplotlib scripts under `latex_project/scripts/` and the two generated PNGs under `latex_project/figures/` (`architecture.png`, `generation_time.png` — the graph clearly labelled illustrative); the chapter figure blocks reference the existing PNGs. Still no compile (TeX Live not installed) and **no PDF**. **Stage 9.3 (full chapter conversion) is committed and pushed (`38f8c86`)** after human review — the **LaTeX sources are now content-complete**: the nine chapter files carry the complete article text converted from `content/book.md` (faithful prose, the two booktabs tables, both equations, plain-`verbatim` code listings, the rendered Hebrew–English BiDi passage, citations matching `references.bib`, plus the approved `\nocite` in `main.tex`); measured values kept exactly and unmeasured metrics still labelled proposed. **Stage 9.4 (first compile) is committed and pushed (`c7ce915`)** after human review: TeX Live was installed manually by the student (including `texlive-lang-arabic`, needed because `bidi.sty` was missing — the 9.4.0 gate correctly stopped on that). The full XeLaTeX + biber + XeLaTeX ×2 sequence **compiles successfully**: `latex_project/build/main.pdf` exists (19 pages, ~189 KB) as a **gitignored local build artifact only — not committed, not final, not copied to `results/`**. The two log-driven fixes (preamble package order; `\path` for the long bibliography paths) are in `c7ce915`. **Stage 9.5 (PDF validation and polish) is committed and pushed (`899ebb8`)** after human review (including the preamble comment cleanup): the full deterministic gate suite passed against a clean rebuild — **16 pages (inside the 13–17 target), 0 overfull warnings, clean compile log, all 14 text-layer gates pass**, Hebrew BiDi present and visually confirmed. **Stage 9.6 (final article PDF evidence) is committed and pushed (`3fb8562`)** after human review — the review first blocked three stale "future stages" statements (abstract, discussion, conclusion), which were corrected consistently in `content/book.md` and the matching chapters before the evidence was accepted. The validated article PDF is committed at **`results/final_pdf/MaRs-777-article.pdf`** (16 pages, clean log, 0 overfulls, 14/14 text-layer gates, 0 `??`, stale-statement grep clean) together with **`results/final_pdf/validation_report.md`**. **The Stage 9.x LaTeX assembly milestone is complete.** **The Moodle wrapper `MaRs-777-ex03.pdf` is a separate artifact and is still pending; submission packaging is the next step.** The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
+**Document status:** Living task plan. Stages 0–8C.7 are complete and pushed; Stage 8C.6 hardened the topic/metadata (`0858c44`), and the second full Gemini run (8C.7, `0611993`) produced **candidate content** that passes the basic offline content gate (on-topic, real cover metadata, no placeholders). The candidate is **not final PDF-ready** (questionable citations, unsupported metrics, conceptual-only headers/footers). **No final accepted content and no LaTeX/PDF exist yet.** Stage 8C.8.0 (the cleanup plan) is committed (`dd18878`); Stage 8C.8.1 (the deterministic offline QA scanner) is committed and pushed (`dcac0eb`). Stage 8C.8.2/8C.8.3 (cleaned Markdown content under `latex_project/content/`) is **committed and pushed (`98a50f2`)** after human review — `book.md` and `README.md` are derived from the 8C.7 candidate and **pass the strict `content-qa` scanner (`ok: True`, exit 0)**; this is cleaned source only, so **no LaTeX and no PDF exist yet**. **Stage 9.x (LaTeX assembly from the cleaned content) is the current milestone:** the Stage 9.0 assembly plan is committed and pushed (`c3ca705`; D-030), and **Stage 9.1 (LaTeX skeleton + bibliography only) is committed and pushed (`af71265`)** after human review — `main.tex`, `preamble.tex`, nine skeleton chapter files (headings + TODO markers, not full text), and `references.bib` (transcribed from the cleaned bibliography only) now exist under `latex_project/`. **No compile has been attempted (TeX Live is not installed on this machine yet) and no PDF exists.** **Stage 9.2 (figure/graph generation) is committed and pushed (`6aa2cf1`)** after human review (including the matplotlib backend hardening fix) — two deterministic matplotlib scripts under `latex_project/scripts/` and the two generated PNGs under `latex_project/figures/` (`architecture.png`, `generation_time.png` — the graph clearly labelled illustrative); the chapter figure blocks reference the existing PNGs. Still no compile (TeX Live not installed) and **no PDF**. **Stage 9.3 (full chapter conversion) is committed and pushed (`38f8c86`)** after human review — the **LaTeX sources are now content-complete**: the nine chapter files carry the complete article text converted from `content/book.md` (faithful prose, the two booktabs tables, both equations, plain-`verbatim` code listings, the rendered Hebrew–English BiDi passage, citations matching `references.bib`, plus the approved `\nocite` in `main.tex`); measured values kept exactly and unmeasured metrics still labelled proposed. **Stage 9.4 (first compile) is committed and pushed (`c7ce915`)** after human review: TeX Live was installed manually by the student (including `texlive-lang-arabic`, needed because `bidi.sty` was missing — the 9.4.0 gate correctly stopped on that). The full XeLaTeX + biber + XeLaTeX ×2 sequence **compiles successfully**: `latex_project/build/main.pdf` exists (19 pages, ~189 KB) as a **gitignored local build artifact only — not committed, not final, not copied to `results/`**. The two log-driven fixes (preamble package order; `\path` for the long bibliography paths) are in `c7ce915`. **Stage 9.5 (PDF validation and polish) is committed and pushed (`899ebb8`)** after human review (including the preamble comment cleanup): the full deterministic gate suite passed against a clean rebuild — **16 pages (inside the 13–17 target), 0 overfull warnings, clean compile log, all 14 text-layer gates pass**, Hebrew BiDi present and visually confirmed. **Stage 9.6 (final article PDF evidence) is committed and pushed (`3fb8562`)** after human review — the review first blocked three stale "future stages" statements (abstract, discussion, conclusion), which were corrected consistently in `content/book.md` and the matching chapters before the evidence was accepted. The validated article PDF is committed at **`results/final_pdf/MaRs-777-article.pdf`** (16 pages, clean log, 0 overfulls, 14/14 text-layer gates, 0 `??`, stale-statement grep clean) together with **`results/final_pdf/validation_report.md`**. **The Stage 9.x LaTeX assembly milestone is complete. The next step is the final repository review / final submission readiness review.** The plan derives strictly from `docs/PRD.md` and `docs/PLAN.md`. Changes are tracked through normal Git history.
 
 **Last updated:** 2026-06-12.
 
@@ -44,10 +44,10 @@
 - [x] Stage 9.3 — full LaTeX chapter conversion (prose, tables, equations, listings, BiDi, citations from `content/book.md`; LaTeX sources content-complete). No compile attempted because TeX Live is not installed; **no PDF**. (Committed and pushed: `38f8c86`.)
 - [x] Stage 9.4 — first compile succeeded (XeLaTeX+biber; `build/main.pdf`, 19 pages, gitignored build artifact only — not committed). `texlive-lang-arabic` was required for `bidi.sty`; two minimal fixes (preamble package order, `\path` for long bibliography paths). (Committed and pushed: `c7ce915`.)
 - [x] Stage 9.5 — PDF validation and polish: rebuild is **16 pages, 0 overfulls, clean log, all 14 text-layer gates pass, no `??`**; key pages visually verified. Polish: 2.2 cm margins, 10pt, `\small` verbatim/table, `enumitem`, `\path`, biblatex URL penalties, figure widths. (Committed and pushed: `899ebb8`.)
-- [x] Stage 9.6 — final article PDF evidence: stale "future stages" wording fixed in `content/book.md` + abstract/discussion/conclusion chapters; clean rebuild re-validated (16 pages, all gates, stale-statement grep clean); `results/final_pdf/MaRs-777-article.pdf` + `validation_report.md` committed. (Committed and pushed: `3fb8562`.) **Stage 9.x LaTeX assembly milestone complete.** Moodle wrapper `MaRs-777-ex03.pdf` still pending (submission packaging next).
+- [x] Stage 9.6 — final article PDF evidence: stale "future stages" wording fixed in `content/book.md` + abstract/discussion/conclusion chapters; clean rebuild re-validated (16 pages, all gates, stale-statement grep clean); `results/final_pdf/MaRs-777-article.pdf` + `validation_report.md` committed. (Committed and pushed: `3fb8562`.) **Stage 9.x LaTeX assembly milestone complete.** Next: final repository review / final submission readiness review.
 - [ ] Stages 9.2–16 — not started; no PDF exists yet.
 
-Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the generated article PDF and the Moodle submission PDF (`MaRs-777-ex03.pdf`) are separate; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
+Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; CrewAI is mandatory; the LaTeX project must be included under `latex_project/`; the GitHub repo must be public or shared with rmisegal@gmail.com; evidence must come from real runs only with no fabrication; no overclaiming of production readiness; Python files stay short and maintainable; every important claim eventually points to evidence; commit history stays incremental and meaningful.
 
 ---
 
@@ -83,7 +83,7 @@ Key constraints carried from PRD/PLAN: the PDF is the main evaluated artifact; C
 | 13 | Testing and quality hardening | Not started | Stage 12 done | coverage/length/clean-checkout green |
 | 14 | Real end-to-end run and evidence | Not started | Stage 13 done | real run evidence in `results/` |
 | 15 | Final documentation hardening | Not started | Stage 14 done | docs linked to evidence |
-| 16 | Final submission preparation | Not started | Stage 15 done | `MaRs-777-ex03.pdf` + final push |
+| 16 | Final submission readiness review | Not started | Stage 15 done | final repository review + final push |
 
 ---
 
@@ -108,7 +108,6 @@ Entry condition: Stage 0 done. Exit criteria: real PRD committed and pushed.
 
 - [x] Write `docs/PRD.md` with all required sections (problem, goals, scope, requirements, acceptance criteria, traceability).
 - [x] Add group identity (MaRs-777; Mohamed Awad, Rawey Sleiman) and group-submission wording.
-- [x] Add the Moodle submission PDF deliverable (`MaRs-777-ex03.pdf`) as separate from the article PDF.
 - [x] Add submission/GitHub access requirements (public or shared with rmisegal@gmail.com; correct Assignment 3 link).
 - [x] Add the three submission rows to the traceability matrix.
 - [x] Verify no Assignment 2 or wrong-exercise-number references remain.
@@ -151,7 +150,7 @@ Entry condition: Stage 3 committed and pushed. Exit criteria: all doc files belo
 - [x] Write `docs/DECISIONS.md` and record the first decisions (group setup, doc-first approach, deferral of dependencies to Stage 5).
 - [x] Write `docs/COSTS.md` initial resource-awareness plan: what will be measured (runtime, tokens), how, and where summarized.
 - [x] Write `docs/QUALITY.md` quality strategy: gates, tools, thresholds (page-count range, coverage target, file-length limit).
-- [x] Write `docs/SUBMISSION_CHECKLIST.md` with the concrete Moodle + GitHub submission items.
+- [x] Write `docs/SUBMISSION_CHECKLIST.md` with the concrete GitHub submission items.
 - [x] Replace the root `README.md` placeholder with an initial professional version (overview, structure, planned usage, status).
 - [x] Cross-link the documents (PRD ↔ PLAN ↔ TODO ↔ QUALITY ↔ COSTS) where helpful.
 - [x] Verify no document overclaims production readiness or includes fake results.
@@ -433,8 +432,8 @@ xelatex -interaction=nonstopmode -halt-on-error -output-directory=build main.tex
 - [x] 9.2 — figure/graph generation scripts + generated images under `figures/` (two deterministic matplotlib scripts run via `uv run --with matplotlib` — no dependency change; `architecture.png` 611×928, `generation_time.png` 1200×750, both PNG; graph values labelled illustrative, not measured; chapter figure blocks uncommented to reference the existing PNGs; includes the Agg-backend-before-pyplot hardening fix; committed and pushed: `6aa2cf1`).
 - [~] 9.3 — convert cleaned Markdown into LaTeX chapters (full mapping above; all nine chapter files now carry the complete text — booktabs tables 4.1/6.1, equations `eq:agent_utility`/`eq:quality`, plain-`verbatim` code listings, rendered Hebrew BiDi passage, `\cite` keys matching `references.bib`; no TODO markers remain; includes the approved `main.tex` `\nocite` for the five uncited project-internal bibliography entries; committed and pushed: `38f8c86`).
 - [x] 9.4 — first compile. TeX Live installed manually; the 9.4.0 gate first stopped on missing `bidi.sty`, resolved by `texlive-lang-arabic`. Compile sequence (XeLaTeX → biber → XeLaTeX ×2) exits 0; `build/main.pdf` = 19 pages, 189 KB, gitignored build artifact only. Log-driven fixes: (1) `preamble.tex` order hyperref → polyglossia/bidi → biblatex (biblatex error "polyglossia loaded after biblatex", then bidi error "load hyperref before bidi"); (2) `references.bib` `\path` for the two long evidence paths (310 pt/176 pt overfulls). Final log: no errors, no undefined references/citations. (Committed and pushed: `c7ce915`.)
-- [x] 9.5 — PDF validation and polish (committed and pushed: `899ebb8`). Tools verified (`poppler-utils` 24.02). Baseline: 19 pages, 5 minor overfulls. Polish (all minimal, content-preserving): margins 2.5→2.2 cm; 11pt→10pt (needed for the page target); `\small` verbatim (preamble `\verbatim@font`) and Table 6.1; `enumitem` compact lists (package ships with the installed TeX Live, compile-proven); `\path` for `gemini/gemini-2.5-flash` in the abstract and the inline runtime.json path; biblatex `biburl*penalty` counters; figure widths 0.5/0.7`\textwidth`. Result: **16 pages, 0 overfulls, log clean, all 14 text-layer gates PASS, 0 `??`**, Hebrew present in the text layer AND visually confirmed; cover/architecture/graph/bibliography pages visually inspected (one sparse page — body p. 12, float-induced — noted, harmless). PDF stays a gitignored artifact; **no final PDF claim, Moodle PDF not ready**.
-- [x] 9.6 — final article PDF evidence (committed and pushed: `3fb8562`). Human review blocked the first candidate: three stale "future stages" statements (abstract, discussion, conclusion) were corrected in `content/book.md` and the matching chapters (minimal consistency edits — no metric changed, no new claims). Clean rebuild re-passed all gates: 16 pages, clean log, 0 overfulls, 14/14 text-layer gates, 0 `??`, 16/16 pages rendered, stale-statement grep clean. `results/final_pdf/MaRs-777-article.pdf` (`cmp`-verified byte-identical to `build/main.pdf`, SHA256 `b88fc2dd…ccd3ee`) and `results/final_pdf/validation_report.md` are committed. **All 9.0–9.6 sub-stages done — the LaTeX assembly milestone is complete.** The Moodle wrapper `MaRs-777-ex03.pdf` is **not** created here.
+- [x] 9.5 — PDF validation and polish (committed and pushed: `899ebb8`). Tools verified (`poppler-utils` 24.02). Baseline: 19 pages, 5 minor overfulls. Polish (all minimal, content-preserving): margins 2.5→2.2 cm; 11pt→10pt (needed for the page target); `\small` verbatim (preamble `\verbatim@font`) and Table 6.1; `enumitem` compact lists (package ships with the installed TeX Live, compile-proven); `\path` for `gemini/gemini-2.5-flash` in the abstract and the inline runtime.json path; biblatex `biburl*penalty` counters; figure widths 0.5/0.7`\textwidth`. Result: **16 pages, 0 overfulls, log clean, all 14 text-layer gates PASS, 0 `??`**, Hebrew present in the text layer AND visually confirmed; cover/architecture/graph/bibliography pages visually inspected (one sparse page — body p. 12, float-induced — noted, harmless). PDF stays a gitignored artifact; **no final PDF claim at this stage**.
+- [x] 9.6 — final article PDF evidence (committed and pushed: `3fb8562`). Human review blocked the first candidate: three stale "future stages" statements (abstract, discussion, conclusion) were corrected in `content/book.md` and the matching chapters (minimal consistency edits — no metric changed, no new claims). Clean rebuild re-passed all gates: 16 pages, clean log, 0 overfulls, 14/14 text-layer gates, 0 `??`, 16/16 pages rendered, stale-statement grep clean. `results/final_pdf/MaRs-777-article.pdf` (`cmp`-verified byte-identical to `build/main.pdf`, SHA256 `b88fc2dd…ccd3ee`) and `results/final_pdf/validation_report.md` are committed. **All 9.0–9.6 sub-stages done — the LaTeX assembly milestone is complete.**
 
 These sub-stages absorb the older Stage 9/10/11/12 checklists below: 9.1/9.3 ≈ Stage 9, 9.2 ≈ Stage 10 (figures under `latex_project/figures/`, not `assets/`; D-030), 9.4/9.6 ≈ Stage 11, 9.5 ≈ Stage 12 gates. The original checklist items are ticked as the matching sub-stage completes.
 
@@ -553,20 +552,17 @@ Entry condition: Stage 14 done with passing gates. Exit criteria: all docs refle
 - [ ] Re-check that nothing overclaims production readiness; state limitations honestly.
 - [ ] Commit documentation hardening and push.
 
-### Stage 16 — Final Submission Preparation
+### Stage 16 — Final Submission Readiness Review
 
-Entry condition: Stage 15 done. Exit criteria: repository is share-ready and the Moodle PDF is prepared and submitted.
+Entry condition: Stage 15 done. Exit criteria: repository is share-ready and the final push is done.
 
 - [ ] Verify the GitHub repository is public or shared with rmisegal@gmail.com.
 - [ ] Verify the submitted GitHub link points to `ai-agent-latex-book-assignment3` (not Assignment 2).
-- [ ] Prepare `MaRs-777-ex03.pdf` from the official Word template.
-- [ ] Ensure `MaRs-777-ex03.pdf` contains exercise number 03, group code MaRs-777, the Assignment 3 GitHub link, and the final self-assessment score.
 - [ ] Decide the final self-assessment score with the group and justify it against the rubric.
 - [ ] Perform final repository cleanup (no stray artifacts, no secrets, no fake outputs).
 - [ ] Confirm the commit history is incremental and meaningful.
 - [ ] Do the final push and confirm `origin/main` is up to date.
-- [ ] Submit `MaRs-777-ex03.pdf` on Moodle.
-- [ ] Record submission completion in `docs/SUBMISSION_CHECKLIST.md`.
+- [ ] Record completion in `docs/SUBMISSION_CHECKLIST.md`.
 
 ---
 
@@ -587,7 +583,7 @@ Entry condition: Stage 15 done. Exit criteria: repository is share-ready and the
 | 13 | Lint + (types) + tests + coverage + file-length check pass via one command. |
 | 14 | Full real run completes; PDF meets PDF-1…PDF-11; evidence is real, not fabricated. |
 | 15 | All docs updated; every important claim linked to evidence; limitations stated. |
-| 16 | Repo shared/public; correct A3 link; `MaRs-777-ex03.pdf` complete; final push done. |
+| 16 | Repo shared/public; correct A3 link; final push done. |
 
 ---
 
@@ -611,7 +607,7 @@ Entry condition: Stage 15 done. Exit criteria: repository is share-ready and the
 | 13 | Passing quality-command output; coverage report. |
 | 14 | Real run logs, crew outputs, validation reports, final PDF, cost data — all under `results/`. |
 | 15 | Updated docs with explicit links to the above evidence. |
-| 16 | `MaRs-777-ex03.pdf`; submission record; final `origin/main` state. |
+| 16 | Final review record; final `origin/main` state. |
 
 Evidence is committed only after a real run produces it. Until a stage runs for real, `results/` holds only `.gitkeep` markers.
 
@@ -644,7 +640,6 @@ The project is done when all of the following hold (mirrors PRD §18 and PLAN §
 - [ ] AI-assisted workflow, prompts, and decisions are documented.
 - [ ] No fabricated evidence and no overclaiming of production readiness are present.
 - [ ] The repository is public or shared with rmisegal@gmail.com, with the correct Assignment 3 link.
-- [ ] `MaRs-777-ex03.pdf` is prepared from the official template and submitted on Moodle.
 
 ---
 
@@ -660,9 +655,7 @@ The project is done when all of the following hold (mirrors PRD §18 and PLAN §
 - [ ] No secrets, no fake outputs, no stray build artifacts in the repo.
 - [ ] GitHub repository public or shared with rmisegal@gmail.com.
 - [ ] Submitted GitHub link points to `ai-agent-latex-book-assignment3`.
-- [ ] `MaRs-777-ex03.pdf` created from the official Word template with all required fields.
-- [ ] Final self-assessment score decided and included in `MaRs-777-ex03.pdf`.
-- [ ] `MaRs-777-ex03.pdf` submitted on Moodle.
+- [ ] Final self-assessment score decided with the group against the rubric.
 - [ ] `origin/main` up to date after the final push.
 
 ---

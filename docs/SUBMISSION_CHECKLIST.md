@@ -2,11 +2,11 @@
 
 ## Purpose
 
-This document tracks everything needed for a complete, correct submission of Assignment 3, across both GitHub and Moodle. It is the final gate before hand-in. Items are marked accurately: completed items are checked, and future work stays unchecked until it is genuinely done.
+This document tracks everything needed for a complete, correct submission of Assignment 3 for the GitHub repository. It is the final gate before hand-in. Items are marked accurately: completed items are checked, and future work stays unchecked until it is genuinely done.
 
 ## Current Status
 
-The project is at the documentation stage (Stage 4 of the staged plan). Planning and supporting documents exist; implementation, the LaTeX project, the generated PDF, and the Moodle wrapper PDF do not exist yet. Most items below are therefore intentionally unchecked.
+The implementation, the LaTeX project, and the validated generated article PDF (`results/final_pdf/MaRs-777-article.pdf`, Stage 9.6) all exist and are committed. Remaining unchecked items are the final repository review / submission readiness review.
 
 ## GitHub Requirements
 
@@ -14,19 +14,6 @@ The project is at the documentation stage (Stage 4 of the staged plan). Planning
 - [ ] The repository is public, or shared with the lecturer at rmisegal@gmail.com.
 - [x] The repository has a meaningful, incremental commit history (skeleton → PRD → PLAN → TODO → supporting documentation).
 - [ ] The final state is pushed and `origin/main` is up to date at submission time.
-
-## Moodle Requirements
-
-- [ ] Each group member submits the assignment separately on Moodle.
-- [ ] The submission PDF is created from the official Word template and converted to PDF.
-- [ ] The submission PDF is named `MaRs-777-ex03.pdf`.
-- [ ] The submission PDF states the exercise number: 03.
-- [ ] The submission PDF states the group code: MaRs-777.
-- [ ] The submission PDF lists the group members: Mohamed Awad and Rawey Sleiman.
-- [ ] The submission PDF includes the Assignment 3 GitHub link.
-- [ ] The submission PDF includes the final self-assessment score, decided honestly against the rubric.
-
-Note: the Moodle submission PDF (`MaRs-777-ex03.pdf`) is a separate document from the generated article/book PDF. The article PDF is the main evaluated artifact; the wrapper carries submission metadata.
 
 ## Final Article / Book PDF Requirements Checklist
 
@@ -63,7 +50,7 @@ All evidence must come from real runs (no fabrication):
 - [ ] Execution logs in `results/logs/`.
 - [ ] Raw crew outputs in `results/crew_outputs/`.
 - [ ] Validation reports in `results/validation_reports/`.
-- [x] Final article PDF in `results/final_pdf/` (`MaRs-777-article.pdf`, 16 pages, validated + `validation_report.md`; committed and pushed in Stage 9.6, `3fb8562`). The Moodle wrapper `MaRs-777-ex03.pdf` is separate and **still pending** — submission packaging is not done.
+- [x] Final article PDF in `results/final_pdf/` (`MaRs-777-article.pdf`, 16 pages, validated + `validation_report.md`; committed and pushed in Stage 9.6, `3fb8562`).
 - [ ] Cost/runtime data recorded in `docs/COSTS.md`.
 
 ## Final Pre-Submit Verification Checklist
@@ -74,5 +61,4 @@ All evidence must come from real runs (no fabrication):
 - [ ] Documentation claims are linked to real evidence.
 - [ ] Nothing overclaims production readiness; limitations are stated.
 - [ ] Git commits use standard student authorship with no AI/bot metadata.
-- [ ] `MaRs-777-ex03.pdf` is complete and submitted on Moodle by each member.
 - [ ] The repository is shared/public and the link is correct.

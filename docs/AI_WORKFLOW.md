@@ -62,7 +62,7 @@ The project follows this order, with each stage reviewed before the next begins:
 6. **Implementation** — deterministic foundation, then the CrewAI pipeline, assembler, figures, and PDF build (Stages 6–11).
 7. **Validation** — quality gates that check the mandatory PDF and repository requirements (Stage 12).
 8. **Evidence** — a real end-to-end run that produces logs, outputs, reports, and the final PDF (Stage 14).
-9. **Submission** — final documentation hardening and the Moodle/GitHub submission (Stages 15–16).
+9. **Submission** — final documentation hardening and the final repository review / GitHub submission (Stages 15–16).
 
 ## Current Status
 

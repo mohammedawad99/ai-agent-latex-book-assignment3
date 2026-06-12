@@ -110,7 +110,6 @@ The following are explicitly not part of this project:
 7. **README.md** at the repository root.
 8. **Evidence** under `results/`: `logs/`, `crew_outputs/`, `validation_reports/`, `final_pdf/`.
 9. **A GitHub repository** with a meaningful, incremental commit history.
-10. **The Moodle submission PDF** — a separate wrapper document created from the official Word template, named `MaRs-777-ex03.pdf`. It must contain the exercise number (03), the group code (MaRs-777), the GitHub link to this Assignment 3 repository, and the final self-assessment score. This is distinct from the generated LaTeX article/book PDF (deliverable 1) and is the document submitted on Moodle.
 
 ---
 
@@ -269,7 +268,6 @@ The project is acceptable when all of the following hold:
 10. No fabricated evidence and no overclaiming of production readiness are present.
 11. The GitHub repository is public, or shared with the lecturer at rmisegal@gmail.com, per the assignment instructions.
 12. The submitted GitHub link points to this Assignment 3 repository (`ai-agent-latex-book-assignment3`), not the older Assignment 2 repository.
-13. The Moodle submission PDF (`MaRs-777-ex03.pdf`) is created from the official Word template and includes exercise number 03, group code MaRs-777, the Assignment 3 GitHub link, and the final self-assessment score.
 
 ---
 
@@ -322,9 +320,8 @@ Maps assignment requirements to the planned evidence that will demonstrate them.
 | Cost / resource awareness | CO-1…CO-5 | Per-run cost records; `docs/COSTS.md`. |
 | AI workflow documentation | NFR-4, CR-6 | `docs/AI_WORKFLOW.md`, `docs/PROMPTS.md`, `docs/DECISIONS.md`. |
 | Professional engineering process | §2, §8, NFR-* | Git history on GitHub; documentation set; `docs/SUBMISSION_CHECKLIST.md`. |
-| Moodle template PDF submission | §8 (deliverable 10), Acceptance §18.13 | `MaRs-777-ex03.pdf` from the official Word template; tracked in submission checklist. |
 | GitHub sharing / public access | Acceptance §18.11 | Repository public or shared with rmisegal@gmail.com; recorded in `docs/SUBMISSION_CHECKLIST.md`. |
-| Correct Assignment 3 repository link | Acceptance §18.12 | GitHub link to `ai-agent-latex-book-assignment3`; verified in `MaRs-777-ex03.pdf` and `docs/SUBMISSION_CHECKLIST.md`. |
+| Correct Assignment 3 repository link | Acceptance §18.12 | GitHub link to `ai-agent-latex-book-assignment3`; verified in `docs/SUBMISSION_CHECKLIST.md`. |
 
 ---
 

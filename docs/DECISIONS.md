@@ -27,7 +27,7 @@ Each record uses these fields:
 - **Decision:** Use the repository/project name `ai-agent-latex-book-assignment3`.
 - **Alternatives considered:** Reusing or renaming an earlier assignment repository; a shorter generic name.
 - **Rationale:** A descriptive, assignment-specific name avoids confusion with Assignment 2 and makes the submission link unambiguous.
-- **Consequences:** The submitted GitHub link and the Moodle wrapper PDF must reference this exact repository.
+- **Consequences:** The submitted GitHub link must reference this exact repository.
 
 ## D-002 — Documentation-First Workflow
 
@@ -69,15 +69,15 @@ Each record uses these fields:
 - **Rationale:** Including the sources is required and makes the build reproducible and reviewable.
 - **Consequences:** `.gitignore` must exclude build artifacts while keeping sources and the final PDF tracked.
 
-## D-006 — Article PDF and Moodle Wrapper PDF Are Separate
+## D-006 — Generated Article PDF Is the Final Repository PDF Artifact
 
 - **Date:** 2026-06-11
 - **Status:** Accepted
-- **Context:** The submission requires a Moodle wrapper document distinct from the generated article.
-- **Decision:** Treat the generated article/book PDF (the main evaluated artifact) and the Moodle submission PDF (`MaRs-777-ex03.pdf`) as two separate deliverables.
-- **Alternatives considered:** Submitting only the article PDF; merging both into one file.
-- **Rationale:** They serve different purposes — the article is the evaluated output; the wrapper carries submission metadata (exercise number, group code, GitHub link, self-score).
-- **Consequences:** The wrapper is created manually from the official Word template, not produced by the pipeline.
+- **Context:** The repository needs a single, unambiguous PDF deliverable produced by the pipeline.
+- **Decision:** Treat the generated article/book PDF (the main evaluated artifact, stored under `results/final_pdf/` with its validation report) as the repository's final PDF deliverable.
+- **Alternatives considered:** Bundling additional administrative documents into the repository's deliverable set.
+- **Rationale:** Keeping the repository scoped to the pipeline-produced artifact keeps the deliverable set focused: the article is the evaluated output, validated by deterministic gates.
+- **Consequences:** The pipeline's PDF output, copied to `results/final_pdf/` after validation, is the repository's final PDF artifact.
 
 ## D-007 — Defer Dependencies and Model/Provider Choice to Stage 5
 
