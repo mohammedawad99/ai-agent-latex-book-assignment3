@@ -63,7 +63,7 @@ All evidence must come from real runs (no fabrication):
 - [ ] Execution logs in `results/logs/`.
 - [ ] Raw crew outputs in `results/crew_outputs/`.
 - [ ] Validation reports in `results/validation_reports/`.
-- [ ] Final article PDF in `results/final_pdf/`.
+- [~] Final article PDF in `results/final_pdf/` (`MaRs-777-article.pdf`, 16 pages, validated + `validation_report.md`; created in Stage 9.6, **in review before commit** — the Moodle wrapper `MaRs-777-ex03.pdf` is separate and not created yet).
 - [ ] Cost/runtime data recorded in `docs/COSTS.md`.
 
 ## Final Pre-Submit Verification Checklist

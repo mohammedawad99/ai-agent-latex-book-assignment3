@@ -119,8 +119,10 @@ experience moving from an early proof-of-concept toward something closer to
 production. We report the measured cost of one real content-generation run
 against the Gemini model `gemini/gemini-2.5-flash`, and we are deliberately
 careful to separate measured results from proposed future evaluation. We do not
-claim the system is already fully production-ready: LaTeX assembly and PDF
-validation are still future stages of this assignment.
+claim the system is already fully production-ready: the resulting LaTeX article
+was assembled, compiled, and validated as part of this assignment, while the
+broader system is still presented as a proof-of-concept rather than a
+production-ready service.
 
 ---
 
@@ -595,8 +597,10 @@ turned an initially rejected run into usable candidate content.
 
 **Limitations.** Current LLMs still struggle with deep original argument and
 with generating complex graphics directly. Long runs cost real time and tokens.
-And qualitative quality still needs a human in the loop. We are explicit that
-LaTeX assembly and PDF validation are future stages that have not yet run.
+And qualitative quality still needs a human in the loop. The final LaTeX
+article was compiled and validated, but the pipeline as a broader automated
+production service would still need stronger continuous validation, richer
+tooling, and larger-scale evaluation.
 
 **Future enhancements.** More capable LaTeX tooling (tables, multi-panel
 figures, simple diagrams from descriptions); an interactive human-in-the-loop
@@ -613,10 +617,10 @@ writer, reviewer, and reference curator in a sequential process — and by keepi
 a separate deterministic layer for validation — the system produces structured,
 on-topic content from a high-level topic. We measured the cost of one real run
 against `gemini/gemini-2.5-flash` and reported it honestly, while clearly
-labelling unmeasured metrics as proposals. The work is not finished: turning this
-cleaned content into a compiled, validated PDF is the next stage of the
-assignment. What we can claim is a working, inspectable pipeline and an honest
-account of how it behaves.
+labelling unmeasured metrics as proposals. The final article PDF was compiled
+and validated locally, and the remaining work is submission packaging rather
+than core pipeline construction. What we can claim is a working, inspectable
+pipeline and an honest account of how it behaves.
 
 ---
 
